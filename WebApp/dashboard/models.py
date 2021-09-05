@@ -12,4 +12,4 @@ class CurrentAED(models.Model):
     subzone = models.CharField(max_length=200, blank=True, null=True)
 
 class currentAEDFile(models.Model):
-    data = models.FileField(upload_to='')
+    data = models.FileField(upload_to='', blank=True)
