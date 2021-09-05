@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import CurrentAED, currentAEDFile
 
-# Register your models here.
+
+admin.site.register(CurrentAED)
+admin.site.register(currentAEDFile)
