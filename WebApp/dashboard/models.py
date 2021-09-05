@@ -1,4 +1,5 @@
 from django.db import models
+from django.db import models
 
 # Create your models here.
 class CurrentAED(models.Model):
@@ -10,6 +11,9 @@ class CurrentAED(models.Model):
     pa = models.IntegerField(blank=True, null=True, choices=PAS)
     region = models.CharField(max_length=200, blank=True, null=True, choices=REGIONS)
     subzone = models.CharField(max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return self.lat, self.lon
 
 class currentAEDFile(models.Model):
     data = models.FileField(upload_to='', blank=True)
