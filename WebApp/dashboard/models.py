@@ -12,8 +12,15 @@ class CurrentAED(models.Model):
     region = models.CharField(max_length=200, blank=True, null=True, choices=REGIONS)
     subzone = models.CharField(max_length=200, blank=True, null=True)
 
+    # ohca = models.OneToOneField(OHCA, null=True, blank=True, on_delete=models.CASCADE)
+
     def __str__(self):
         return self.lat, self.lon
 
 class currentAEDFile(models.Model):
     data = models.FileField(upload_to='', blank=True)
+
+# class OHCA(models.Model):
+#     lat = models.FloatField()
+#     lon = models.FloatField()
+
