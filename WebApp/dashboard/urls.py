@@ -9,8 +9,9 @@ router = routers.DefaultRouter()
 router.register('aeds', AedViewSet)
 
 urlpatterns = [
-    path('', include(router.urls))          #path with router to a ViewSet
-
+    # path('', include(router.urls)),          #path with router to a ViewSet
+    path('aeds/', views.getAeds, name='aeds'),
+    path('aeds/<str:pk>', views.getAed, name='aed'),
     # path('', views.first),                #path to normal url
     # path('another', Another.as_view())    #path to class url
 ]
