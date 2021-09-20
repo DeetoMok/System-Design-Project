@@ -128,6 +128,7 @@ function DashboardContent() {
           </Toolbar>
         </AppBar>
 
+        {/* Tool Bar / Nav Bar */}
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -146,6 +147,8 @@ function DashboardContent() {
           <Divider />
           <List>{secondaryListItems}</List>
         </Drawer>
+
+
         <Box
           component="main"
           sx={{
@@ -158,7 +161,7 @@ function DashboardContent() {
             overflow: 'auto',
           }}
         >
-          <Toolbar />
+          <Toolbar /> 
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
@@ -197,6 +200,8 @@ function DashboardContent() {
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
+
+        
       </Box>
     </ThemeProvider>
   );
