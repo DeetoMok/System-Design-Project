@@ -120,11 +120,11 @@ function DashboardContent() {
             >
               Dashboard
             </Typography>
-            <IconButton color="inherit">
+            {/* <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -140,6 +140,8 @@ function DashboardContent() {
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
+
+          
           <Divider />
           <List>{mainListItems}</List>
           <Divider />
@@ -187,7 +189,7 @@ function DashboardContent() {
                 </Paper>
               </Grid>
               {/* Recent Orders */}
-              <Grid item xs={12}>
+              <Grid item xs={12} md={12} lg={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   <Orders />
                 </Paper>
