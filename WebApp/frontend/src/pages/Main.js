@@ -9,6 +9,9 @@ import Typography from '@mui/material/Typography';
 
 import Chart from '../templates/Chart';
 import Deposits from '../templates/Deposits';
+import Regions from '../components/Regions';
+import PlanningAreas from '../components/PlanningAreas';
+import Subzones from '../components/Subzones';
 import Orders from '../templates/Orders';
 
 function Copyright(props) {
@@ -26,19 +29,19 @@ function Copyright(props) {
 
 const Main = () => {
 
-    let [geoData, setgd] = useState([])
+    let [geoData, setgd] = useState("This is data")
 
     useEffect(() => {
         getData()
     }, [])
-
+  
     let getData = async () => {
         let response = await fetch('http://127.0.0.1:8000/api/aeds/')
-        // let response = await fetch('http://127.0.0.1:8000/aeds/')
         let data = await response.json()
         console.log('DATA:', data)
         setgd(data)
     }
+  
 
     return (
         <Box
@@ -56,8 +59,9 @@ const Main = () => {
           <Toolbar /> 
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
+
               {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
+              <Grid item xs={12} md={4} lg={4}>
                 <Paper
                   sx={{
                     p: 2,
@@ -66,11 +70,11 @@ const Main = () => {
                     height: 240,
                   }}
                 >
-                  <Chart />
+                  <Regions />
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={12} md={4} lg={4}>
                 <Paper
                   sx={{
                     p: 2,
@@ -79,9 +83,22 @@ const Main = () => {
                     height: 240,
                   }}
                 >
-                  <Deposits />
+                  <PlanningAreas />
                 </Paper>
               </Grid>
+              {/* Recent Deposits */}
+              <Grid item xs={12} md={4} lg={4}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 240,
+                  }}
+                >
+                  <Subzones />
+                </Paper>
+              </Grid>              
               {/* Recent Orders */}
               <Grid item xs={12} md={12} lg={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
