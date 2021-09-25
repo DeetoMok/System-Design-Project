@@ -19,8 +19,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './templates/listItems';
 import './App.css';
-import Main from './pages/Main'
-import Data from './pages/Data'
+import Main from './components/Main'
+import Data from './dataComponents/Data'
 
 
 

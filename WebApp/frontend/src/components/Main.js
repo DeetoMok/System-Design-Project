@@ -9,9 +9,9 @@ import Typography from '@mui/material/Typography';
 
 import Chart from '../templates/Chart';
 import Deposits from '../templates/Deposits';
-import Regions from '../components/Regions';
-import PlanningAreas from '../components/PlanningAreas';
-import Subzones from '../components/Subzones';
+import Regions from './Regions';
+import PlanningAreas from './PlanningAreas';
+import Subzones from './Subzones';
 import Orders from '../templates/Orders';
 
 function Copyright(props) {
