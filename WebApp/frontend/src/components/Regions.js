@@ -9,32 +9,33 @@ function preventDefault(event) {
 
 export default function Regions() {
 
-  let [geoData, setgd] = useState("This is data")
+  let [data, setgd] = useState()
 
-  // useEffect(() => {
-  //     getData()
-  // }, [])
+  useEffect(() => {
+      getData()
+  }, [])
 
-  // let getData = async () => {
-  //     let response = await fetch('http://127.0.0.1:8000/api/aeds/')
-  //     let data = await response.json()
-  //     console.log('DATA:', data)
-  //     setgd(data)
-  // }
+  let getData = async () => {
+      let response = await fetch('http://127.0.0.1:8000/api/regions/')
+      let data = await response.json()
+      // console.log('DATA:', data.regions)
+      // console.log(typeof data.regions)
+      setgd(data.regions)
+  }
 
   return (
     <React.Fragment>
       <Title>Regions</Title>
       <Typography component="p" variant="h4">
         {/* $3,024.00 */}
-        {geoData}
+        {data}
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
-        on 15 March, 2019
+        North, South, East, West
       </Typography>
       <div>
         <Link color="primary" href="#" onClick={preventDefault}>
-          View balance
+          View
         </Link>
       </div>
     </React.Fragment>
