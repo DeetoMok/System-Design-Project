@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import CurrentAED, currentAEDFile
+from .models import CurrentAED, currentAEDFile, Ohca
 
 
 # admin.site.register(CurrentAED)
 admin.site.register(currentAEDFile)
+admin.site.register(Ohca)
 
 @admin.register(CurrentAED)
 class CurrentAedAdmin(admin.ModelAdmin):
