@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
@@ -7,7 +7,9 @@ import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
-import Orders from '../templates/Orders';
+import OhcaData from './OhcaData';
+import AedData from './AedData';
+import AedcandidateData from './AedcandidateData';
 import Upload from './Upload';
 import { AppBlocking } from '@mui/icons-material';
 
@@ -24,11 +26,22 @@ function Copyright(props) {
   );
 }
 
-const Data = ({ data, setData }) => {
+const Data = () => {
 
-    let abc = () => {
-      console.log("DATA: ", data)
-    }
+  let [data, setData] = useState('aed')
+
+  // useEffect(() => {
+  //     getData()
+  // }, [])
+
+  // let getData = async () => {
+  //     let response = await fetch('http://127.0.0.1:8000/api/ohcas/')
+  //     let data = await response.json()
+  //     console.log('DATA:', data)
+  //     // console.log(typeof data.
+  //     setData(data)
+  // }
+
 
     return (
 
@@ -60,7 +73,7 @@ const Data = ({ data, setData }) => {
                       height: 60,
                     }}
                   >
-                    <Link color="primary" href="#" sx={{ textAlign: 'center '}}>
+                    <Link color="primary" href="#" sx={{ textAlign: 'center '}} onClick={() => setData('aed')}>
                       AED Data
                     </Link> 
                   </Paper>
@@ -75,7 +88,7 @@ const Data = ({ data, setData }) => {
                       height: 60,
                     }}
                   >
-                    <Link color="primary" href="#" sx={{ textAlign: 'center '}}>
+                    <Link color="primary" href="#" sx={{ textAlign: 'center '}} onClick={() => setData('aedcandidate')}>
                       AED Candidate Data
                     </Link> 
                   </Paper>
@@ -90,7 +103,7 @@ const Data = ({ data, setData }) => {
                       height: 60,
                     }}
                   >
-                    <Link color="primary" href="#" sx={{ textAlign: 'center '}}>
+                    <Link color="primary" href="#" sx={{ textAlign: 'center '}} onClick={() => setData('ohca')}>
                       OHCA Data
                     </Link>                    
                     
@@ -99,13 +112,22 @@ const Data = ({ data, setData }) => {
                 {/* Recent Orders */}
                 <Grid item xs={12} md={12} lg={12}>
                   <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                    {/* {abc()} */}
-                    {(typeof data !== 'undefined') ? (
-                      <Orders />
+
+                    {(data === 'aed') ? (
+                      <AedData />
                     ): (
-                      <Upload data={data} setData={setData}/>
+                      <></>
                     )}
-                      
+                    {(data === 'ohca') ? (
+                      <OhcaData />
+                    ): (
+                      <></>
+                    )}
+                    {(data === 'aedcandidate') ? (
+                      <AedcandidateData />
+                    ): (
+                      <></>
+                    )}                                                              
 
                     
                   </Paper>

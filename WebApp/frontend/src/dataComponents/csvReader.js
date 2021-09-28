@@ -50,7 +50,7 @@ var config = {
   //columns: null, //or array of strings
 };
 
-const CSVParser = () => {
+const CsvReader = ( {data, setData}) => {
   const [initialState, setOpen] = React.useState({
     isOpen: false,
     columns: [],
@@ -83,7 +83,8 @@ const CSVParser = () => {
   };
   return (
     <>
-      <DragAndDropContainer>
+      
+      {/* <DragAndDropContainer> */}
         <CSVReader
           onDrop={handleOnDrop}
           onError={handleOnError}
@@ -93,11 +94,11 @@ const CSVParser = () => {
         >
           <span>Drop CSV file here or click to upload.</span>
         </CSVReader>
-      </DragAndDropContainer>
+      {/* </DragAndDropContainer> */}
       {/* <PopUpScreen initialState={initialState} setOpen={setOpen} />  */}
       <ToastContainer />
     </>
   );
 };
 
-export default CSVParser;
+export default CsvReader;
