@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
-from .models import CurrentAED, Ohca
+from .models import CurrentAED, Ohca, AedCandidate
 from rest_framework import viewsets
-from .serializers import AedSerializer, OhcaSerializer
+from .serializers import AedSerializer, OhcaSerializer, AedcandidateSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
@@ -31,6 +31,13 @@ def getAed(request, pk):
     # convert object to json
     serializer = AedSerializer(aeds, many=False)             #many=False means return one object0
     return Response(serializer.data)
+
+@api_view(['GET'])
+def getAedCandidates(request):
+    aeds = AedCandidate.objects.all()
+    # convert object to json
+    serializer = AedcandidateSerializer(aeds, many=True)             #many=True means return multiple objects
+    return Response(serializer.data)   
 
 @api_view(['GET'])
 def getOhcas(request):
