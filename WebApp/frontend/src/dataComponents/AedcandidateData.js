@@ -8,6 +8,8 @@ import TableRow from '@mui/material/TableRow';
 import Title from '../templates/Title';
 import Papa from 'papaparse'
 import CsvReader from "./csvReader";
+// import CsvReader from "./CsvReader";
+import { CSVReader, readString } from 'react-papaparse';
 
 
 function preventDefault(event) {
@@ -16,7 +18,7 @@ function preventDefault(event) {
 
 export default function AedcandidateData() {
 
-  let [ohcadata, setData] = useState([])
+  const [ohcadata, setData] = useState([])
 
   useEffect(() => {
       getData()
@@ -26,29 +28,55 @@ export default function AedcandidateData() {
       let response = await fetch('http://127.0.0.1:8000/api/aedcandidates/')
       let data = await response.json()
       console.log('DATA:', data.length)
-      // console.log(typeof data.
       setData(data)
   }
 
-  const [rows, setRows] = useState([])
-  useEffect(() => {
-    async function getData() {
-      const response = await fetch('/data/nodes.csv')
-      const reader = response.body.getReader()
-      const result = await reader.read() // raw array
-      const decoder = new TextDecoder('utf-8')
-      const csv = decoder.decode(result.value) // the csv text
-      const results = Papa.parse(csv, { header: true }) // object with { data, errors, meta }
-      const rows = results.data // array of objects
-      setRows(rows)
-    }
-    getData()
-  }, [])
+  // const [rows, setRows] = useState([])
+  // useEffect(() => {
+  //   async function getData() {
+  //     const response = await fetch('/data/nodes.csv')
+  //     const reader = response.body.getReader()
+  //     const result = await reader.read() // raw array
+  //     const decoder = new TextDecoder('utf-8')
+  //     const csv = decoder.decode(result.value) // the csv text
+  //     const results = Papa.parse(csv, { header: true }) // object with { data, errors, meta }
+  //     const rows = results.data // array of objects
+  //     setRows(rows)
+  //   }
+  //   getData()
+  // }, [])
+
+  let handleOnDrop = (data) => {
+    console.log('---------------------------')
+    console.log(data)
+    console.log(data[0].data[0])
+    console.log("JSON: ", readString("1,2,3,4,5,5,6,7"))
+    console.log('---------------------------')
+    setData(data)
+  }
+
+  let handleOnError = (err, file, inputElem, reason) => {
+    console.log(err)
+  }
+
+  let handleOnRemoveFile = (data) => {
+    console.log('---------------------------')
+    console.log(data)
+    console.log('---------------------------')
+  }  
 
   return (
     <React.Fragment>
       <Title>AED Candidate Data</Title>
-      {(ohcadata.length === 0) ? (
+      <CSVReader
+        onDrop={handleOnDrop}
+        onError={handleOnError}
+        addRemoveButton
+        onRemoveFile={handleOnRemoveFile}
+      >
+        <span>Drop CSV file here or click to upload.</span>
+      </CSVReader>      
+      {/* {(ohcadata.length === 0) ? (
         <CsvReader
         data={ohcadata}
         setData={setData}
@@ -76,7 +104,7 @@ export default function AedcandidateData() {
             ))}
           </TableBody>
         </Table>
-      )}
+      )} */}
 
       {(ohcadata.length === 0) ? (
         <p>Upload data to start</p>
