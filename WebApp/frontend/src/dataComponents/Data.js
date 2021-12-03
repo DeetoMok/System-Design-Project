@@ -45,7 +45,6 @@ const Data = () => {
 
     return (
 
- 
           <Box
             component="main"
             sx={{

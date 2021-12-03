@@ -1,7 +1,8 @@
 /venv
 /__pycache__
-app/__pycache__
-/app/__pycache__
+dashboard/__pycache__
+/dashboard/__pycache__
+project/__pycache__
 /.idea
 # misc file to ignore
 .DS_Store 3 

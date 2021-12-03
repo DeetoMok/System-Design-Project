@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from '../templates/Title';
 import Papa from 'papaparse'
-import CsvReader from "./CsvReader";
+import CsvReader from "./csvReader";
 
 
 function preventDefault(event) {
