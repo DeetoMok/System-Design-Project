@@ -135,7 +135,7 @@ const Data = () => {
               </Grid>
               <Copyright sx={{ pt: 4 }} />
             </Container>
-          </Box>   
+          </Box>
           
 
     )
