@@ -30,6 +30,21 @@ export default function AedcandidateData() {
       setData(data)
   }
 
+  let updateData = async () => {
+    fetch(`http://127.0.0.1:8000/api/aedcandidates/update`, {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify(ohcadata)
+    })
+  }
+
+  let handleSubmit = () => {
+    updateData()
+    // history.push('/')
+  }
+
   // const [rows, setRows] = useState([])
   // useEffect(() => {
   //   async function getData() {
@@ -52,6 +67,7 @@ export default function AedcandidateData() {
     console.log("JSON: ", readString("1,2,3,4,5,5,6,7"))
     console.log('---------------------------')
     setData(data)
+    handleSubmit()
   }
 
   let handleOnError = (err, file, inputElem, reason) => {
