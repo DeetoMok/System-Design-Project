@@ -14,6 +14,7 @@ urlpatterns = [
     path('aeds/<str:pk>', views.getAed, name='aed'),
     path('aedcandidates/update/<str:pk>', views.updateAedCandidate, name="updateaedcandidate"),
     path('aedcandidates/update', views.updateAedCandidates, name="updateaedcandidates"),
+    path('aedcandidates/delete', views.deleteAedCandidates, name="deleteaedcandidates"),
     path('aedcandidates/', views.getAedCandidates, name="aedcandidates"),
     path('ohcas/', views.getOhcas, name="ohcas"),
     path('regions/', views.getRegions, name="regions"),
