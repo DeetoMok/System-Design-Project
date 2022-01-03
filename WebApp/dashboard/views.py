@@ -34,8 +34,9 @@ def getAed(request, pk):
 
 @api_view(['GET','POST'])
 def updateAedCandidates(request):
-    AedCandidate.objects.all().delete()
     data = request.data
+    AedCandidate.objects.all().delete()
+    
     serializer = AedcandidatesSerializer(data=data, many=True)
 
     if serializer.is_valid():
