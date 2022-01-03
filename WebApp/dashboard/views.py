@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views import View
 from .models import CurrentAED, Ohca, AedCandidate
 from rest_framework import viewsets
-from .serializers import AedSerializer, OhcaSerializer, AedcandidateSerializer
+from .serializers import AedSerializer, OhcaSerializer, AedcandidateSerializer, AedcandidatesSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
@@ -30,6 +30,34 @@ def getAed(request, pk):
     aeds = CurrentAED.objects.get(id=pk)
     # convert object to json
     serializer = AedSerializer(aeds, many=False)             #many=False means return one object0
+    return Response(serializer.data)
+
+@api_view(['GET','POST'])
+def updateAedCandidates(request):
+    data = request.data
+    AedCandidate.objects.all().delete()
+    
+    serializer = AedcandidatesSerializer(data=data, many=True)
+
+    if serializer.is_valid():
+        serializer.save()
+    
+    return Response(serializer.data)
+
+@api_view(['GET','POST'])
+def deleteAedCandidates(request):
+    AedCandidate.objects.all().delete()
+    return Response('Success')
+
+@api_view(['PUT','GET','POST'])
+def updateAedCandidate(request, pk):
+    data = request.data
+    aedCandidate = AedCandidate.objects.get(id=pk)
+    serializer = AedcandidatesSerializer(instance=aedCandidate, data=data)
+
+    if serializer.is_valid():
+        serializer.save()
+    
     return Response(serializer.data)
 
 @api_view(['GET'])
