@@ -32,7 +32,7 @@ def getAed(request, pk):
     serializer = AedSerializer(aeds, many=False)             #many=False means return one object0
     return Response(serializer.data)
 
-@api_view(['GET','POST'])
+@api_view(['POST'])
 def updateAedCandidates(request):
     data = request.data
     AedCandidate.objects.all().delete()
@@ -49,7 +49,7 @@ def deleteAedCandidates(request):
     AedCandidate.objects.all().delete()
     return Response('Success')
 
-@api_view(['PUT','GET','POST'])
+@api_view(['GET','POST'])
 def updateAedCandidate(request, pk):
     data = request.data
     aedCandidate = AedCandidate.objects.get(id=pk)
