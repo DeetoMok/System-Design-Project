@@ -9,7 +9,8 @@ import NewUser from "./pages/newUser/NewUser";
 import ProductList from "./pages/productList/ProductList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
-import Card from "./pages/analytics/Card";
+import DataManagement from "./pages/dataManagement/DataManagement";
+import KmeansModel from "./pages/models/KmeansModel";
 
 function App() {
   return (
@@ -21,9 +22,18 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route exact path="/analytics">
-            <Card />
-          </Route>          
+          <Route path="/dataManagement">
+            <DataManagement />
+          </Route>
+          <Route path="/kmeans">
+            <KmeansModel />
+          </Route>
+          <Route path="/mclp">
+            <KmeansModel />
+          </Route>
+          <Route path="/pcm">
+            <KmeansModel />
+          </Route>
           <Route path="/users">
             <UserList />
           </Route>

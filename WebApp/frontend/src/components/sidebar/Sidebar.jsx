@@ -13,6 +13,8 @@ import {
   WorkOutline,
   Report,
 } from "@material-ui/icons";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import LayersIcon from '@mui/icons-material/Layers';
 import { Link } from "react-router-dom";
 
 export default function Sidebar() {
@@ -20,31 +22,46 @@ export default function Sidebar() {
     <div className="sidebar">
       <div className="sidebarWrapper">
         <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Dashboard</h3>
+          <h3 className="sidebarTitle">Main</h3>
           <ul className="sidebarList">
             <Link to="/" className="link">
             <li className="sidebarListItem active">
-              <LineStyle className="sidebarIcon" />
-              Home
+              <DashboardIcon className="sidebarIcon" />
+              Main Page
             </li>
             </Link>
             
-            <Link to="/analytics" className="link">
+            <Link to="/dataManagement" className="link">
             <li className="sidebarListItem">
-              <Timeline className="sidebarIcon" />
-              Analytics
+              <LayersIcon className="sidebarIcon" />
+              Data Management
             </li>
             </Link>
-
-            <li className="sidebarListItem">
-              <TrendingUp className="sidebarIcon" />
-              Sales
-            </li>
           </ul>
         </div>
+
         <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Quick Menu</h3>
+          <h3 className="sidebarTitle">Models</h3>
           <ul className="sidebarList">
+            <Link to="/kmeans" className="link">
+              <li className="sidebarListItem">
+                <BarChart className="sidebarIcon" />
+                K Means
+              </li>
+            </Link>
+            <Link to="/mclp" className="link">
+              <li className="sidebarListItem">
+                <BarChart className="sidebarIcon" />
+                MCLP
+              </li>              
+            </Link>
+            <Link to="/pcm" className="link">
+              <li className="sidebarListItem">
+                <BarChart className="sidebarIcon" />
+                PCM
+              </li>
+            </Link>
+
             <Link to="/users" className="link">
               <li className="sidebarListItem">
                 <PermIdentity className="sidebarIcon" />
@@ -57,14 +74,7 @@ export default function Sidebar() {
                 Products
               </li>
             </Link>
-            <li className="sidebarListItem">
-              <AttachMoney className="sidebarIcon" />
-              Transactions
-            </li>
-            <li className="sidebarListItem">
-              <BarChart className="sidebarIcon" />
-              Reports
-            </li>
+
           </ul>
         </div>
         <div className="sidebarMenu">

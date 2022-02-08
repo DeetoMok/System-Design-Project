@@ -1,0 +1,31 @@
+.body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.buttonBody {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 7px;
+}
+
+.root {
+    width: 18%;
+    
+}
+
+title {
+    font-size: 14,
+}
+
+.map {
+    height: 50%;
+    width: 90%;
+    margin: auto;
+}
