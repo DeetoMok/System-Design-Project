@@ -2,8 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "./kmeansModel.css"
 import { PredictorSelect, ResponseSelect, ModelSelect } from "./selectdropdown";
-import ReactMapp from "../../components/reactMap/ReactMap";
-import GoogleMapReact from "google-map-react";
+import KmeansMap from "./KmeansMap";
 import MetricTable from "./MetricTable";
 //import CSRFToken from "./csrf";
 // import Card from '@material-ui/core/Card';
@@ -48,26 +47,11 @@ export default function KmeansModel() {
         responseOptions: data.columns,
         clientData: data.csvData,
     });
-    // const style = {
-    //     maxWidth: "450px",
-    //     height: "350px",
-    //     overflowX: "hidden",
-    //     overflowY: "hidden"
-    //    };
-    // const containerStyle = {
-    //     maxWidth: "450px",
-    //     height: "350px"
-    //     };
 
   return (
     <div className="main">
         <Card className="map" variant="outlined">
-            <GoogleMapReact 
-            bootstrapURLKeys={{key: process.env.REACT_APP_GOOGLE_KEY}}
-            defaultCenter={{ lat: 1.36, lng: 103.841 }}
-            defaultZoom={11.5}
-            
-            ></GoogleMapReact>
+            <KmeansMap />
         </Card>
         <div className="body">
             <Card className="root" variant="outlined">
