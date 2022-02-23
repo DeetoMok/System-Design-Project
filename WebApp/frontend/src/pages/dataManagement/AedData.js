@@ -112,13 +112,13 @@ export default function AedData() {
   //     getData()
   // }, [])
 
-  // let getData = async () => {
-  //     let response = await fetch('http://127.0.0.1:8000/api/aeds/')
-  //     let data = await response.json()
-  //     console.log('DATA:', data)
-  //     // console.log(typeof data.
-  //     setData(data)
-  // }
+  let getData = async () => {
+      let response = await fetch('http://127.0.0.1:8000/api/aeds/')
+      let data = await response.json()
+      console.log('DATA:', data)
+      // console.log(typeof data.
+      setData(data)
+  }
 
   return (
     <React.Fragment>

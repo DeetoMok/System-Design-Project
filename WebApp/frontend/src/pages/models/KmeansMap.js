@@ -3,18 +3,36 @@ import GoogleMapReact from "google-map-react";
 import useSupercluster from "use-supercluster";
 import "./kmeansModel.css";
 import { currentAedData } from './currentAedData';
+import { optimalAedData } from './optimalAedData';
+import { newAedData } from './newAedData';
 
 const Marker = ({children}) => children;
 
 
-export default function KmeansMap() {
+export default function KmeansMap({ hasTrain }) {
 
     const mapRef = useRef();
     const [zoom, setZoom] = useState(11.5);
     const [bounds, setBounds] = useState(null);
-    let currentAeds = currentAedData.slice(0,9000);
+    let currentAeds = hasTrain ? currentAedData.slice(0,9000) : currentAedData.slice(0,0);
+    let optimalAeds = hasTrain ? optimalAedData.slice(0,9000) : optimalAedData.slice(0,0);
+    let newAeds = newAedData;
     let id = 1;
-    const points = currentAeds.map(aed => ({
+    const currPoints = currentAeds.map(aed => ({
+        "type": "Feature",
+        "properties": {
+          "cluster": false,
+          "aedId": aed.Postal_Code,
+        },
+        "geometry": { 
+            "type": "Point",
+            "coordinates": [
+                parseFloat(aed.Longitude),
+                parseFloat(aed.Latitude)
+            ] 
+        }
+      }));
+    const points = optimalAeds.map(aed => ({
         "type": "Feature",
         "properties": {
           "cluster": false,
@@ -29,6 +47,13 @@ export default function KmeansMap() {
         }
       }));
 
+    const { currClusters, currSupercluster } = useSupercluster({
+        points,
+        bounds,
+        zoom,
+        options: {radius: 75, maxZoom: 20}
+    })
+
     const { clusters, supercluster } = useSupercluster({
         points,
         bounds,
@@ -36,7 +61,7 @@ export default function KmeansMap() {
         options: {radius: 75, maxZoom: 20}
     })
 
-    console.log(clusters);
+    // console.log(clusters);
   return (
     <div className='reactMap'>
         <GoogleMapReact 
@@ -57,6 +82,37 @@ export default function KmeansMap() {
                 ]);
             }}
         >
+
+            {/* {currClusters.map(cluster => {
+                const [longitude, latitude] = cluster.geometry.coordinates;
+                const {
+                    cluster: isCluster, 
+                    point_count: pointCount
+                } = cluster.properties;
+
+                if (isCluster) {
+                    return (
+                        <Marker key={id++} lat={latitude} lng={longitude}>
+                            <div className='curr-cluster-marker' 
+                            style={{
+                                width: `${10 + (pointCount / points.length) * 30}px`,
+                                height: `${10 + (pointCount / points.length) * 30}px`
+                            }}
+                            onClick={() => {
+                                const expansionZoom = Math.min(
+                                    currSupercluster.getClusterExpansionZoom(cluster.id),
+                                    20
+                                );
+                                mapRef.current.setZoom(expansionZoom);
+                                mapRef.current.panTo({ lat: latitude, lng: longitude});
+                            }}
+                            >
+                                {pointCount}
+                            </div>
+                        </Marker>
+                    )
+                } */}
+
             {clusters.map(cluster => {
                 const [longitude, latitude] = cluster.geometry.coordinates;
                 const {
@@ -67,7 +123,7 @@ export default function KmeansMap() {
                 if (isCluster) {
                     return (
                         <Marker key={id++} lat={latitude} lng={longitude}>
-                            <div className='cluster-marker' 
+                            <div className='curr-cluster-marker' 
                             style={{
                                 width: `${10 + (pointCount / points.length) * 30}px`,
                                 height: `${10 + (pointCount / points.length) * 30}px`

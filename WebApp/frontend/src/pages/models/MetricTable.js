@@ -19,26 +19,26 @@ function createData(name, values) {
 }
 
 const populatedRows = [
-  createData("F1-Score", 0.63),
-  createData("Accuracy", 0.71),
-  createData("Error Rate", 0.29),
-  createData("Precision", 0.51),
-  createData("Recall", 0.82),
+  createData("Total Coverage", 0.677),
+  createData("Parial Coverage", 0.1509),
+  createData("Expected Survival", 0.4917),
+  createData("Ave Dist to Closest AED", 162.32),
+  createData("Computational Time", "2 min 26 s"),
 ];
 
 const unpopulatedRows = [
-  createData("F1-Score", ""),
-  createData("Accuracy", ""),
-  createData("Error Rate", ""),
-  createData("Precision", ""),
-  createData("Recall", ""),
+  createData("Total Coverage", "-"),
+  createData("Parial Coverage", "-"),
+  createData("Expected Survival", "-"),
+  createData("Ave Dist to Closest AED", "-"),
+  createData("Computational Time", "-"),
 ];
 
 export default function MetricTable({ hasTrain }) {
   const classes = useStyles();
   const rows = hasTrain ? populatedRows : unpopulatedRows;
   return (
-    <div style={{ height: 400, width: "18%" }}>
+    <div style={{ height: 400, width: "25%" }}>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>

@@ -62,7 +62,7 @@ export default function Sidebar() {
               </li>
             </Link>
 
-            <Link to="/users" className="link">
+            {/* <Link to="/users" className="link">
               <li className="sidebarListItem">
                 <PermIdentity className="sidebarIcon" />
                 Users
@@ -73,7 +73,7 @@ export default function Sidebar() {
                 <Storefront className="sidebarIcon" />
                 Products
               </li>
-            </Link>
+            </Link> */}
 
           </ul>
         </div>

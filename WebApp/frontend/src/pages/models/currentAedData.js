@@ -1,10 +1,5 @@
 export const currentAedData = [
     {
-      "Postal_Code": "498770",
-      "Latitude": "1.352654",
-      "Longitude": "103.973217"
-    },
-    {
       "Postal_Code": "680486",
       "Latitude": "1.375489",
       "Longitude": "103.738288"
@@ -18890,11 +18885,6 @@ export const currentAedData = [
       "Longitude": "103.745694"
     },
     {
-      "Postal_Code": "603286",
-      "Latitude": "1.339046",
-      "Longitude": "103.744511"
-    },
-    {
       "Postal_Code": "601288",
       "Latitude": "1.338781",
       "Longitude": "103.743309"
@@ -28221,11 +28211,6 @@ export const currentAedData = [
     },
     {
       "Postal_Code": "099891",
-      "Latitude": "1.245346",
-      "Longitude": "103.827520"
-    },
-    {
-      "Postal_Code": "099891",
       "Latitude": "1.248485",
       "Longitude": "103.826645"
     },
@@ -32190,11 +32175,6 @@ export const currentAedData = [
       "Longitude": "103.850966"
     },
     {
-      "Postal_Code": "048619",
-      "Latitude": "1.283588",
-      "Longitude": "103.850714"
-    },
-    {
       "Postal_Code": "126887",
       "Latitude": "1.29268",
       "Longitude": "103.762598"
@@ -35023,11 +35003,6 @@ export const currentAedData = [
       "Postal_Code": "769162",
       "Latitude": "1.412347",
       "Longitude": "103.845533"
-    },
-    {
-      "Postal_Code": "238801",
-      "Latitude": "1.304217",
-      "Longitude": "103.832198"
     },
     {
       "Postal_Code": "238801",
@@ -38535,11 +38510,6 @@ export const currentAedData = [
       "Longitude": "103.679906"
     },
     {
-      "Postal_Code": "639546",
-      "Latitude": "1.347060",
-      "Longitude": "103.685547"
-    },
-    {
       "Postal_Code": "636898",
       "Latitude": "1.267944",
       "Longitude": "103.629999"
@@ -39810,11 +39780,6 @@ export const currentAedData = [
       "Longitude": "103.824092"
     },
     {
-      "Postal_Code": "449297",
-      "Latitude": "1.301163",
-      "Longitude": "103.903924"
-    },
-    {
       "Postal_Code": "229813",
       "Latitude": "1.305855",
       "Longitude": "103.838557"
@@ -40631,11 +40596,6 @@ export const currentAedData = [
     },
     {
       "Postal_Code": "039594",
-      "Latitude": "1.291207",
-      "Longitude": "103.856656"
-    },
-    {
-      "Postal_Code": "039594",
       "Latitude": "1.291809",
       "Longitude": "103.857138"
     },
@@ -41273,11 +41233,6 @@ export const currentAedData = [
       "Postal_Code": "608550",
       "Latitude": "1.333794",
       "Longitude": "103.743736"
-    },
-    {
-      "Postal_Code": "608550",
-      "Latitude": "1.333576",
-      "Longitude": "103.743927"
     },
     {
       "Postal_Code": "409057",
@@ -46773,11 +46728,6 @@ export const currentAedData = [
       "Postal_Code": "508505",
       "Latitude": "1.392124",
       "Longitude": "103.98496"
-    },
-    {
-      "Postal_Code": "529905",
-      "Latitude": "1.341246",
-      "Longitude": "103.94826"
     },
     {
       "Postal_Code": "529905",

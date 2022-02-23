@@ -3,7 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import "./kmeansModel.css"
 import { PredictorSelect, ResponseSelect, ModelSelect } from "./selectdropdown";
 import KmeansMap from "./KmeansMap";
+import MapHome from "../home/MapHome";
 import MetricTable from "./MetricTable";
+import AedNumberForm from "./AedNumberForm";
+import CSRFToken from "../../csrftoken";
 //import CSRFToken from "./csrf";
 // import Card from '@material-ui/core/Card';
 // import CardActions from '@material-ui/core/CardActions';
@@ -47,13 +50,55 @@ export default function KmeansModel() {
         responseOptions: data.columns,
         clientData: data.csvData,
     });
+    const [isTrained, setTrain] = React.useState(false)
+    const [viewHome, setViewHome] = React.useState(false)
+
+    const adminUser = {
+        email: "admin@admin.com",
+        password: "admin123"
+    }
+
+    const [user, setUser] = React.useState({name:"", email: ""})
+    const [error, setError] = React.useState("")    
+
+    const Login = details => {
+        console.log(details);
+        setUser({
+            name: details.name,
+            email: details.email
+        })
+    }
 
   return (
     <div className="main">
-        <Card className="map" variant="outlined">
-            <KmeansMap />
-        </Card>
+        <div className="maps">
+            {(viewHome) ?
+                <Card className="map" variant="outlined">
+                    <MapHome />
+                </Card>
+                : (<></>)  
+            }
+            <Card className="map" variant="outlined">
+                <KmeansMap hasTrain={isTrained}/>
+            </Card>
+        </div>
+           
         <div className="body">
+            <Card className="root" variant="outlined">
+                <CardContent >
+                    How many more AEDs?
+                    <AedNumberForm Submit={Login} error={error} />
+                    {/* <div>
+                        <input type="text" 
+                        value={additionalAeds}
+                        onChange={e => setAed(e.target.value)}/>
+                    </div>
+                    <input type="submit" value="Submit" /> */}
+                </CardContent>
+            </Card>
+
+
+
             <Card className="root" variant="outlined">
                 <CardContent >
                     <Typography
@@ -61,7 +106,7 @@ export default function KmeansModel() {
                         color="textSecondary"
                         gutterBottom
                     >
-                        Tune Machine Learning Model
+                        Parameters
                     </Typography>
                     <PredictorSelect config={config} setConfig={setConfig} />
                     <ResponseSelect config={config} setConfig={setConfig} />
@@ -69,14 +114,19 @@ export default function KmeansModel() {
                 </CardContent>
 
                 <div className="buttonBody">
-                    <Button variant="contained" color="primary">
+                    <Button variant="contained" color="primary" onClick={() => setTrain(!isTrained)}>
                         Train Model
                     </Button>
                 </div>
             </Card>
 
             {/* <MetricTable hasTrain={hasTrain} /> */}
-            <MetricTable hasTrain={true} />
+            <MetricTable hasTrain={isTrained} />
+            <div className="buttonBody">
+                <Button variant="contained" color="secondary" size="large" onClick={() => {setViewHome(!viewHome)}}>
+                    Compare Maps
+                </Button>
+            </div>            
         </div>
     </div>
   );
