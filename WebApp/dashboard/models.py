@@ -46,6 +46,7 @@ class Ohca(models.Model):
     region = models.CharField(max_length=200, blank=True, null=True, choices=REGIONS)
     subzone = models.IntegerField(blank=True, null=True, choices=SUBZONES)
 
+
 class Integer(models.Model):
     integer = models.IntegerField(blank=True, null=True)
 

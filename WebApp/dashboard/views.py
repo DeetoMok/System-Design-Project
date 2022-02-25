@@ -9,7 +9,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from collections import OrderedDict
-
+import pandas as pd
+import numpy as np
+from sklearn.cluster import KMeans
+from scipy.spatial import distance_matrix
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -32,6 +35,7 @@ def getAed(request, pk):
     serializer = AedSerializer(aeds, many=False)             #many=False means return one object0
     return Response(serializer.data)
 
+
 @api_view(['GET','POST'])
 def updateAedCandidates(request):
     data = request.data
@@ -50,7 +54,7 @@ def deleteAedCandidates(request):
     return Response('Success')
 
 @api_view(['PUT','GET','POST'])
-def updateAedCandidate(request, pk):
+def updateAedCandidate(request):
     data = request.data
     aedCandidate = AedCandidate.objects.get(id=pk)
     serializer = AedcandidatesSerializer(instance=aedCandidate, data=data)
@@ -59,6 +63,76 @@ def updateAedCandidate(request, pk):
         serializer.save()
     
     return Response(serializer.data)
+
+@api_view(['PUT','GET','POST'])
+def updateOhcas(request):
+    data = request.data
+    Ohca.objects.all().delete()
+    serializer = OhcaSerializer(data=data, many=True)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['GET','POST'])
+def deleteOhcas(request):
+    Ohca.objects.all().delete()
+    return Response('Success')
+
+@api_view(['GET','POST'])
+def optimalOhcas(request):
+    #aeds = request.data['Number of AEDs']
+    ohca = Ohca.objects.all()
+    LatOHCA = np.array(ohca.values_list('lat',flat=True))
+    LongOHCA = np.array(ohca.values_list('lon',flat=True))
+    
+###Need to store SGbuilding address for mapping candidateAEDs to buildings
+
+    M = len(LatOHCA)
+    #N = len(LatBuilding)
+    OHCA_array = np.concatenate((LatOHCA.reshape(M,1), LongOHCA.reshape(M,1)),axis=1)
+    #Building_array = np.concatenate((LatBuilding.reshape(N,1),LongBuilding.reshape(N,1)),axis=1)
+    OHCA_55_array, CC_55 = kmeans_OHCA(OHCA_array, 55)
+    OHCA_55_df = pd.DataFrame(OHCA_55_array, columns=['LatOHCA','LongOHCA','cluster'])
+
+    CC_9900 = []
+    OHCA_9900cluster = []
+    for i in range(0,55):    
+        OHCA_i = OHCA_55_df.loc[OHCA_55_df['cluster']==i].drop(columns = ['cluster']).reset_index(drop=True)   
+        OHCA_180cluster, CC_180 = kmeans_OHCA(OHCA_i, 180) 
+        CC_9900.append(CC_180)
+        OHCA_9900cluster.append(OHCA_180cluster)
+    
+    lst_for_CC = []
+    for i in range(0,55):
+        for j in range(0,len(CC_9900[i])):        
+            lst_for_CC.append(CC_9900[i][j])
+    
+    CC_9900_array = np.array(lst_for_CC)
+    
+    #AEDplacement_array = ToNearestBuilding(CC_9900_array, Building_array)
+
+    def EuclideanDist(arr1,arr2):
+        d_matrix = distance_matrix(111000*arr1,111000*arr2)
+        return(d_matrix)
+
+    def kmeans_OHCA(OHCA,k): 
+        kmeans = KMeans(n_clusters=k, random_state=0).fit(OHCA)
+        OHCA_Cluster_All = np.concatenate((OHCA, kmeans.labels_.reshape(len(OHCA),1)), axis=1)
+        return OHCA_Cluster_All, kmeans.cluster_centers_
+
+    def ToNearestBuilding(arr1,arr2):
+        i = 0
+        nearest_building = []
+        while i < len(arr1):
+            dist_arr = EuclideanDist(arr1[i:i+1],arr2)
+            argmin = dist_arr.argmin()
+            nearest_building.append(arr2[argmin])
+            i += 1
+        nearest_building_array = np.array(nearest_building)
+        return nearest_building_array
+    
+    return Response(CC_9900_array)
+
 
 @api_view(['GET'])
 def getAedCandidates(request):
@@ -72,6 +146,7 @@ def getOhcas(request):
     ohca = Ohca.objects.all()
     serializer = OhcaSerializer(ohca, many=True)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def getRegions(request):
