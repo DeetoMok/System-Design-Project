@@ -5,6 +5,7 @@ import { PredictorSelect, ResponseSelect, ModelSelect } from "./selectdropdown";
 import KmeansMap from "./KmeansMap";
 import MapHome from "../home/MapHome";
 import MetricTable from "./MetricTable";
+import MetricTableCurrent from "./MetricTableCurrent";
 import AedNumberForm from "./AedNumberForm";
 import CSRFToken from "../../csrftoken";
 //import CSRFToken from "./csrf";
@@ -72,12 +73,12 @@ export default function KmeansModel() {
   return (
     <div className="main">
         <div className="maps">
-            {(viewHome) ?
+            {/* {(viewHome) ?
                 <Card className="map" variant="outlined">
                     <MapHome />
                 </Card>
                 : (<></>)  
-            }
+            } */}
             <Card className="map" variant="outlined">
                 <KmeansMap hasTrain={isTrained}/>
             </Card>
@@ -86,7 +87,13 @@ export default function KmeansModel() {
         <div className="body">
             <Card className="root" variant="outlined">
                 <CardContent >
-                    How many more AEDs?
+                    <Typography
+                        className="title"
+                        color="textSecondary"
+                        gutterBottom
+                    >
+                        Parameters
+                    </Typography>                    
                     <AedNumberForm Submit={Login} error={error} />
                     {/* <div>
                         <input type="text" 
@@ -121,12 +128,14 @@ export default function KmeansModel() {
             </Card>
 
             {/* <MetricTable hasTrain={hasTrain} /> */}
+            <MetricTableCurrent />
             <MetricTable hasTrain={isTrained} />
-            <div className="buttonBody">
+            
+            {/* <div className="buttonBody">
                 <Button variant="contained" color="secondary" size="large" onClick={() => {setViewHome(!viewHome)}}>
                     Compare Maps
                 </Button>
-            </div>            
+            </div>             */}
         </div>
     </div>
   );

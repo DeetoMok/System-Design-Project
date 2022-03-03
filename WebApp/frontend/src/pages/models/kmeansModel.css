@@ -55,6 +55,15 @@ title {
     width: 25px;
 }
 
+.new-aed-marker {
+    background: none;
+    border: none;
+}
+
+.new-aed-marker img {
+    width: 25px;
+}
+
 .curr-cluster-marker {
     color: #fff;
     background: #111dce;

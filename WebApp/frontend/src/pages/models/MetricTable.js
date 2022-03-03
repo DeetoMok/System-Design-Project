@@ -43,7 +43,7 @@ export default function MetricTable({ hasTrain }) {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Metrics</TableCell>
+              <TableCell>Metrics (With new AEDs)</TableCell>
               <TableCell>Values</TableCell>
             </TableRow>
           </TableHead>

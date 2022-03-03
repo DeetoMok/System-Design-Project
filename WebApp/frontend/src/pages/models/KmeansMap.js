@@ -14,25 +14,12 @@ export default function KmeansMap({ hasTrain }) {
     const mapRef = useRef();
     const [zoom, setZoom] = useState(11.5);
     const [bounds, setBounds] = useState(null);
-    let currentAeds = hasTrain ? currentAedData.slice(0,9000) : currentAedData.slice(0,0);
-    let optimalAeds = hasTrain ? optimalAedData.slice(0,9000) : optimalAedData.slice(0,0);
-    let newAeds = newAedData;
+    let currentAeds = currentAedData.slice(0,9000);
+    let optimalAeds = optimalAedData.slice(0,9000);
+    let newAeds = hasTrain ? newAedData: newAedData.slice(0,0);
     let id = 1;
-    const currPoints = currentAeds.map(aed => ({
-        "type": "Feature",
-        "properties": {
-          "cluster": false,
-          "aedId": aed.Postal_Code,
-        },
-        "geometry": { 
-            "type": "Point",
-            "coordinates": [
-                parseFloat(aed.Longitude),
-                parseFloat(aed.Latitude)
-            ] 
-        }
-      }));
-    const points = optimalAeds.map(aed => ({
+
+    const points = currentAeds.map(aed => ({
         "type": "Feature",
         "properties": {
           "cluster": false,
@@ -47,12 +34,6 @@ export default function KmeansMap({ hasTrain }) {
         }
       }));
 
-    const { currClusters, currSupercluster } = useSupercluster({
-        points,
-        bounds,
-        zoom,
-        options: {radius: 75, maxZoom: 20}
-    })
 
     const { clusters, supercluster } = useSupercluster({
         points,
@@ -65,7 +46,7 @@ export default function KmeansMap({ hasTrain }) {
   return (
     <div className='reactMap'>
         <GoogleMapReact 
-            bootstrapURLKeys={{key: process.env.AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II}}
+            bootstrapURLKeys={{key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'}}
             defaultCenter={{ lat: 1.3599614835747427, lng: 103.82221222898332 }}
             defaultZoom={11.5}
             yesIWantToUseGoogleMapApiInternals
@@ -82,37 +63,6 @@ export default function KmeansMap({ hasTrain }) {
                 ]);
             }}
         >
-
-            {/* {currClusters.map(cluster => {
-                const [longitude, latitude] = cluster.geometry.coordinates;
-                const {
-                    cluster: isCluster, 
-                    point_count: pointCount
-                } = cluster.properties;
-
-                if (isCluster) {
-                    return (
-                        <Marker key={id++} lat={latitude} lng={longitude}>
-                            <div className='curr-cluster-marker' 
-                            style={{
-                                width: `${10 + (pointCount / points.length) * 30}px`,
-                                height: `${10 + (pointCount / points.length) * 30}px`
-                            }}
-                            onClick={() => {
-                                const expansionZoom = Math.min(
-                                    currSupercluster.getClusterExpansionZoom(cluster.id),
-                                    20
-                                );
-                                mapRef.current.setZoom(expansionZoom);
-                                mapRef.current.panTo({ lat: latitude, lng: longitude});
-                            }}
-                            >
-                                {pointCount}
-                            </div>
-                        </Marker>
-                    )
-                } */}
-
             {clusters.map(cluster => {
                 const [longitude, latitude] = cluster.geometry.coordinates;
                 const {
@@ -145,12 +95,21 @@ export default function KmeansMap({ hasTrain }) {
 
                 return (
                 <Marker key={id++} lat={latitude} lng={longitude}>
-                    <button className='aed-marker'>
+                    <button className='aed-marker' >
                         <img src="/heart-attack.png" alt="aed is here!" />
                     </button>
                 </Marker>
                 )
             })}
+
+            {newAeds.map(newAed => (
+                <Marker key={id++} lat={newAed.Latitude} lng={newAed.Longitude}>
+                    <button className="new-aed-marker">
+                        <img src="/star.png" alt="aed is here!"/>
+                    </button>
+                </Marker>
+            ))}
+
             {/* {currentAeds.map(aed => (
                 <Marker key={id++} lat={aed.Latitude} lng={aed.Longitude}>
                     <button className='aed-marker'>
@@ -158,6 +117,7 @@ export default function KmeansMap({ hasTrain }) {
                     </button>
                 </Marker>
             ))} */}
+
         </GoogleMapReact>
 
     </div>

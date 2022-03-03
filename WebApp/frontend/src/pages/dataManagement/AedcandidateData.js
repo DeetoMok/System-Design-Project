@@ -90,6 +90,7 @@ export default function AedcandidateData() {
 
   let handleOnDrop = (data) => {
     console.log('---------------------------')
+    data=data.slice(0,31)
     console.log("UPLOADED DATA: ", data)
     // console.log(data[0].data[0])
     // console.log("JSON: ", readString("1,2,3,4,5,5,6,7"))
@@ -111,8 +112,8 @@ export default function AedcandidateData() {
     });
 
     console.log("ROWS:", rows)
-    // setData(testData)
-    setData(rows)
+
+    // setData(rows)
     
     handleSubmit(rows)
   }

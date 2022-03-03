@@ -15,19 +15,19 @@ function AedNumberForm({ Submit, error }) {
   return (
     <form onSubmit={submitHandler}>
       <div className='form-inner'>
-        <h2>Number of additional AED(s)</h2>
+      
         {/* ERROR! */}
         <div className='form-group'>
-          <label htmlFor='name'>Name:</label>
-          <input type="text" name="name" id="name" onChange={e => setDetails({...details, name: e.target.value})} value={details.name}/>
+          <label htmlFor='name'>No. of AEDs to add:</label>
+          <input type="number" name="name" id="name" onChange={e => setDetails({...details, name: e.target.value})} value={details.name}/>
         </div>
         <div className='form-group'>
-          <label htmlFor='email'>Email:</label>
-          <input type="text" name="email" id="email" onChange={e => setDetails({...details, email: e.target.value})} value={details.email}/>
+          <label htmlFor='email'>No. of Clusters:</label>
+          <input type="number" name="email" id="email" onChange={e => setDetails({...details, email: e.target.value})} value={details.email}/>
         </div>
         <div className='form-group'>
-          <label htmlFor='name'>Password:</label>
-          <input type="text" name="password" id="password" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>
+          <label htmlFor='name'>No. of Iterations:</label>
+          <input type="number" name="password" id="password" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>
         </div>
 
         <input type="submit" value="SUBMIT"/>

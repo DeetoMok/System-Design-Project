@@ -11,6 +11,7 @@ import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 import DataManagement from "./pages/dataManagement/DataManagement";
 import KmeansModel from "./pages/models/KmeansModel";
+import HeatMap from "./pages/models/HeatMap";
 
 function App() {
   return (
@@ -28,8 +29,8 @@ function App() {
           <Route path="/kmeans">
             <KmeansModel />
           </Route>
-          <Route path="/mclp">
-            <KmeansModel />
+          <Route path="/heatmap">
+            <HeatMap />
           </Route>
           <Route path="/pcm">
             <KmeansModel />

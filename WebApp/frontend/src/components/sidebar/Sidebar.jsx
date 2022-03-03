@@ -49,16 +49,16 @@ export default function Sidebar() {
                 K Means
               </li>
             </Link>
-            <Link to="/mclp" className="link">
+            <Link to="/heatmap" className="link">
               <li className="sidebarListItem">
                 <BarChart className="sidebarIcon" />
-                MCLP
+                Heat Map
               </li>              
             </Link>
             <Link to="/pcm" className="link">
               <li className="sidebarListItem">
                 <BarChart className="sidebarIcon" />
-                PCM
+                
               </li>
             </Link>
 
