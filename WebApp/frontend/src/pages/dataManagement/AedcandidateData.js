@@ -5,11 +5,11 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Button from '@mui/material/Button';
 import Papa from 'papaparse'
-// import CsvReader from "./csvReader";
-// import CsvReader from "./CsvReader";
 import { CSVReader, readString } from 'react-papaparse';
-
+import './dataManagement.css';
+import { useHistory } from 'react-router';
 
 function preventDefault(event) {
   event.preventDefault();
@@ -20,27 +20,7 @@ export default function AedcandidateData() {
   const [ohcadata, setData] = useState();
   const [columnData, setColumnData] = useState();
   const [rowData, setRowData] = useState();
-  let testData = [
-    {
-        "id": 1,
-        "lat": 1.2971792094554653,
-        "lon": 103.77646219577832,
-        "country": "singapore",
-        "pa": null,
-        "region": null,
-        "subzone": null
-    },
-    {
-        "id": 2,
-        "lat": 123.0,
-        "lon": 456.0,
-        "country": "singapore",
-        "pa": 10,
-        "region": "S",
-        "subzone": 7
-    }
-  ]
-
+  const history = useHistory();
   useEffect(() => {
       getData()
   }, [])
@@ -48,11 +28,10 @@ export default function AedcandidateData() {
   let getData = async () => {
       let response = await fetch('http://127.0.0.1:8000/api/aedcandidates/')
       let data = await response.json()
-      console.log('DATA:', data.length)
+      // console.log('GET DATA:', data.length)
       if (data.length !== 0) {
         setData(data)
       }
-      
   }
 
   let updateData = async (rows) => {
@@ -63,45 +42,49 @@ export default function AedcandidateData() {
         'Content-Type': 'application/json'
       }, 
       body: JSON.stringify(rows)
-      // body: rows
     })
+  }
 
+  let deleteData = async () => {
+    fetch(`http://127.0.0.1:8000/api/aedcandidates/delete`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify([])
+    })
+    history.go(0);
   }
 
   let handleSubmit = (rows) => {
-    updateData(rows)
-    // history.push('/')
+    updateData(rows);
+    history.go(0);
   }
 
-  // const [rows, setRows] = useState([])
-  // useEffect(() => {
-  //   async function getData() {
-  //     const response = await fetch('/data/nodes.csv')
-  //     const reader = response.body.getReader()
-  //     const result = await reader.read() // raw array
-  //     const decoder = new TextDecoder('utf-8')
-  //     const csv = decoder.decode(result.value) // the csv text
-  //     const results = Papa.parse(csv, { header: true }) // object with { data, errors, meta }
-  //     const rows = results.data // array of objects
-  //     setRows(rows)
-  //   }  
-  //   getData()
-  // }, [])
-
   let handleOnDrop = (data) => {
-    console.log('---------------------------')
-    data=data.slice(0,31)
-    console.log("UPLOADED DATA: ", data)
+    console.log('---------------------------');
+    let emptyIndex = 0;
+    for (var i = 0; i< data.length; i++) {
+      console.log(data[i].data);
+      if (data[i].data.length <= 1) {
+        emptyIndex = i;
+        console.log("empty index", i);
+        break;
+      }
+    }
+    console.log("HANDLEONDROP DATA: ", data);
     // console.log(data[0].data[0])
     // console.log("JSON: ", readString("1,2,3,4,5,5,6,7"))
-    console.log('---------------------------')
-
+    console.log('---------------------------');
+    data=data.slice(0,emptyIndex);
     const columns = data[0].data.map((col,index) => {
       return {
         Header: col,
         accessor: col.split(" ").join("_".toLowerCase()),
       };
     });
+
+    console.log("COLUMNS", columns);
 
     const rows = data.slice(1).map((row) => {
       return row.data.reduce((acc, curr, index) => {
@@ -111,7 +94,7 @@ export default function AedcandidateData() {
       }, {})
     });
 
-    console.log("ROWS:", rows)
+    console.log("ROWS:", rows);
 
     // setData(rows)
     
@@ -130,17 +113,24 @@ export default function AedcandidateData() {
 
   return (
     <React.Fragment>
-      <h1>AED Candidate Data</h1>
-      {/* <CSVReader
-        onDrop={handleOnDrop}
-        onError={handleOnError}
-        addRemoveButton
-        onRemoveFile={handleOnRemoveFile}
-      >
-        <span>Drop CSV file here or click to upload.</span>
-      </CSVReader> */}
+      <div className='tableTop'> 
+        <div className='tableTitle'>
+          <h1>AED Candidate Data</h1>
+          {(ohcadata === undefined) ?
+            <></> :
+            <h3><br/>Size of Data: {ohcadata.length}</h3>
+          }
+        </div>
 
-      {/* {(ohcadata.length === 0) ? ( */}
+        
+        {(ohcadata === undefined) ? 
+          <></> : 
+          <Button variant="outlined" color="error" onClick={deleteData}>Delete</Button>
+
+        }
+        
+      </div>
+
       {(ohcadata === undefined) ? (
       <CSVReader
       onDrop={handleOnDrop}
@@ -162,7 +152,7 @@ export default function AedcandidateData() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {ohcadata.map((row) => (
+            {ohcadata.slice(0,30).map((row) => (
               <TableRow key={row.id}>
                 <TableCell>{row.lat}</TableCell>
                 <TableCell>{row.lon}</TableCell>
@@ -177,10 +167,11 @@ export default function AedcandidateData() {
 
       {(ohcadata === undefined) ? (
         <p>Upload data to start</p>
-      ) : (              
-        <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-          See more data
-        </Link>
+      ) : (
+        <></>
+        // <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+        //   See more data
+        // </Link>
       )}
     </React.Fragment>
   );

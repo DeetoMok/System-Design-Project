@@ -52,13 +52,13 @@ export default function Sidebar() {
             <Link to="/heatmap" className="link">
               <li className="sidebarListItem">
                 <BarChart className="sidebarIcon" />
-                Heat Map
+                Population Heat Map
               </li>              
             </Link>
-            <Link to="/pcm" className="link">
+            <Link to="/ohcaheatmap" className="link">
               <li className="sidebarListItem">
                 <BarChart className="sidebarIcon" />
-                
+                OHCA Heat Map
               </li>
             </Link>
 

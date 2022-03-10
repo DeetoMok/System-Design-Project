@@ -12,6 +12,7 @@ import NewProduct from "./pages/newProduct/NewProduct";
 import DataManagement from "./pages/dataManagement/DataManagement";
 import KmeansModel from "./pages/models/KmeansModel";
 import HeatMap from "./pages/models/HeatMap";
+import OhcaHeatMap from "./pages/models/OhcaHeatMap";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
           <Route path="/heatmap">
             <HeatMap />
           </Route>
+          <Route path="/ohcaheatmap">
+            <OhcaHeatMap />
+          </Route>          
           <Route path="/pcm">
             <KmeansModel />
           </Route>

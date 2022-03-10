@@ -1,3 +1,17 @@
 .main{
     flex: 4;
 }
+
+.tableTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    padding: 5px;
+}
+
+.tableTitle{
+    margin-left: -5%;
+    margin-right: 50%;
+}
+

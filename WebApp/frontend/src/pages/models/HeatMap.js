@@ -18,23 +18,91 @@ function HeatMap() {
       console.log("map", map);
       console.log("maps", maps);
       heatMapData.map((subzone) => {
-        var coords = subzone.coordinates;      
-        var subzoneArea = new maps.Polygon({
-        paths: coords,
-        strokeColor: "#FF0000",
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: "#FF0000",
-        fillOpacity: 0.5,
-        
-        });
+        var coords = subzone.coordinates;
 
-        var infoLatlng = new maps.LatLng(subzone.coordinates[0].lat, subzone.coordinates[0].lng)
+        if (subzone.population_density == 0) {
+          var subzoneArea = new maps.Polygon({
+            paths: coords,
+            strokeColor: "#000000",
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: "#FFFFFF",
+            fillOpacity: 0.7,
+            
+            });
+        } else if (subzone.population_density <= 100) {
+          // green 0-100
+          var subzoneArea = new maps.Polygon({
+            paths: coords,
+            strokeColor: "#000000",
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: "#5fe60b",
+            fillOpacity: 0.7,
+            
+            });
+        } else if (subzone.population_density <= 500){
+          // yellow 100 - 500
+          var subzoneArea = new maps.Polygon({
+            paths: coords,
+            strokeColor: "#000000",
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: "#e6e60b",
+            fillOpacity: 0.7,
+            
+            });
+        } else if (subzone.population_density <= 3500){
+          // orange 500 - 3.5k
+          var subzoneArea = new maps.Polygon({
+            paths: coords,
+            strokeColor: "#000000",
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: "#e6870b",
+            fillOpacity: 0.7,
+            
+            });
+        } else if (subzone.population_density <= 20000){
+          // red 3.5 - 20k
+          var subzoneArea = new maps.Polygon({
+            paths: coords,
+            strokeColor: "#00000",
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: "#d61a1a",
+            fillOpacity: 0.7,
+            
+            });
+        } else{
+          var subzoneArea = new maps.Polygon({
+            paths: coords,
+            strokeColor: "#000000",
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: "#f242f5",
+            fillOpacity: 0.7,
+            
+            });
+        }
+        let maxLat = 0;
+        let maxLatIndex = 0;
+        for (let i=0; i < subzone.coordinates.length; i++) {
+          if (subzone.coordinates[i].lat>maxLat) {
+            maxLat = subzone.coordinates[i];
+            maxLatIndex = i;
+            
+          }
+        }
+        var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
+
         let contentString =     "<b>"+ subzone.subzone_name +"</b><br>" +
-        "Region:"+ subzone.region +" <br>" +
-        "Population Density:"+ "MY NUMBER DATA HERE WHEREEE :')" +" <br>" +
+        "Region: "+ subzone.region +" <br>" +
+        "Population Density: "+ subzone.population_density.toFixed(2) +" <br>" +
         "<br>";
         
+
+
         var infoWindow =  new maps.InfoWindow({
           content: contentString,
           map: map,
