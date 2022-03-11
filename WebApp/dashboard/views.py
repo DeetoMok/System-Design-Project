@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.views import View
 from .models import CurrentAED, Ohca, AedCandidate
 from rest_framework import viewsets
-from .serializers import AedSerializer, OhcaSerializer, AedcandidateSerializer, AedcandidatesSerializer
+from .serializers import AedSerializer, AedsSerializer, OhcaSerializer, OhcasSerializer, AedcandidateSerializer, AedcandidatesSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
@@ -60,14 +60,17 @@ def updateAeds(request):
     CurrentAED.objects.all().delete()
     
     for aed in data:
-        print(aed)
+        # print(aed)
+        aedKeys = aed.keys()
         aed["id"] = int(aed["id"])
-        aed["lat"] = int(aed["lat"])
-        aed["lon"] = int(aed["lon"])
-        aed["pa"] = int(aed["pa"])
-        aed["subzone"] = int(aed["subzone"])
+        aed["lat"] = float(aed["lat"])
+        aed["lon"] = float(aed["lon"])
+        if "pa" in aedKeys:
+            aed["pa"] = int(aed["pa"])
+        if "subzone" in aedKeys:
+            aed["subzone"] = int(aed["subzone"])
        
-    serializer = AedcandidatesSerializer(data=data, many=True)
+    serializer = AedsSerializer(data=data, many=True)
 
     if serializer.is_valid():
         serializer.save()
@@ -81,6 +84,48 @@ def updateAeds(request):
 def deleteAeds(request):
     CurrentAED.objects.all().delete()
     return Response('Success')
+
+# ---------------------------------------------------------------------------
+@api_view(['GET'])
+def getOhcas(request):
+    ohca = Ohca.objects.all()
+    serializer = OhcaSerializer(ohca, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def updateOhcas(request):
+    data = request.data
+    Ohca.objects.all().delete()
+    
+    for aed in data:
+        # print(aed)
+        aedKeys = aed.keys()
+        aed["id"] = int(aed["id"])
+        aed["lat"] = float(aed["lat"])
+        aed["lon"] = float(aed["lon"])
+        if "pa" in aedKeys:
+            aed["pa"] = int(aed["pa"])
+        if "subzone" in aedKeys:
+            aed["subzone"] = int(aed["subzone"])
+       
+    serializer = OhcasSerializer(data=data, many=True)
+
+    if serializer.is_valid():
+        serializer.save()
+        print("SAVED")
+    else:
+        print("NOT SAVED", serializer.errors)
+    
+    return Response(serializer.data)
+
+@api_view(['GET','POST'])
+def deleteOhcas(request):
+    Ohca.objects.all().delete()
+    return Response('Success')
+
+# ---------------------------------------------------------------------------
+
+
 
 # NOT IN USE
 @api_view(['GET'])
@@ -141,17 +186,6 @@ def updateAedCandidate(request, pk):
     return Response(serializer.data)
 
 
-
-@api_view(['GET'])
-def getOhcas(request):
-    ohca = Ohca.objects.all()
-    serializer = OhcaSerializer(ohca, many=True)
-    return Response(serializer.data)
-
-
-
-
-
 @api_view(['POST'])
 def optimalOhcas(request):
     print("READINGGG")
@@ -160,35 +194,67 @@ def optimalOhcas(request):
     # numK = request.data[0]['numK']
     # numIters = request.data[0]['numIters']
 
+    ohca = Ohca.objects.all() 
+    data = request.data 
+    #k = data['Number of clusters'] 
+    #number_of_aeds = request.data['Number of AEDs'] 
+ 
+    k = 55
+    available_aeds = 10
+ 
     def EuclideanDist(arr1,arr2): 
         d_matrix = distance_matrix(111000*arr1,111000*arr2) 
         return(d_matrix) 
  
     def kmeans_OHCA(OHCA,k):  
-        kmeans = KMeans(n_clusters=k, random_state=0).fit(OHCA)
+        kmeans = KMeans(n_clusters=k, random_state=0).fit(OHCA) 
         OHCA_Cluster_All = np.concatenate((OHCA, kmeans.labels_.reshape(len(OHCA),1)), axis=1) 
         return OHCA_Cluster_All, kmeans.cluster_centers_ 
  
-    def ToNearestBuilding(arr1,arr2): 
+    def Coverage(OHCA_arr, AED_arr, MAX_DISTANT = 100, ALPHA = 0.05): 
         i = 0 
-        nearest_building = [] 
-        while i < len(arr1): 
-            dist_arr = EuclideanDist(arr1[i:i+1],arr2) 
-            argmin = dist_arr.argmin() 
-            nearest_building.append(arr2[argmin]) 
+        shortest_dist_list = [] 
+        while i < len(OHCA_arr): 
+            dist_arr = EuclideanDist(OHCA_arr[i:i+1],AED_arr) 
+            shortest_dist = dist_arr.min() 
+            shortest_dist_list.append(shortest_dist) 
             i += 1 
-        nearest_building_array = np.array(nearest_building) 
-        return nearest_building_array     
-
-    ohca = Ohca.objects.all() 
-    data = request.data 
-    # k = data['Number of clusters'] 
-    # aeds = request.data['Number of AEDs'] 
-    k = 4
+        shortest_dist_array = np.array(shortest_dist_list)   
+        avg_dist = shortest_dist_array.mean() 
+         
+        CoverageMatrix = np.where(shortest_dist_array < MAX_DISTANT, 1, 0) 
+        total_cover = CoverageMatrix.mean() 
+         
+        PCM = shortest_dist_array.copy() 
+        for j in range(0,len(PCM)): 
+            a = PCM[j] 
+            if a <= 20: 
+                PCM[j] = 1.0 
+            elif a >= 100: 
+                PCM[j] = 0.0 
+            else: 
+                PCM[j] =  np.exp(- ALPHA * (a-20)) 
+        partial_cover = PCM.mean()    
+ 
+        Survival = shortest_dist_array.copy() 
+        for k in range(0,len(Survival)): 
+            b = Survival[k]/(6.15*1000/60)*2 
+            #assume the travelling speed is 6.15km/h 
+            if b <= 1: 
+                Survival[k] = 1 
+            elif b >= 20: 
+                Survival[k] = 0 
+            else: 
+                Survival[k] = 0.549*b**(-0.584) 
+        exp_survival = Survival.mean() 
+         
+        return avg_dist, total_cover, partial_cover, exp_survival 
+ 
+#Start Kmeans clustering 
     LatOHCA = np.array(ohca.values_list('lat',flat=True)) 
     LongOHCA = np.array(ohca.values_list('lon',flat=True)) 
      
-###Need to store SGbuilding address for mapping candidateAEDs to buildings 
+#Haven't Store SGbuilding address for mapping candidateAEDs to buildings 
  
     M = len(LatOHCA) 
     #N = len(LatBuilding) 
@@ -199,9 +265,10 @@ def optimalOhcas(request):
  
     CC_final = [] 
     OHCA_final = [] 
+ 
     for i in range(0,k):     
         OHCA_i = OHCA_kcluster_df.loc[OHCA_kcluster_df['cluster']==i].drop(columns = ['cluster']).reset_index(drop=True)    
-        OHCA_second_layer, CC_second_layer = kmeans_OHCA(OHCA_i, 1)  
+        OHCA_second_layer, CC_second_layer = kmeans_OHCA(OHCA_i, int(available_aeds/k))  
         CC_final.append(CC_second_layer) 
         OHCA_final.append(OHCA_second_layer) 
      
@@ -210,13 +277,20 @@ def optimalOhcas(request):
         for j in range(0,len(CC_final[i])):         
             lst_for_CC.append(CC_final[i][j]) 
      
-    CC_final_array = np.array(lst_for_CC)
-     
+    CC_final_array = np.array(lst_for_CC) 
+    performace_metric = Coverage(OHCA_array, CC_final_array, MAX_DISTANT = 100, ALPHA = 0.05) 
+ 
     #AEDplacement_array = ToNearestBuilding(CC_9900_array, Building_array) 
-
-     
-    return Response(CC_final_array)
-    return Response()
+ 
+    result = {'AED placement':CC_final_array, 
+    'Average Distance':performace_metric[0], 
+    'Total Coverage':performace_metric[1], 
+    'Partial Coverage':performace_metric[2], 
+    'Survival Rate':performace_metric[3] 
+ 
+    } 
+    
+    return Response(result)
 
 
 

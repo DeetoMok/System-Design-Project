@@ -5,149 +5,174 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-
+import Button from '@mui/material/Button';
+import Papa from 'papaparse'
+import { CSVReader, readString } from 'react-papaparse';
+import './dataManagement.css';
+import { useHistory } from 'react-router';
 
 function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function AedData() {
+export default function AedcandidateData() {
 
-  let tempData = [
-    {
-        "id": 1,
-        "lat": 1.2971792094554653,
-        "lon": 103.77646219577832,
-        "country": "singapore",
-        "pa": 10,
-        "region": "S",
-        "subzone": 7
-    },
-    {
-        "id": 2,
-        "lat": 123.0,
-        "lon": 456.0,
-        "country": "singapore",
-        "pa": 10,
-        "region": "S",
-        "subzone": 15
-    },
-    {
-        "id": 3,
-        "lat": 1.352654,
-        "lon": 103.973217,
-        "country": "singapore",
-        "pa": 10,
-        "region": "S",
-        "subzone": 72
-    },
-    {
-        "id": 4,
-        "lat": 1.375489,
-        "lon": 103.738288,
-        "country": "singapore",
-        "pa": 3,
-        "region": "N",
-        "subzone": 121
-    },
-    {
-        "id": 5,
-        "lat": 1.39231,
-        "lon": 103.746518,
-        "country": "singapore",
-        "pa": 4,
-        "region": "N",
-        "subzone": 148
-    },
-    {
-        "id": 6,
-        "lat": 1.392493,
-        "lon": 103.745591,
-        "country": "singapore",
-        "pa": 2,
-        "region": "N",
-        "subzone": 160
-    },
-    {
-        "id": 7,
-        "lat": 1.393307,
-        "lon": 103.746132,
-        "country": "singapore",
-        "pa": 40,
-        "region": "W",
-        "subzone": 238
-    },
-    {
-        "id": 8,
-        "lat": 1.393074,
-        "lon": 103.747269,
-        "country": "singapore",
-        "pa": 45,
-        "region": "W",
-        "subzone": 220
-    },
-    {
-        "id": 9,
-        "lat": 1.39291,
-        "lon": 103.74839,
-        "country": "singapore",
-        "pa": 30,
-        "region": "E",
-        "subzone": 288
-    },
-    {
-        "id": 10,
-        "lat": 1.392803,
-        "lon": 103.749865,
-        "country": "singapore",
-        "pa": 33,
-        "region": "E",
-        "subzone": 300
-    }
-]
-  let [ohcadata, setData] = useState(tempData)
-  // let [ohcadata, setData] = useState([])
-  
-  // useEffect(() => {
-  //     getData()
-  // }, [])
+  const [ohcadata, setData] = useState();
+  const [columnData, setColumnData] = useState();
+  const [rowData, setRowData] = useState();
+  const history = useHistory();
+  useEffect(() => {
+      getData()
+  }, [])
 
   let getData = async () => {
       let response = await fetch('http://127.0.0.1:8000/api/aeds/')
       let data = await response.json()
-      console.log('DATA:', data)
-      // console.log(typeof data.
-      setData(data)
+      // console.log('GET DATA:', data.length)
+      if (data.length !== 0) {
+        setData(data)
+      }
   }
+
+  let updateData = async (rows) => {
+    // console.log("ohcadata being sent to backend", ohcadata)
+    fetch(`http://127.0.0.1:8000/api/aeds/update`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify(rows)
+    })
+  }
+
+  let deleteData = async () => {
+    fetch(`http://127.0.0.1:8000/api/aeds/delete`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify([])
+    })
+    history.go(0);
+  }
+
+  let handleSubmit = (rows) => {
+    updateData(rows);
+    history.go(0);
+  }
+
+  let handleOnDrop = (data) => {
+    console.log('---------------------------');
+    let emptyIndex = 0;
+    for (var i = 0; i< data.length; i++) {
+      console.log(data[i].data);
+      if (data[i].data.length <= 1) {
+        emptyIndex = i;
+        console.log("empty index", i);
+        break;
+      }
+    }
+    console.log("HANDLEONDROP DATA: ", data);
+    // console.log(data[0].data[0])
+    // console.log("JSON: ", readString("1,2,3,4,5,5,6,7"))
+    console.log('---------------------------');
+    data=data.slice(0,emptyIndex);
+    const columns = data[0].data.map((col,index) => {
+      return {
+        Header: col,
+        accessor: col.split(" ").join("_".toLowerCase()),
+      };
+    });
+
+    console.log("COLUMNS", columns);
+
+    const rows = data.slice(1).map((row) => {
+      return row.data.reduce((acc, curr, index) => {
+
+        acc[columns[index].accessor] = curr;
+        return acc;
+      }, {})
+    });
+
+    console.log("ROWS:", rows);
+
+    // setData(rows)
+    
+    handleSubmit(rows)
+  }
+
+  let handleOnError = (err, file, inputElem, reason) => {
+    console.log(err)
+  }
+
+  let handleOnRemoveFile = (data) => {
+    console.log('---------------------------')
+    console.log(data)
+    console.log('---------------------------')
+  }  
 
   return (
     <React.Fragment>
-      <h1>AED Data</h1>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Latitude</TableCell>
-            <TableCell>Longitude</TableCell>
-            <TableCell>Planning Area</TableCell>
-            <TableCell>Region</TableCell>
-            <TableCell>Subzone</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {ohcadata.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.lat}</TableCell>
-              <TableCell>{row.lon}</TableCell>
-              <TableCell>{row.pa}</TableCell>
-              <TableCell>{row.region}</TableCell>
-              <TableCell>{row.subzone}</TableCell>
+      <div className='tableTop'> 
+        <div className='tableTitle'>
+          <h1>AED Data</h1>
+          {(ohcadata === undefined) ?
+            <></> :
+            <h3><br/>Size of Data: {ohcadata.length}</h3>
+          }
+        </div>
+
+        
+        {(ohcadata === undefined) ? 
+          <></> : 
+          <Button variant="outlined" color="error" onClick={deleteData}>Delete</Button>
+
+        }
+        
+      </div>
+
+      {(ohcadata === undefined) ? (
+      <CSVReader
+      onDrop={handleOnDrop}
+      onError={handleOnError}
+      addRemoveButton
+      onRemoveFile={handleOnRemoveFile}
+      >
+      <span>Drop CSV file here or click to upload.</span>
+      </CSVReader>
+      ) : (
+          <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>Latitude</TableCell>
+              <TableCell>Longitude</TableCell>
+              <TableCell>Planning Area</TableCell>
+              <TableCell>Region</TableCell>
+              <TableCell>Subzone</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more data
-      </Link>
+          </TableHead>
+          <TableBody>
+            {ohcadata.slice(0,30).map((row) => (
+              <TableRow key={row.id}>
+                <TableCell>{row.lat}</TableCell>
+                <TableCell>{row.lon}</TableCell>
+                <TableCell>{row.pa}</TableCell>
+                <TableCell>{row.region}</TableCell>
+                <TableCell>{row.subzone}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+
+      {(ohcadata === undefined) ? (
+        <p>Upload data to start</p>
+      ) : (
+        <></>
+        // <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+        //   See more data
+        // </Link>
+      )}
     </React.Fragment>
   );
 }

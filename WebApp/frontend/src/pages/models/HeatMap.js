@@ -2,6 +2,11 @@ import React, { useState, useRef} from 'react';
 import GoogleMapReact from "google-map-react";
 import Polyline from "google-map-react";
 import { heatMapData } from './heatMapdata';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 import "./heatMap.css";
 import { currentAedData } from './currentAedData';
 import { optimalAedData } from './optimalAedData';
@@ -13,7 +18,6 @@ function HeatMap() {
 
     const handleApiLoaded = (map, maps) => {
     
-      var triangleCoords = heatMapData[0].coordinates;
       console.log("DATA", heatMapData[0].coordinates);
       console.log("map", map);
       console.log("maps", maps);
@@ -96,7 +100,7 @@ function HeatMap() {
         }
         var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
 
-        let contentString =     "<b>"+ subzone.subzone_name +"</b><br>" +
+        let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
         "Region: "+ subzone.region +" <br>" +
         "Population Density: "+ subzone.population_density.toFixed(2) +" <br>" +
         "<br>";
@@ -123,20 +127,45 @@ function HeatMap() {
 
   return (
     <div className='heatMap'>
-
-        <GoogleMapReact
-        bootstrapURLKeys={{
-            key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
-        }}
-        defaultCenter={{ lat: 1.3599614835747427, lng: 103.82221222898332 }}
-        defaultZoom={11.5}
-        yesIWantToUseGoogleMapApiInternals
-        onGoogleApiLoaded={({ map, maps}) => handleApiLoaded(map,maps)}
-        >
-          <Polyline 
-          />
-        </GoogleMapReact>
-
+        <div className='reactMap'>
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: 1.3599614835747427, lng: 103.82221222898332 }}
+          defaultZoom={11.5}
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded(map,maps)}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        </div>
+        <div>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>Subzone</TableCell>
+                <TableCell>Region</TableCell>
+                <TableCell>Area</TableCell>
+                <TableCell>Population</TableCell>
+                <TableCell>Population Density</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              
+              {heatMapData.map((subzone) => (
+                <TableRow key={subzone.id}>
+                  <TableCell>{subzone.subzone_name}</TableCell>
+                  <TableCell>{subzone.region}</TableCell>
+                  <TableCell>{subzone.area}</TableCell>
+                  <TableCell>{subzone.population}</TableCell>
+                  <TableCell>{subzone.population_density}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
     </div>
   )
 }
