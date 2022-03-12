@@ -188,19 +188,24 @@ def updateAedCandidate(request, pk):
 
 @api_view(['POST'])
 def optimalOhcas(request):
-    print("READINGGG")
     print("request:", request.data)
     # numAeds = request.data[0]['numAeds']
     # numK = request.data[0]['numK']
     # numIters = request.data[0]['numIters']
 
-    ohca = Ohca.objects.all() 
+    available_aeds = int(request.data.dict()['numAeds'])
+    # print(available_aeds)
+    # print('CHECK',available_aeds)
+    # return Response()
+    ohca = Ohca.objects.all()
     data = request.data 
     #k = data['Number of clusters'] 
     #number_of_aeds = request.data['Number of AEDs'] 
  
-    k = 55
-    available_aeds = 10
+    # First level clustering
+    k = 50
+    # user additional aeds to put
+    # available_aeds = 100
  
     def EuclideanDist(arr1,arr2): 
         d_matrix = distance_matrix(111000*arr1,111000*arr2) 
@@ -211,8 +216,8 @@ def optimalOhcas(request):
         OHCA_Cluster_All = np.concatenate((OHCA, kmeans.labels_.reshape(len(OHCA),1)), axis=1) 
         return OHCA_Cluster_All, kmeans.cluster_centers_ 
  
-    def Coverage(OHCA_arr, AED_arr, MAX_DISTANT = 100, ALPHA = 0.05): 
-        i = 0 
+    def Coverage(OHCA_arr, AED_arr, MAX_DISTANT = 100, ALPHA = 0.05):
+        i = 0
         shortest_dist_list = [] 
         while i < len(OHCA_arr): 
             dist_arr = EuclideanDist(OHCA_arr[i:i+1],AED_arr) 
@@ -240,22 +245,22 @@ def optimalOhcas(request):
         for k in range(0,len(Survival)): 
             b = Survival[k]/(6.15*1000/60)*2 
             #assume the travelling speed is 6.15km/h 
-            if b <= 1: 
-                Survival[k] = 1 
-            elif b >= 20: 
-                Survival[k] = 0 
-            else: 
-                Survival[k] = 0.549*b**(-0.584) 
+            if b <= 1:
+                Survival[k] = 1
+            elif b >= 20:
+                Survival[k] = 0
+            else:
+                Survival[k] = 0.549*b**(-0.584)
         exp_survival = Survival.mean() 
          
-        return avg_dist, total_cover, partial_cover, exp_survival 
+        return avg_dist, total_cover, partial_cover, exp_survival
  
 #Start Kmeans clustering 
     LatOHCA = np.array(ohca.values_list('lat',flat=True)) 
     LongOHCA = np.array(ohca.values_list('lon',flat=True)) 
      
 #Haven't Store SGbuilding address for mapping candidateAEDs to buildings 
- 
+
     M = len(LatOHCA) 
     #N = len(LatBuilding) 
     OHCA_array = np.concatenate((LatOHCA.reshape(M,1), LongOHCA.reshape(M,1)),axis=1) 
@@ -274,8 +279,8 @@ def optimalOhcas(request):
      
     lst_for_CC = [] 
     for i in range(0,k): 
-        for j in range(0,len(CC_final[i])):         
-            lst_for_CC.append(CC_final[i][j]) 
+        for j in range(0,len(CC_final[i])):
+            lst_for_CC.append(CC_final[i][j])
      
     CC_final_array = np.array(lst_for_CC) 
     performace_metric = Coverage(OHCA_array, CC_final_array, MAX_DISTANT = 100, ALPHA = 0.05) 
