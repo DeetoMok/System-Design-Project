@@ -96,7 +96,8 @@ def getOhcas(request):
 def updateOhcas(request):
     data = request.data
     Ohca.objects.all().delete()
-    
+    # convert postal code to lat lon
+    # 
     for aed in data:
         # print(aed)
         aedKeys = aed.keys()
