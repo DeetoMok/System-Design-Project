@@ -1,0 +1,1994 @@
+export const optimalAedData = [
+    {
+        "SUBZONE_NAME": "MARINA EAST",
+        "AREA": 1.8564563583,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "INSTITUTION HILL",
+        "AREA": 0.3952063192,
+        "POPULATION": 3150,
+        "POPULATION DENSITY": 7970.5203262315
+    },
+    {
+        "SUBZONE_NAME": "ROBERTSON QUAY",
+        "AREA": 0.5099996413,
+        "POPULATION": 3010,
+        "POPULATION DENSITY": 5901.9649350262
+    },
+    {
+        "SUBZONE_NAME": "JURONG ISLAND AND BUKOM",
+        "AREA": 36.8858647506,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 0.2711065626
+    },
+    {
+        "SUBZONE_NAME": "FORT CANNING",
+        "AREA": 0.3913503777,
+        "POPULATION": 190,
+        "POPULATION DENSITY": 485.4984455017
+    },
+    {
+        "SUBZONE_NAME": "MARINA EAST (MP)",
+        "AREA": 1.6010457369,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "SUDONG",
+        "AREA": 4.235586035,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "SEMAKAU",
+        "AREA": 4.9972053454,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "SOUTHERN GROUP",
+        "AREA": 2.2212093927,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "SENTOSA",
+        "AREA": 4.9529583045,
+        "POPULATION": 1940,
+        "POPULATION DENSITY": 391.6851062977
+    },
+    {
+        "SUBZONE_NAME": "CITY TERMINALS",
+        "AREA": 3.4748064293,
+        "POPULATION": 20,
+        "POPULATION DENSITY": 5.7557162987
+    },
+    {
+        "SUBZONE_NAME": "ANSON",
+        "AREA": 0.1039335671,
+        "POPULATION": 80,
+        "POPULATION DENSITY": 769.7224505442
+    },
+    {
+        "SUBZONE_NAME": "STRAITS VIEW",
+        "AREA": 1.1348865518,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "MARITIME SQUARE",
+        "AREA": 2.7168243994,
+        "POPULATION": 3620,
+        "POPULATION DENSITY": 1332.4379745538
+    },
+    {
+        "SUBZONE_NAME": "TELOK BLANGAH RISE",
+        "AREA": 0.5370543693,
+        "POPULATION": 12150,
+        "POPULATION DENSITY": 22623.4077863979
+    },
+    {
+        "SUBZONE_NAME": "TANJONG PAGAR",
+        "AREA": 0.1464984067,
+        "POPULATION": 670,
+        "POPULATION DENSITY": 4573.4285806909
+    },
+    {
+        "SUBZONE_NAME": "EVERTON PARK",
+        "AREA": 0.6399842992,
+        "POPULATION": 7810,
+        "POPULATION DENSITY": 12203.4243810568
+    },
+    {
+        "SUBZONE_NAME": "TELOK BLANGAH WAY",
+        "AREA": 0.2786906126,
+        "POPULATION": 9230,
+        "POPULATION DENSITY": 33119.1636288061
+    },
+    {
+        "SUBZONE_NAME": "MAXWELL",
+        "AREA": 0.0640936055,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "CECIL",
+        "AREA": 0.1979436492,
+        "POPULATION": 260,
+        "POPULATION DENSITY": 1313.5051367531
+    },
+    {
+        "SUBZONE_NAME": "KAMPONG TIONG BAHRU",
+        "AREA": 0.3677931068,
+        "POPULATION": 9010,
+        "POPULATION DENSITY": 24497.4683655277
+    },
+    {
+        "SUBZONE_NAME": "TELOK BLANGAH DRIVE",
+        "AREA": 1.4648291475,
+        "POPULATION": 19320,
+        "POPULATION DENSITY": 13189.2514786373
+    },
+    {
+        "SUBZONE_NAME": "PASIR PANJANG 2",
+        "AREA": 0.8589507599,
+        "POPULATION": 3060,
+        "POPULATION DENSITY": 3562.4859339929
+    },
+    {
+        "SUBZONE_NAME": "CENTRAL SUBZONE",
+        "AREA": 1.0779321332,
+        "POPULATION": 880,
+        "POPULATION DENSITY": 816.3779266679
+    },
+    {
+        "SUBZONE_NAME": "SINGAPORE GENERAL HOSPITAL",
+        "AREA": 0.5366017572,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 18.6357943592
+    },
+    {
+        "SUBZONE_NAME": "DEPOT ROAD",
+        "AREA": 0.4452750814,
+        "POPULATION": 6540,
+        "POPULATION DENSITY": 14687.5499510329
+    },
+    {
+        "SUBZONE_NAME": "BUKIT MERAH",
+        "AREA": 0.414494809,
+        "POPULATION": 1110,
+        "POPULATION DENSITY": 2677.958748369
+    },
+    {
+        "SUBZONE_NAME": "CHINATOWN",
+        "AREA": 0.5911762939,
+        "POPULATION": 10490,
+        "POPULATION DENSITY": 17744.2839096864
+    },
+    {
+        "SUBZONE_NAME": "PHILLIP",
+        "AREA": 0.0397034553,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 251.8672472165
+    },
+    {
+        "SUBZONE_NAME": "RAFFLES PLACE",
+        "AREA": 0.1900383931,
+        "POPULATION": 40,
+        "POPULATION DENSITY": 210.483783528
+    },
+    {
+        "SUBZONE_NAME": "CHINA SQUARE",
+        "AREA": 0.1339024285,
+        "POPULATION": 1430,
+        "POPULATION DENSITY": 10679.4179647022
+    },
+    {
+        "SUBZONE_NAME": "TIONG BAHRU",
+        "AREA": 0.4511446915,
+        "POPULATION": 12890,
+        "POPULATION DENSITY": 28571.7647658219
+    },
+    {
+        "SUBZONE_NAME": "BAYFRONT SUBZONE",
+        "AREA": 0.5247094976,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "TIONG BAHRU STATION",
+        "AREA": 0.3531493551,
+        "POPULATION": 15120,
+        "POPULATION DENSITY": 42814.7461779104
+    },
+    {
+        "SUBZONE_NAME": "CLIFFORD PIER",
+        "AREA": 0.2636067816,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "MARINA SOUTH",
+        "AREA": 1.6413559041,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "PEARL'S HILL",
+        "AREA": 0.5653897011,
+        "POPULATION": 6120,
+        "POPULATION DENSITY": 10824.3924291345
+    },
+    {
+        "SUBZONE_NAME": "BOAT QUAY",
+        "AREA": 0.1618901539,
+        "POPULATION": 130,
+        "POPULATION DENSITY": 803.0136290166
+    },
+    {
+        "SUBZONE_NAME": "HENDERSON HILL",
+        "AREA": 0.5992541998,
+        "POPULATION": 13320,
+        "POPULATION DENSITY": 22227.628949628
+    },
+    {
+        "SUBZONE_NAME": "REDHILL",
+        "AREA": 0.3902212548,
+        "POPULATION": 10620,
+        "POPULATION DENSITY": 27215.3294273237
+    },
+    {
+        "SUBZONE_NAME": "ALEXANDRA HILL",
+        "AREA": 1.0373160098,
+        "POPULATION": 13490,
+        "POPULATION DENSITY": 13004.7158943375
+    },
+    {
+        "SUBZONE_NAME": "BUKIT HO SWEE",
+        "AREA": 0.5554466806,
+        "POPULATION": 14390,
+        "POPULATION DENSITY": 25907.0771350883
+    },
+    {
+        "SUBZONE_NAME": "CLARKE QUAY",
+        "AREA": 0.29213836,
+        "POPULATION": 130,
+        "POPULATION DENSITY": 444.9946252081
+    },
+    {
+        "SUBZONE_NAME": "PASIR PANJANG 1",
+        "AREA": 1.0920950203,
+        "POPULATION": 4510,
+        "POPULATION DENSITY": 4129.6772862948
+    },
+    {
+        "SUBZONE_NAME": "QUEENSWAY",
+        "AREA": 0.6331274128,
+        "POPULATION": 270,
+        "POPULATION DENSITY": 426.454445854
+    },
+    {
+        "SUBZONE_NAME": "KENT RIDGE",
+        "AREA": 1.8391471602,
+        "POPULATION": 80,
+        "POPULATION DENSITY": 43.4984223836
+    },
+    {
+        "SUBZONE_NAME": "ALEXANDRA NORTH",
+        "AREA": 0.2956725204,
+        "POPULATION": 2620,
+        "POPULATION DENSITY": 8861.154890636
+    },
+    {
+        "SUBZONE_NAME": "TANGLIN HALT",
+        "AREA": 0.5610273195,
+        "POPULATION": 10590,
+        "POPULATION DENSITY": 18876.0861214824
+    },
+    {
+        "SUBZONE_NAME": "MACKENZIE",
+        "AREA": 0.056056151,
+        "POPULATION": 110,
+        "POPULATION DENSITY": 1962.3181054013
+    },
+    {
+        "SUBZONE_NAME": "SUNGEI ROAD",
+        "AREA": 0.1171131647,
+        "POPULATION": 2050,
+        "POPULATION DENSITY": 17504.4368924363
+    },
+    {
+        "SUBZONE_NAME": "ONE NORTH",
+        "AREA": 2.0169355287,
+        "POPULATION": 720,
+        "POPULATION DENSITY": 356.9772011826
+    },
+    {
+        "SUBZONE_NAME": "TANJONG RHU",
+        "AREA": 2.4509836861,
+        "POPULATION": 11110,
+        "POPULATION DENSITY": 4532.8739081841
+    },
+    {
+        "SUBZONE_NAME": "COMMONWEALTH",
+        "AREA": 0.3126245742,
+        "POPULATION": 7000,
+        "POPULATION DENSITY": 22391.0740810025
+    },
+    {
+        "SUBZONE_NAME": "DOVER",
+        "AREA": 1.3896281753,
+        "POPULATION": 11080,
+        "POPULATION DENSITY": 7973.3558923688
+    },
+    {
+        "SUBZONE_NAME": "RIDOUT",
+        "AREA": 1.964900435,
+        "POPULATION": 1520,
+        "POPULATION DENSITY": 773.5760921776
+    },
+    {
+        "SUBZONE_NAME": "CAIRNHILL",
+        "AREA": 0.4545776036,
+        "POPULATION": 3880,
+        "POPULATION DENSITY": 8535.3963094003
+    },
+    {
+        "SUBZONE_NAME": "CLEMENTI WEST",
+        "AREA": 0.7021966662,
+        "POPULATION": 15260,
+        "POPULATION DENSITY": 21731.803545759
+    },
+    {
+        "SUBZONE_NAME": "MONK'S HILL",
+        "AREA": 0.1738172069,
+        "POPULATION": 1030,
+        "POPULATION DENSITY": 5925.7654536635
+    },
+    {
+        "SUBZONE_NAME": "SIGLAP",
+        "AREA": 1.1052218516,
+        "POPULATION": 6440,
+        "POPULATION DENSITY": 5826.8844313339
+    },
+    {
+        "SUBZONE_NAME": "CLEMENTI WOODS",
+        "AREA": 1.0651180659,
+        "POPULATION": 16000,
+        "POPULATION DENSITY": 15021.8088607639
+    },
+    {
+        "SUBZONE_NAME": "PIONEER SECTOR",
+        "AREA": 2.8156023579,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "PENJURU CRESCENT",
+        "AREA": 3.0715256806,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 3.2557110179
+    },
+    {
+        "SUBZONE_NAME": "ORANGE GROVE",
+        "AREA": 0.3384850858,
+        "POPULATION": 1790,
+        "POPULATION DENSITY": 5288.2684496024
+    },
+    {
+        "SUBZONE_NAME": "KAMPONG BUGIS",
+        "AREA": 0.7471995915,
+        "POPULATION": 920,
+        "POPULATION DENSITY": 1231.2640564824
+    },
+    {
+        "SUBZONE_NAME": "KATONG",
+        "AREA": 1.0862547265,
+        "POPULATION": 9360,
+        "POPULATION DENSITY": 8616.7634269604
+    },
+    {
+        "SUBZONE_NAME": "BOULEVARD",
+        "AREA": 0.4636510861,
+        "POPULATION": 410,
+        "POPULATION DENSITY": 884.2856456467
+    },
+    {
+        "SUBZONE_NAME": "ISTANA NEGARA",
+        "AREA": 0.5471426586,
+        "POPULATION": 60,
+        "POPULATION DENSITY": 109.6606141966
+    },
+    {
+        "SUBZONE_NAME": "LITTLE INDIA",
+        "AREA": 0.2801771828,
+        "POPULATION": 3270,
+        "POPULATION DENSITY": 11671.1859529676
+    },
+    {
+        "SUBZONE_NAME": "GUL BASIN",
+        "AREA": 1.7825052408,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 5.6100816823
+    },
+    {
+        "SUBZONE_NAME": "MARINA CENTRE",
+        "AREA": 0.892926199,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 11.1991338265
+    },
+    {
+        "SUBZONE_NAME": "BRAS BASAH",
+        "AREA": 0.2202808439,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 45.3965938341
+    },
+    {
+        "SUBZONE_NAME": "OXLEY",
+        "AREA": 0.2021384497,
+        "POPULATION": 1490,
+        "POPULATION DENSITY": 7371.1854518887
+    },
+    {
+        "SUBZONE_NAME": "CITY HALL",
+        "AREA": 0.7153526277,
+        "POPULATION": 80,
+        "POPULATION DENSITY": 111.8329574842
+    },
+    {
+        "SUBZONE_NAME": "MEI CHIN",
+        "AREA": 0.7537243367,
+        "POPULATION": 15570,
+        "POPULATION DENSITY": 20657.419751981
+    },
+    {
+        "SUBZONE_NAME": "LEONIE HILL",
+        "AREA": 0.370963829,
+        "POPULATION": 3120,
+        "POPULATION DENSITY": 8410.5234965638
+    },
+    {
+        "SUBZONE_NAME": "PORT",
+        "AREA": 7.6574116345,
+        "POPULATION": 120,
+        "POPULATION DENSITY": 15.6710917119
+    },
+    {
+        "SUBZONE_NAME": "DHOBY GHAUT",
+        "AREA": 0.2234927935,
+        "POPULATION": 320,
+        "POPULATION DENSITY": 1431.8135052092
+    },
+    {
+        "SUBZONE_NAME": "BUGIS",
+        "AREA": 0.2820610162,
+        "POPULATION": 890,
+        "POPULATION DENSITY": 3155.3456480083
+    },
+    {
+        "SUBZONE_NAME": "VICTORIA",
+        "AREA": 0.2156927259,
+        "POPULATION": 1760,
+        "POPULATION DENSITY": 8159.7559334278
+    },
+    {
+        "SUBZONE_NAME": "PATERSON",
+        "AREA": 0.1742873226,
+        "POPULATION": 240,
+        "POPULATION DENSITY": 1377.0364733422
+    },
+    {
+        "SUBZONE_NAME": "EAST COAST",
+        "AREA": 0.5957620382,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "NATIONAL UNIVERSITY OF S'PORE",
+        "AREA": 1.7652856733,
+        "POPULATION": 240,
+        "POPULATION DENSITY": 135.9553321194
+    },
+    {
+        "SUBZONE_NAME": "ONE TREE HILL",
+        "AREA": 0.3430374058,
+        "POPULATION": 2070,
+        "POPULATION DENSITY": 6034.3273509974
+    },
+    {
+        "SUBZONE_NAME": "SOMERSET",
+        "AREA": 0.3316558849,
+        "POPULATION": 140,
+        "POPULATION DENSITY": 422.1242751002
+    },
+    {
+        "SUBZONE_NAME": "BENCOOLEN",
+        "AREA": 0.1718132908,
+        "POPULATION": 1310,
+        "POPULATION DENSITY": 7624.5556680924
+    },
+    {
+        "SUBZONE_NAME": "CHATSWORTH",
+        "AREA": 1.3552272627,
+        "POPULATION": 6890,
+        "POPULATION DENSITY": 5084.0181492527
+    },
+    {
+        "SUBZONE_NAME": "KAMPONG GLAM",
+        "AREA": 0.1724878756,
+        "POPULATION": 120,
+        "POPULATION DENSITY": 695.7010722132
+    },
+    {
+        "SUBZONE_NAME": "SELEGIE",
+        "AREA": 0.0499601229,
+        "POPULATION": 210,
+        "POPULATION DENSITY": 4203.3523516522
+    },
+    {
+        "SUBZONE_NAME": "MOUNT EMILY",
+        "AREA": 0.1952983934,
+        "POPULATION": 1630,
+        "POPULATION DENSITY": 8346.2028091736
+    },
+    {
+        "SUBZONE_NAME": "ROCHOR CANAL",
+        "AREA": 0.1209803564,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "NICOLL",
+        "AREA": 0.6190634275,
+        "POPULATION": 290,
+        "POPULATION DENSITY": 468.4495757975
+    },
+    {
+        "SUBZONE_NAME": "MARGARET DRIVE",
+        "AREA": 1.0334730171,
+        "POPULATION": 16090,
+        "POPULATION DENSITY": 15568.8631764272
+    },
+    {
+        "SUBZONE_NAME": "TANGLIN",
+        "AREA": 0.1686650068,
+        "POPULATION": 370,
+        "POPULATION DENSITY": 2193.6974776432
+    },
+    {
+        "SUBZONE_NAME": "MARINE PARADE",
+        "AREA": 1.1678254477,
+        "POPULATION": 26880,
+        "POPULATION DENSITY": 23017.1384368238
+    },
+    {
+        "SUBZONE_NAME": "JOO KOON",
+        "AREA": 2.3651793274,
+        "POPULATION": 30,
+        "POPULATION DENSITY": 12.6840276558
+    },
+    {
+        "SUBZONE_NAME": "KALLANG WAY",
+        "AREA": 0.9699806744,
+        "POPULATION": 30,
+        "POPULATION DENSITY": 30.9284512483
+    },
+    {
+        "SUBZONE_NAME": "INTERNATIONAL BUSINESS PARK",
+        "AREA": 0.4882865011,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 20.4797797544
+    },
+    {
+        "SUBZONE_NAME": "TUKANG",
+        "AREA": 1.8939625474,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 5.2799354527
+    },
+    {
+        "SUBZONE_NAME": "CORONATION ROAD",
+        "AREA": 1.4346764085,
+        "POPULATION": 6690,
+        "POPULATION DENSITY": 4663.0724253436
+    },
+    {
+        "SUBZONE_NAME": "KEMBANGAN",
+        "AREA": 2.403344455,
+        "POPULATION": 37460,
+        "POPULATION DENSITY": 15586.6130311647
+    },
+    {
+        "SUBZONE_NAME": "DUNEARN",
+        "AREA": 1.2381742948,
+        "POPULATION": 3960,
+        "POPULATION DENSITY": 3198.2573186342
+    },
+    {
+        "SUBZONE_NAME": "SUNSET WAY",
+        "AREA": 0.9704126868,
+        "POPULATION": 5650,
+        "POPULATION DENSITY": 5822.2651835086
+    },
+    {
+        "SUBZONE_NAME": "MACPHERSON",
+        "AREA": 1.27191396,
+        "POPULATION": 28360,
+        "POPULATION DENSITY": 22297.1056933919
+    },
+    {
+        "SUBZONE_NAME": "KIM KEAT",
+        "AREA": 0.3722597667,
+        "POPULATION": 7960,
+        "POPULATION DENSITY": 21382.9178213395
+    },
+    {
+        "SUBZONE_NAME": "BEDOK NORTH",
+        "AREA": 3.2252209364,
+        "POPULATION": 81840,
+        "POPULATION DENSITY": 25375.005810058
+    },
+    {
+        "SUBZONE_NAME": "TOA PAYOH CENTRAL",
+        "AREA": 1.1147213376,
+        "POPULATION": 28020,
+        "POPULATION DENSITY": 25136.3269489079
+    },
+    {
+        "SUBZONE_NAME": "JURONG GATEWAY",
+        "AREA": 0.5583561326,
+        "POPULATION": 450,
+        "POPULATION DENSITY": 805.9372392021
+    },
+    {
+        "SUBZONE_NAME": "HOLLAND ROAD",
+        "AREA": 3.4100437761,
+        "POPULATION": 10840,
+        "POPULATION DENSITY": 3178.8448218722
+    },
+    {
+        "SUBZONE_NAME": "KAMPONG UBI",
+        "AREA": 1.8906423141,
+        "POPULATION": 11800,
+        "POPULATION DENSITY": 6241.2651572143
+    },
+    {
+        "SUBZONE_NAME": "SENNETT",
+        "AREA": 0.8735918527,
+        "POPULATION": 7190,
+        "POPULATION DENSITY": 8230.3881125683
+    },
+    {
+        "SUBZONE_NAME": "POTONG PASIR",
+        "AREA": 0.6434462073,
+        "POPULATION": 11720,
+        "POPULATION DENSITY": 18214.4208294606
+    },
+    {
+        "SUBZONE_NAME": "TUAS NORTH",
+        "AREA": 3.2820654393,
+        "POPULATION": 30,
+        "POPULATION DENSITY": 9.1405855716
+    },
+    {
+        "SUBZONE_NAME": "PEI CHUN",
+        "AREA": 0.4141735786,
+        "POPULATION": 10360,
+        "POPULATION DENSITY": 25013.6670604092
+    },
+    {
+        "SUBZONE_NAME": "BOON TECK",
+        "AREA": 0.4214757785,
+        "POPULATION": 14660,
+        "POPULATION DENSITY": 34782.5444473449
+    },
+    {
+        "SUBZONE_NAME": "KIAN TECK",
+        "AREA": 2.1122897735,
+        "POPULATION": 40,
+        "POPULATION DENSITY": 18.9367957472
+    },
+    {
+        "SUBZONE_NAME": "SAFTI",
+        "AREA": 1.5348042599,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "FARRER PARK",
+        "AREA": 0.2195756361,
+        "POPULATION": 2660,
+        "POPULATION DENSITY": 12114.2766420295
+    },
+    {
+        "SUBZONE_NAME": "NEWTON CIRCUS",
+        "AREA": 0.2149561691,
+        "POPULATION": 250,
+        "POPULATION DENSITY": 1163.0277977281
+    },
+    {
+        "SUBZONE_NAME": "JURONG PORT",
+        "AREA": 2.4814409433,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "SAMULUN",
+        "AREA": 1.9544687105,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 5.1164799653
+    },
+    {
+        "SUBZONE_NAME": "SHIPYARD",
+        "AREA": 2.1354510592,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "GHIM MOH",
+        "AREA": 0.4888411859,
+        "POPULATION": 13850,
+        "POPULATION DENSITY": 28332.3099610251
+    },
+    {
+        "SUBZONE_NAME": "LAVENDER",
+        "AREA": 0.7620217218,
+        "POPULATION": 9690,
+        "POPULATION DENSITY": 12716.1729418378
+    },
+    {
+        "SUBZONE_NAME": "GOODWOOD PARK",
+        "AREA": 0.3536703575,
+        "POPULATION": 1260,
+        "POPULATION DENSITY": 3562.63954071
+    },
+    {
+        "SUBZONE_NAME": "PANDAN",
+        "AREA": 1.321759351,
+        "POPULATION": 20,
+        "POPULATION DENSITY": 15.1313474615
+    },
+    {
+        "SUBZONE_NAME": "SINGAPORE POLYTECHNIC",
+        "AREA": 0.9538306215,
+        "POPULATION": 100,
+        "POPULATION DENSITY": 104.84041689
+    },
+    {
+        "SUBZONE_NAME": "CLEMENTI CENTRAL",
+        "AREA": 0.7542416847,
+        "POPULATION": 14000,
+        "POPULATION DENSITY": 18561.6895532065
+    },
+    {
+        "SUBZONE_NAME": "KAMPONG JAVA",
+        "AREA": 1.0591149029,
+        "POPULATION": 10530,
+        "POPULATION DENSITY": 9942.2640270852
+    },
+    {
+        "SUBZONE_NAME": "BOON KENG",
+        "AREA": 0.4137054114,
+        "POPULATION": 11790,
+        "POPULATION DENSITY": 28498.5394831477
+    },
+    {
+        "SUBZONE_NAME": "KALLANG BAHRU",
+        "AREA": 0.8453321608,
+        "POPULATION": 20,
+        "POPULATION DENSITY": 23.6593388118
+    },
+    {
+        "SUBZONE_NAME": "ULU PANDAN",
+        "AREA": 1.2353208936,
+        "POPULATION": 11020,
+        "POPULATION DENSITY": 8920.7590166241
+    },
+    {
+        "SUBZONE_NAME": "FARRER COURT",
+        "AREA": 0.5625221835,
+        "POPULATION": 6180,
+        "POPULATION DENSITY": 10986.2333993401
+    },
+    {
+        "SUBZONE_NAME": "NASSIM",
+        "AREA": 2.1101967871,
+        "POPULATION": 9520,
+        "POPULATION DENSITY": 4511.4275872343
+    },
+    {
+        "SUBZONE_NAME": "WEST COAST",
+        "AREA": 0.7274520936,
+        "POPULATION": 6870,
+        "POPULATION DENSITY": 9443.9208584685
+    },
+    {
+        "SUBZONE_NAME": "BAYSHORE",
+        "AREA": 2.5676218573,
+        "POPULATION": 7450,
+        "POPULATION DENSITY": 2901.517596459
+    },
+    {
+        "SUBZONE_NAME": "BENOI SECTOR",
+        "AREA": 2.0563676268,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 4.8629437022
+    },
+    {
+        "SUBZONE_NAME": "GUL CIRCLE",
+        "AREA": 3.2823224618,
+        "POPULATION": 20,
+        "POPULATION DENSITY": 6.093246545
+    },
+    {
+        "SUBZONE_NAME": "TYERSALL",
+        "AREA": 2.1728199872,
+        "POPULATION": 3880,
+        "POPULATION DENSITY": 1785.6978594142
+    },
+    {
+        "SUBZONE_NAME": "MOULMEIN",
+        "AREA": 1.3565275408,
+        "POPULATION": 9300,
+        "POPULATION DENSITY": 6855.7399098656
+    },
+    {
+        "SUBZONE_NAME": "LIU FANG",
+        "AREA": 2.3546443854,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 4.2469258041
+    },
+    {
+        "SUBZONE_NAME": "FRANKEL",
+        "AREA": 4.3260604974,
+        "POPULATION": 34490,
+        "POPULATION DENSITY": 7972.6115760067
+    },
+    {
+        "SUBZONE_NAME": "CLEMENTI NORTH",
+        "AREA": 0.9977280688,
+        "POPULATION": 28810,
+        "POPULATION DENSITY": 28875.6033846387
+    },
+    {
+        "SUBZONE_NAME": "LEEDON PARK",
+        "AREA": 2.0522356444,
+        "POPULATION": 6440,
+        "POPULATION DENSITY": 3138.0411979217
+    },
+    {
+        "SUBZONE_NAME": "GEYLANG EAST",
+        "AREA": 2.5957808941,
+        "POPULATION": 29920,
+        "POPULATION DENSITY": 11526.3965720049
+    },
+    {
+        "SUBZONE_NAME": "TEBAN GARDENS",
+        "AREA": 3.2090352031,
+        "POPULATION": 18530,
+        "POPULATION DENSITY": 5774.321198539
+    },
+    {
+        "SUBZONE_NAME": "JURONG RIVER",
+        "AREA": 2.5782300764,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 3.8786297978
+    },
+    {
+        "SUBZONE_NAME": "GEYLANG BAHRU",
+        "AREA": 0.7404535823,
+        "POPULATION": 11280,
+        "POPULATION DENSITY": 15233.9056347209
+    },
+    {
+        "SUBZONE_NAME": "FABER",
+        "AREA": 0.9545405448,
+        "POPULATION": 5360,
+        "POPULATION DENSITY": 5615.266977661
+    },
+    {
+        "SUBZONE_NAME": "MALCOLM",
+        "AREA": 1.3279929538,
+        "POPULATION": 2950,
+        "POPULATION DENSITY": 2221.3973285694
+    },
+    {
+        "SUBZONE_NAME": "BEDOK SOUTH",
+        "AREA": 3.0174746582,
+        "POPULATION": 46690,
+        "POPULATION DENSITY": 15473.2036846278
+    },
+    {
+        "SUBZONE_NAME": "BENDEMEER",
+        "AREA": 1.3860989543,
+        "POPULATION": 37570,
+        "POPULATION DENSITY": 27104.8469390551
+    },
+    {
+        "SUBZONE_NAME": "BALESTIER",
+        "AREA": 1.9395923568,
+        "POPULATION": 32430,
+        "POPULATION DENSITY": 16720.0081433449
+    },
+    {
+        "SUBZONE_NAME": "TUAS PROMENADE",
+        "AREA": 4.1649591527,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 2.4009839313
+    },
+    {
+        "SUBZONE_NAME": "SERANGOON CENTRAL",
+        "AREA": 1.0690375179,
+        "POPULATION": 24760,
+        "POPULATION DENSITY": 23161.020624042
+    },
+    {
+        "SUBZONE_NAME": "BISHAN EAST",
+        "AREA": 1.8065413509,
+        "POPULATION": 28310,
+        "POPULATION DENSITY": 15670.8286728044
+    },
+    {
+        "SUBZONE_NAME": "TAMPINES WEST",
+        "AREA": 3.4986368699,
+        "POPULATION": 79670,
+        "POPULATION DENSITY": 22771.7259503297
+    },
+    {
+        "SUBZONE_NAME": "BRICKWORKS",
+        "AREA": 1.2399450315,
+        "POPULATION": 19820,
+        "POPULATION DENSITY": 15984.5795546352
+    },
+    {
+        "SUBZONE_NAME": "DEFU INDUSTRIAL PARK",
+        "AREA": 1.9874191365,
+        "POPULATION": 20,
+        "POPULATION DENSITY": 10.0633025175
+    },
+    {
+        "SUBZONE_NAME": "CHANGI BAY",
+        "AREA": 1.9858639326,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "PAYA LEBAR EAST",
+        "AREA": 2.2744405623,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 4.3966855699
+    },
+    {
+        "SUBZONE_NAME": "HONG KAH NORTH",
+        "AREA": 0.8649611169,
+        "POPULATION": 26150,
+        "POPULATION DENSITY": 30232.5728755927
+    },
+    {
+        "SUBZONE_NAME": "KOVAN",
+        "AREA": 1.961729822,
+        "POPULATION": 24810,
+        "POPULATION DENSITY": 12647.0014994573
+    },
+    {
+        "SUBZONE_NAME": "CHONG BOON",
+        "AREA": 1.085883293,
+        "POPULATION": 26500,
+        "POPULATION DENSITY": 24404.0958835381
+    },
+    {
+        "SUBZONE_NAME": "SERANGOON GARDEN",
+        "AREA": 3.0434993787,
+        "POPULATION": 36080,
+        "POPULATION DENSITY": 11854.7748859539
+    },
+    {
+        "SUBZONE_NAME": "HOUGANG CENTRAL",
+        "AREA": 0.4447068061,
+        "POPULATION": 4720,
+        "POPULATION DENSITY": 10613.7345671734
+    },
+    {
+        "SUBZONE_NAME": "LOYANG EAST",
+        "AREA": 0.9786662065,
+        "POPULATION": 2140,
+        "POPULATION DENSITY": 2186.6495295615
+    },
+    {
+        "SUBZONE_NAME": "DAIRY FARM",
+        "AREA": 1.2442201707,
+        "POPULATION": 6940,
+        "POPULATION DENSITY": 5577.790943771
+    },
+    {
+        "SUBZONE_NAME": "PASIR RIS DRIVE",
+        "AREA": 1.6508678967,
+        "POPULATION": 54420,
+        "POPULATION DENSITY": 32964.4789309319
+    },
+    {
+        "SUBZONE_NAME": "TAMPINES NORTH",
+        "AREA": 2.5602177935,
+        "POPULATION": 8040,
+        "POPULATION DENSITY": 3140.3578322259
+    },
+    {
+        "SUBZONE_NAME": "CHENG SAN",
+        "AREA": 0.9621436639,
+        "POPULATION": 28070,
+        "POPULATION DENSITY": 29174.4373029996
+    },
+    {
+        "SUBZONE_NAME": "ANG MO KIO TOWN CENTRE",
+        "AREA": 0.3190151617,
+        "POPULATION": 4810,
+        "POPULATION DENSITY": 15077.6532840085
+    },
+    {
+        "SUBZONE_NAME": "KEBUN BAHRU",
+        "AREA": 1.0534612055,
+        "POPULATION": 22620,
+        "POPULATION DENSITY": 21472.0768857417
+    },
+    {
+        "SUBZONE_NAME": "SERANGOON NORTH IND ESTATE",
+        "AREA": 0.9276334641,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 10.7801199366
+    },
+    {
+        "SUBZONE_NAME": "TENGAH INDUSTRIAL ESTATE",
+        "AREA": 2.4094370363,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "SERANGOON NORTH",
+        "AREA": 0.6893131578,
+        "POPULATION": 15940,
+        "POPULATION DENSITY": 23124.4679139436
+    },
+    {
+        "SUBZONE_NAME": "GUILIN",
+        "AREA": 1.0923826763,
+        "POPULATION": 12940,
+        "POPULATION DENSITY": 11845.6656998491
+    },
+    {
+        "SUBZONE_NAME": "WENYA",
+        "AREA": 1.9882288383,
+        "POPULATION": 8280,
+        "POPULATION DENSITY": 4164.5105636727
+    },
+    {
+        "SUBZONE_NAME": "NATURE RESERVE",
+        "AREA": 4.1691977444,
+        "POPULATION": 3850,
+        "POPULATION DENSITY": 923.4390489546
+    },
+    {
+        "SUBZONE_NAME": "TAMPINES EAST",
+        "AREA": 4.3729763629,
+        "POPULATION": 130980,
+        "POPULATION DENSITY": 29952.1399455011
+    },
+    {
+        "SUBZONE_NAME": "LORONG AH SOO",
+        "AREA": 1.5257348466,
+        "POPULATION": 32320,
+        "POPULATION DENSITY": 21183.2351296359
+    },
+    {
+        "SUBZONE_NAME": "FLORA DRIVE",
+        "AREA": 0.9513546538,
+        "POPULATION": 14680,
+        "POPULATION DENSITY": 15430.6282527542
+    },
+    {
+        "SUBZONE_NAME": "HILLVIEW",
+        "AREA": 2.0070516982,
+        "POPULATION": 19300,
+        "POPULATION DENSITY": 9616.0950998089
+    },
+    {
+        "SUBZONE_NAME": "TOH TUCK",
+        "AREA": 2.0919543087,
+        "POPULATION": 20,
+        "POPULATION DENSITY": 9.5604382547
+    },
+    {
+        "SUBZONE_NAME": "MOUNT PLEASANT",
+        "AREA": 3.1660999405,
+        "POPULATION": 690,
+        "POPULATION DENSITY": 217.9337396058
+    },
+    {
+        "SUBZONE_NAME": "HILLCREST",
+        "AREA": 2.6542324488,
+        "POPULATION": 9470,
+        "POPULATION DENSITY": 3567.8864541228
+    },
+    {
+        "SUBZONE_NAME": "JOO SENG",
+        "AREA": 1.0642815013,
+        "POPULATION": 8150,
+        "POPULATION DENSITY": 7657.7484339934
+    },
+    {
+        "SUBZONE_NAME": "CHIN BEE",
+        "AREA": 1.2966147077,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "LORONG 8 TOA PAYOH",
+        "AREA": 0.442606441,
+        "POPULATION": 7160,
+        "POPULATION DENSITY": 16176.8996936133
+    },
+    {
+        "SUBZONE_NAME": "TOH GUAN",
+        "AREA": 0.7519085853,
+        "POPULATION": 14590,
+        "POPULATION DENSITY": 19403.9545296824
+    },
+    {
+        "SUBZONE_NAME": "BRADDELL",
+        "AREA": 0.449245895,
+        "POPULATION": 9810,
+        "POPULATION DENSITY": 21836.5935218433
+    },
+    {
+        "SUBZONE_NAME": "BIDADARI",
+        "AREA": 0.5763559868,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "WOODLEIGH",
+        "AREA": 0.8188585124,
+        "POPULATION": 2450,
+        "POPULATION DENSITY": 2991.9698738132
+    },
+    {
+        "SUBZONE_NAME": "TAMAN JURONG",
+        "AREA": 1.4942833407,
+        "POPULATION": 39920,
+        "POPULATION DENSITY": 26715.1475981937
+    },
+    {
+        "SUBZONE_NAME": "LAKESIDE (LEISURE)",
+        "AREA": 1.9903748379,
+        "POPULATION": 1070,
+        "POPULATION DENSITY": 537.5871818717
+    },
+    {
+        "SUBZONE_NAME": "TOA PAYOH WEST",
+        "AREA": 1.0442641843,
+        "POPULATION": 14360,
+        "POPULATION DENSITY": 13751.3095024733
+    },
+    {
+        "SUBZONE_NAME": "KAKI BUKIT",
+        "AREA": 2.839936925,
+        "POPULATION": 37150,
+        "POPULATION DENSITY": 13081.2764440914
+    },
+    {
+        "SUBZONE_NAME": "YUHUA EAST",
+        "AREA": 0.9309855832,
+        "POPULATION": 24770,
+        "POPULATION DENSITY": 26606.2122200737
+    },
+    {
+        "SUBZONE_NAME": "BUKIT BATOK SOUTH",
+        "AREA": 1.8185385407,
+        "POPULATION": 14930,
+        "POPULATION DENSITY": 8209.8892413375
+    },
+    {
+        "SUBZONE_NAME": "JURONG WEST CENTRAL",
+        "AREA": 1.4139848097,
+        "POPULATION": 63760,
+        "POPULATION DENSITY": 45092.4221827579
+    },
+    {
+        "SUBZONE_NAME": "BEDOK RESERVOIR",
+        "AREA": 2.3953431144,
+        "POPULATION": 25470,
+        "POPULATION DENSITY": 10633.132200011
+    },
+    {
+        "SUBZONE_NAME": "ANAK BUKIT",
+        "AREA": 2.7919637349,
+        "POPULATION": 21870,
+        "POPULATION DENSITY": 7833.1963007854
+    },
+    {
+        "SUBZONE_NAME": "SWISS CLUB",
+        "AREA": 3.4918552509,
+        "POPULATION": 5340,
+        "POPULATION DENSITY": 1529.2730128481
+    },
+    {
+        "SUBZONE_NAME": "XILIN",
+        "AREA": 7.7073160452,
+        "POPULATION": 1760,
+        "POPULATION DENSITY": 228.3544608356
+    },
+    {
+        "SUBZONE_NAME": "SIMEI",
+        "AREA": 2.7961826028,
+        "POPULATION": 39450,
+        "POPULATION DENSITY": 14108.5206526508
+    },
+    {
+        "SUBZONE_NAME": "BOON LAY PLACE",
+        "AREA": 0.9124145239,
+        "POPULATION": 29340,
+        "POPULATION DENSITY": 32156.4368309424
+    },
+    {
+        "SUBZONE_NAME": "BUKIT BATOK EAST",
+        "AREA": 0.3827606469,
+        "POPULATION": 12690,
+        "POPULATION DENSITY": 33153.8785469617
+    },
+    {
+        "SUBZONE_NAME": "BUKIT BATOK WEST",
+        "AREA": 0.5310212841,
+        "POPULATION": 15000,
+        "POPULATION DENSITY": 28247.4553278276
+    },
+    {
+        "SUBZONE_NAME": "BUKIT BATOK CENTRAL",
+        "AREA": 0.8056845144,
+        "POPULATION": 27290,
+        "POPULATION DENSITY": 33871.8189466767
+    },
+    {
+        "SUBZONE_NAME": "UPPER PAYA LEBAR",
+        "AREA": 0.904603661,
+        "POPULATION": 16920,
+        "POPULATION DENSITY": 18704.3240368926
+    },
+    {
+        "SUBZONE_NAME": "TAI SENG",
+        "AREA": 1.808245985,
+        "POPULATION": 13830,
+        "POPULATION DENSITY": 7648.2957046155
+    },
+    {
+        "SUBZONE_NAME": "TENGEH",
+        "AREA": 2.2663714322,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "YUHUA WEST",
+        "AREA": 0.7813650473,
+        "POPULATION": 19160,
+        "POPULATION DENSITY": 24521.1889969641
+    },
+    {
+        "SUBZONE_NAME": "YUNNAN",
+        "AREA": 2.2211449349,
+        "POPULATION": 67500,
+        "POPULATION DENSITY": 30389.7323134564
+    },
+    {
+        "SUBZONE_NAME": "LORONG CHUAN",
+        "AREA": 1.1880704394,
+        "POPULATION": 8490,
+        "POPULATION DENSITY": 7146.0409401235
+    },
+    {
+        "SUBZONE_NAME": "HONG KAH",
+        "AREA": 1.8055302869,
+        "POPULATION": 53890,
+        "POPULATION DENSITY": 29847.1869412217
+    },
+    {
+        "SUBZONE_NAME": "SELETAR",
+        "AREA": 3.9424266384,
+        "POPULATION": 280,
+        "POPULATION DENSITY": 71.0222473826
+    },
+    {
+        "SUBZONE_NAME": "PANG SUA",
+        "AREA": 2.1900182952,
+        "POPULATION": 20,
+        "POPULATION DENSITY": 9.1323437998
+    },
+    {
+        "SUBZONE_NAME": "SELETAR AEROSPACE PARK",
+        "AREA": 3.6473970206,
+        "POPULATION": 20,
+        "POPULATION DENSITY": 5.4833624876
+    },
+    {
+        "SUBZONE_NAME": "KHATIB",
+        "AREA": 1.4425583465,
+        "POPULATION": 10250,
+        "POPULATION DENSITY": 7105.4318358734
+    },
+    {
+        "SUBZONE_NAME": "MANDAI WEST",
+        "AREA": 4.4179512727,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "CONEY ISLAND",
+        "AREA": 1.2085128982,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "YISHUN SOUTH",
+        "AREA": 1.3491889593,
+        "POPULATION": 42240,
+        "POPULATION DENSITY": 31307.6976431851
+    },
+    {
+        "SUBZONE_NAME": "LOWER SELETAR",
+        "AREA": 8.5080450261,
+        "POPULATION": 18660,
+        "POPULATION DENSITY": 2193.2182943051
+    },
+    {
+        "SUBZONE_NAME": "NORTHSHORE",
+        "AREA": 1.3826500365,
+        "POPULATION": 460,
+        "POPULATION DENSITY": 332.6944547499
+    },
+    {
+        "SUBZONE_NAME": "MANDAI ESTATE",
+        "AREA": 0.144101421,
+        "POPULATION": 2090,
+        "POPULATION DENSITY": 14503.6737693571
+    },
+    {
+        "SUBZONE_NAME": "YISHUN CENTRAL",
+        "AREA": 0.4393057873,
+        "POPULATION": 2620,
+        "POPULATION DENSITY": 5963.955120821
+    },
+    {
+        "SUBZONE_NAME": "PASIR RIS CENTRAL",
+        "AREA": 1.5216562042,
+        "POPULATION": 32240,
+        "POPULATION DENSITY": 21187.4403111787
+    },
+    {
+        "SUBZONE_NAME": "GOMBAK",
+        "AREA": 2.4727836825,
+        "POPULATION": 9930,
+        "POPULATION DENSITY": 4015.7172138186
+    },
+    {
+        "SUBZONE_NAME": "PAYA LEBAR NORTH",
+        "AREA": 1.29587449,
+        "POPULATION": 30,
+        "POPULATION DENSITY": 23.1503901282
+    },
+    {
+        "SUBZONE_NAME": "HOUGANG EAST",
+        "AREA": 0.8483396685,
+        "POPULATION": 24920,
+        "POPULATION DENSITY": 29375.0262150536
+    },
+    {
+        "SUBZONE_NAME": "LORONG HALUS",
+        "AREA": 1.3425083592,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "KANGKAR",
+        "AREA": 1.014189738,
+        "POPULATION": 32290,
+        "POPULATION DENSITY": 31838.2239441412
+    },
+    {
+        "SUBZONE_NAME": "SEMBAWANG HILLS",
+        "AREA": 0.9005376566,
+        "POPULATION": 6850,
+        "POPULATION DENSITY": 7606.5669768935
+    },
+    {
+        "SUBZONE_NAME": "JELEBU",
+        "AREA": 0.9173410196,
+        "POPULATION": 31310,
+        "POPULATION DENSITY": 34131.2547143862
+    },
+    {
+        "SUBZONE_NAME": "KEAT HONG",
+        "AREA": 1.1515107718,
+        "POPULATION": 38180,
+        "POPULATION DENSITY": 33156.4418980829
+    },
+    {
+        "SUBZONE_NAME": "HOUGANG WEST",
+        "AREA": 1.3378207441,
+        "POPULATION": 45460,
+        "POPULATION DENSITY": 33980.6361955565
+    },
+    {
+        "SUBZONE_NAME": "PAYA LEBAR WEST",
+        "AREA": 0.6057761241,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "BANGKIT",
+        "AREA": 0.768320115,
+        "POPULATION": 22270,
+        "POPULATION DENSITY": 28985.3142806653
+    },
+    {
+        "SUBZONE_NAME": "LORONG HALUS NORTH",
+        "AREA": 0.931090175,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "PENG SIANG",
+        "AREA": 0.8685423246,
+        "POPULATION": 34720,
+        "POPULATION DENSITY": 39975.0236882638
+    },
+    {
+        "SUBZONE_NAME": "PASIR RIS WEST",
+        "AREA": 1.5940938558,
+        "POPULATION": 35790,
+        "POPULATION DENSITY": 22451.6265906882
+    },
+    {
+        "SUBZONE_NAME": "YIO CHU KANG WEST",
+        "AREA": 0.8518329518,
+        "POPULATION": 24150,
+        "POPULATION DENSITY": 28350.629014441
+    },
+    {
+        "SUBZONE_NAME": "TRAFALGAR",
+        "AREA": 1.75612879,
+        "POPULATION": 49200,
+        "POPULATION DENSITY": 28016.1684497819
+    },
+    {
+        "SUBZONE_NAME": "TECK WHYE",
+        "AREA": 1.0099539603,
+        "POPULATION": 24320,
+        "POPULATION DENSITY": 24080.3055948021
+    },
+    {
+        "SUBZONE_NAME": "CHOA CHU KANG CENTRAL",
+        "AREA": 1.10306128,
+        "POPULATION": 22530,
+        "POPULATION DENSITY": 20424.9758461655
+    },
+    {
+        "SUBZONE_NAME": "FAJAR",
+        "AREA": 0.6729533945,
+        "POPULATION": 27820,
+        "POPULATION DENSITY": 41340.158514203
+    },
+    {
+        "SUBZONE_NAME": "SENJA",
+        "AREA": 0.6290829189,
+        "POPULATION": 20170,
+        "POPULATION DENSITY": 32062.5459602418
+    },
+    {
+        "SUBZONE_NAME": "SAUJANA",
+        "AREA": 0.6795348524,
+        "POPULATION": 25920,
+        "POPULATION DENSITY": 38143.7389228471
+    },
+    {
+        "SUBZONE_NAME": "SELETAR HILLS",
+        "AREA": 2.3463718709,
+        "POPULATION": 14700,
+        "POPULATION DENSITY": 6264.9915736471
+    },
+    {
+        "SUBZONE_NAME": "COMPASSVALE",
+        "AREA": 1.1005711199,
+        "POPULATION": 20960,
+        "POPULATION DENSITY": 19044.6574698661
+    },
+    {
+        "SUBZONE_NAME": "YIO CHU KANG EAST",
+        "AREA": 1.8744052528,
+        "POPULATION": 4200,
+        "POPULATION DENSITY": 2240.7107501506
+    },
+    {
+        "SUBZONE_NAME": "YIO CHU KANG",
+        "AREA": 0.9155405263,
+        "POPULATION": 20,
+        "POPULATION DENSITY": 21.845018789
+    },
+    {
+        "SUBZONE_NAME": "LOYANG WEST",
+        "AREA": 2.1203303015,
+        "POPULATION": 220,
+        "POPULATION DENSITY": 103.7574192282
+    },
+    {
+        "SUBZONE_NAME": "TAGORE",
+        "AREA": 3.3566367601,
+        "POPULATION": 7950,
+        "POPULATION DENSITY": 2368.4421544998
+    },
+    {
+        "SUBZONE_NAME": "PASIR RIS PARK",
+        "AREA": 1.7312736063,
+        "POPULATION": 7620,
+        "POPULATION DENSITY": 4401.3840285338
+    },
+    {
+        "SUBZONE_NAME": "CHOA CHU KANG NORTH",
+        "AREA": 1.0959636757,
+        "POPULATION": 31930,
+        "POPULATION DENSITY": 29134.1772613803
+    },
+    {
+        "SUBZONE_NAME": "RIVERVALE",
+        "AREA": 1.5795943597,
+        "POPULATION": 59700,
+        "POPULATION DENSITY": 37794.513275919
+    },
+    {
+        "SUBZONE_NAME": "YIO CHU KANG NORTH",
+        "AREA": 1.4743672656,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "CHANGI POINT",
+        "AREA": 1.0046483419,
+        "POPULATION": 540,
+        "POPULATION DENSITY": 537.501509205
+    },
+    {
+        "SUBZONE_NAME": "SENGKANG TOWN CENTRE",
+        "AREA": 1.4703634501,
+        "POPULATION": 61790,
+        "POPULATION DENSITY": 42023.6234747466
+    },
+    {
+        "SUBZONE_NAME": "ANCHORVALE",
+        "AREA": 1.506755931,
+        "POPULATION": 48120,
+        "POPULATION DENSITY": 31936.1610001184
+    },
+    {
+        "SUBZONE_NAME": "SENGKANG WEST",
+        "AREA": 1.6783079828,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 5.9583819552
+    },
+    {
+        "SUBZONE_NAME": "FERNVALE",
+        "AREA": 2.4077248288,
+        "POPULATION": 58800,
+        "POPULATION DENSITY": 24421.3953761925
+    },
+    {
+        "SUBZONE_NAME": "PUNGGOL FIELD",
+        "AREA": 1.3879887342,
+        "POPULATION": 48960,
+        "POPULATION DENSITY": 35274.0615210854
+    },
+    {
+        "SUBZONE_NAME": "YEW TEE",
+        "AREA": 0.9294272377,
+        "POPULATION": 40390,
+        "POPULATION DENSITY": 43456.8714589916
+    },
+    {
+        "SUBZONE_NAME": "PASIR RIS WAFER FAB PARK",
+        "AREA": 5.3612550073,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 1.8652349098
+    },
+    {
+        "SUBZONE_NAME": "MATILDA",
+        "AREA": 1.4275763223,
+        "POPULATION": 52200,
+        "POPULATION DENSITY": 36565.4705715982
+    },
+    {
+        "SUBZONE_NAME": "WATERWAY EAST",
+        "AREA": 1.4992684464,
+        "POPULATION": 50580,
+        "POPULATION DENSITY": 33736.453349603
+    },
+    {
+        "SUBZONE_NAME": "GALI BATU",
+        "AREA": 5.2210302106,
+        "POPULATION": 30,
+        "POPULATION DENSITY": 5.7459924172
+    },
+    {
+        "SUBZONE_NAME": "SPRINGLEAF",
+        "AREA": 2.2240818364,
+        "POPULATION": 4370,
+        "POPULATION DENSITY": 1964.8557568595
+    },
+    {
+        "SUBZONE_NAME": "PUNGGOL TOWN CENTRE",
+        "AREA": 1.2705304891,
+        "POPULATION": 22260,
+        "POPULATION DENSITY": 17520.2407105923
+    },
+    {
+        "SUBZONE_NAME": "PUNGGOL CANAL",
+        "AREA": 1.2608353323,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "CENTRAL WATER CATCHMENT",
+        "AREA": 37.4088165097,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "SEMBAWANG STRAITS",
+        "AREA": 1.5511041475,
+        "POPULATION": 1910,
+        "POPULATION DENSITY": 1231.3808863364
+    },
+    {
+        "SUBZONE_NAME": "THE WHARVES",
+        "AREA": 1.6468181202,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "SENOKO NORTH",
+        "AREA": 2.2563092779,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 4.4320165227
+    },
+    {
+        "SUBZONE_NAME": "CRAWFORD",
+        "AREA": 0.2375857377,
+        "POPULATION": 8380,
+        "POPULATION DENSITY": 35271.4774862028
+    },
+    {
+        "SUBZONE_NAME": "TUAS BAY",
+        "AREA": 5.9036540108,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 1.6938662025
+    },
+    {
+        "SUBZONE_NAME": "TUAS VIEW",
+        "AREA": 4.5020806352,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 2.2211952229
+    },
+    {
+        "SUBZONE_NAME": "BAHAR",
+        "AREA": 0.5035031993,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "CLEANTECH",
+        "AREA": 0.7023296283,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "LAKESIDE (BUSINESS)",
+        "AREA": 1.1385623929,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "PARK",
+        "AREA": 1.4689770162,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "BRICKLAND",
+        "AREA": 0.7899929227,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "FOREST HILL",
+        "AREA": 1.0534584895,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 9.4925429899
+    },
+    {
+        "SUBZONE_NAME": "PLANTATION",
+        "AREA": 0.9051525131,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "GARDEN",
+        "AREA": 0.7860130754,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "AIRPORT ROAD",
+        "AREA": 0.4861066865,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "CHANGI WEST",
+        "AREA": 4.8362397861,
+        "POPULATION": 1300,
+        "POPULATION DENSITY": 268.80387605
+    },
+    {
+        "SUBZONE_NAME": "HOLLAND DRIVE",
+        "AREA": 0.4738433771,
+        "POPULATION": 12680,
+        "POPULATION DENSITY": 26759.8970724284
+    },
+    {
+        "SUBZONE_NAME": "CHANGI AIRPORT",
+        "AREA": 35.9090476387,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 0.2784813482
+    },
+    {
+        "SUBZONE_NAME": "PEOPLE'S PARK",
+        "AREA": 0.0919674693,
+        "POPULATION": 290,
+        "POPULATION DENSITY": 3153.2888993831
+    },
+    {
+        "SUBZONE_NAME": "MOUNTBATTEN",
+        "AREA": 1.7234699877,
+        "POPULATION": 9980,
+        "POPULATION DENSITY": 5790.6433366864
+    },
+    {
+        "SUBZONE_NAME": "ALJUNIED",
+        "AREA": 2.9814015704,
+        "POPULATION": 39990,
+        "POPULATION DENSITY": 13413.1545369984
+    },
+    {
+        "SUBZONE_NAME": "PULAU PUNGGOL TIMOR",
+        "AREA": 1.2682215637,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "TURF CLUB",
+        "AREA": 3.3135558085,
+        "POPULATION": 670,
+        "POPULATION DENSITY": 202.1997028935
+    },
+    {
+        "SUBZONE_NAME": "WOODLANDS SOUTH",
+        "AREA": 1.5866089874,
+        "POPULATION": 41000,
+        "POPULATION DENSITY": 25841.2755288719
+    },
+    {
+        "SUBZONE_NAME": "WOODGROVE",
+        "AREA": 1.6753875343,
+        "POPULATION": 33790,
+        "POPULATION DENSITY": 20168.4680757897
+    },
+    {
+        "SUBZONE_NAME": "YISHUN EAST",
+        "AREA": 1.781154912,
+        "POPULATION": 60670,
+        "POPULATION DENSITY": 34062.1692087838
+    },
+    {
+        "SUBZONE_NAME": "MURAI",
+        "AREA": 69.0115673847,
+        "POPULATION": 640,
+        "POPULATION DENSITY": 9.2738076275
+    },
+    {
+        "SUBZONE_NAME": "PULAU PUNGGOL BARAT",
+        "AREA": 2.0638493203,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "YISHUN WEST",
+        "AREA": 1.5279836077,
+        "POPULATION": 53910,
+        "POPULATION DENSITY": 35281.7921146141
+    },
+    {
+        "SUBZONE_NAME": "WOODLANDS REGIONAL CENTRE",
+        "AREA": 0.59966104,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 16.6760875449
+    },
+    {
+        "SUBZONE_NAME": "NORTH-EASTERN ISLANDS",
+        "AREA": 67.7023628479,
+        "POPULATION": 50,
+        "POPULATION DENSITY": 0.7385266614
+    },
+    {
+        "SUBZONE_NAME": "SIMPANG SOUTH",
+        "AREA": 2.1615339764,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "NORTHLAND",
+        "AREA": 1.5211708301,
+        "POPULATION": 28000,
+        "POPULATION DENSITY": 18406.8741299473
+    },
+    {
+        "SUBZONE_NAME": "MIDVIEW",
+        "AREA": 0.9427180196,
+        "POPULATION": 35270,
+        "POPULATION DENSITY": 37413.0962468773
+    },
+    {
+        "SUBZONE_NAME": "WOODLANDS WEST",
+        "AREA": 1.6597251708,
+        "POPULATION": 33910,
+        "POPULATION DENSITY": 20431.0934105817
+    },
+    {
+        "SUBZONE_NAME": "SEMBAWANG SPRINGS",
+        "AREA": 1.1067946737,
+        "POPULATION": 9090,
+        "POPULATION DENSITY": 8212.9054430993
+    },
+    {
+        "SUBZONE_NAME": "KRANJI",
+        "AREA": 3.6766071134,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 2.719898997
+    },
+    {
+        "SUBZONE_NAME": "RESERVOIR VIEW",
+        "AREA": 3.3062282544,
+        "POPULATION": 20,
+        "POPULATION DENSITY": 6.0491891247
+    },
+    {
+        "SUBZONE_NAME": "WOODLANDS EAST",
+        "AREA": 2.5706502528,
+        "POPULATION": 98980,
+        "POPULATION DENSITY": 38503.8765553153
+    },
+    {
+        "SUBZONE_NAME": "SEMBAWANG CENTRAL",
+        "AREA": 0.9678928697,
+        "POPULATION": 34800,
+        "POPULATION DENSITY": 35954.3923621062
+    },
+    {
+        "SUBZONE_NAME": "GREENWOOD PARK",
+        "AREA": 1.2899198395,
+        "POPULATION": 40,
+        "POPULATION DENSITY": 31.0096788759
+    },
+    {
+        "SUBZONE_NAME": "SEMBAWANG EAST",
+        "AREA": 0.7632263226,
+        "POPULATION": 17340,
+        "POPULATION DENSITY": 22719.3422015675
+    },
+    {
+        "SUBZONE_NAME": "SENOKO WEST",
+        "AREA": 0.9120183647,
+        "POPULATION": 20,
+        "POPULATION DENSITY": 21.9293829744
+    },
+    {
+        "SUBZONE_NAME": "PULAU SELETAR",
+        "AREA": 1.622123587,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "ADMIRALTY",
+        "AREA": 1.2701406538,
+        "POPULATION": 13920,
+        "POPULATION DENSITY": 10959.4161550359
+    },
+    {
+        "SUBZONE_NAME": "LIM CHU KANG",
+        "AREA": 17.6130600777,
+        "POPULATION": 110,
+        "POPULATION DENSITY": 6.2453656273
+    },
+    {
+        "SUBZONE_NAME": "SIMPANG NORTH",
+        "AREA": 3.4736796983,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "SENOKO SOUTH",
+        "AREA": 1.7550940858,
+        "POPULATION": 30,
+        "POPULATION DENSITY": 17.0931007306
+    },
+    {
+        "SUBZONE_NAME": "SEMBAWANG NORTH",
+        "AREA": 1.403864357,
+        "POPULATION": 25540,
+        "POPULATION DENSITY": 18192.6408148995
+    },
+    {
+        "SUBZONE_NAME": "TANJONG IRAU",
+        "AREA": 1.0816064333,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "NORTH COAST",
+        "AREA": 2.467442373,
+        "POPULATION": 12100,
+        "POPULATION DENSITY": 4903.8632602606
+    },
+    {
+        "SUBZONE_NAME": "PLAB",
+        "AREA": 7.101734965,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "MANDAI EAST",
+        "AREA": 7.2844588615,
+        "POPULATION": 0,
+        "POPULATION DENSITY": 0.0
+    },
+    {
+        "SUBZONE_NAME": "NEE SOON",
+        "AREA": 2.2216041227,
+        "POPULATION": 890,
+        "POPULATION DENSITY": 400.6114279745
+    },
+    {
+        "SUBZONE_NAME": "UPPER THOMSON",
+        "AREA": 3.8754215457,
+        "POPULATION": 29390,
+        "POPULATION DENSITY": 7583.6911296477
+    },
+    {
+        "SUBZONE_NAME": "SHANGRI-LA",
+        "AREA": 0.6925445656,
+        "POPULATION": 15960,
+        "POPULATION DENSITY": 23045.4483270494
+    },
+    {
+        "SUBZONE_NAME": "TOWNSVILLE",
+        "AREA": 0.5500720223,
+        "POPULATION": 21140,
+        "POPULATION DENSITY": 38431.3310660429
+    },
+    {
+        "SUBZONE_NAME": "MARYMOUNT",
+        "AREA": 1.9773671003,
+        "POPULATION": 29620,
+        "POPULATION DENSITY": 14979.5149295891
+    },
+    {
+        "SUBZONE_NAME": "TUAS VIEW EXTENSION",
+        "AREA": 27.8964081995,
+        "POPULATION": 10,
+        "POPULATION DENSITY": 0.3584690878
+    }
+]

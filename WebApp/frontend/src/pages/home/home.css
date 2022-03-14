@@ -1,0 +1,32 @@
+.home{
+    flex: 4;
+}
+
+.homeWidgets{
+    display: flex;
+    margin: 20px;
+}
+
+.map{
+    height: 50px;
+    width: 90%;
+}
+
+.aed-marker {
+    background: none;
+    border: none;
+}
+
+.aed-marker img {
+    width: 25px;
+}
+
+.cluster-marker {
+    color: #fff;
+    background: #1978c8;
+    border-radius: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

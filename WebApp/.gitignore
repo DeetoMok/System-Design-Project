@@ -5,6 +5,7 @@ dashboard/__pycache__
 project/__pycache__
 /.idea
 dashboard/__pycache__
+dashboard/migrations/__pycache__
 project/__pycache__
 # misc file to ignore
 .DS_Store 3 

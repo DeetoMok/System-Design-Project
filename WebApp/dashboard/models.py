@@ -41,17 +41,14 @@ class Ohca(models.Model):
     SUBZONES = [(i,str(i)) for i in range(1,332)]
     lat = models.FloatField()
     lon = models.FloatField()
+    postalCode = models.IntegerField(blank=True, null=True)
     country = models.CharField(max_length=200, default="singapore")
     pa = models.IntegerField(blank=True, null=True, choices=PAS)
     region = models.CharField(max_length=200, blank=True, null=True, choices=REGIONS)
     subzone = models.IntegerField(blank=True, null=True, choices=SUBZONES)
+    covered = models.BooleanField(blank=True, null=True)
 
 
-class Integer(models.Model):
-    integer = models.IntegerField(blank=True, null=True)
-
-class String(models.Model):
-    string = models.CharField(max_length=200, blank=True, null=True)
 
 # class OHCA(models.Model):
 #     lat = models.FloatField()
