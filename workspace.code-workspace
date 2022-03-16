@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "WebApp\\frontend"
+		},
+		{
+			"path": "WebApp\\dashboard"
+		}
+	],
+	"settings": {
+		"editor.linkedEditing": true
+	}
+}
