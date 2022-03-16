@@ -31,11 +31,22 @@ import { useHistory } from "react-router-dom";
 
 export default function KmeansModel() {
 
-    const [isTrained, setTrain] = React.useState(false)
-    const [viewHome, setViewHome] = React.useState(false)
-
-    const [details, setDetails] = React.useState({numAeds:"", numK: "", numIters: ""})
-    const [error, setError] = React.useState("")
+    const [isTrained, setTrain] = React.useState(false);
+    const [viewHome, setViewHome] = React.useState(false);
+    const [newAedData, setNewAedData] = React.useState([]);
+    const [details, setDetails] = React.useState({
+        numAeds:"", 
+        numK: "", 
+        numIters: ""
+    });
+    const [metrics, setMetrics] = React.useState({
+        totalCoverage:"", 
+        partialCoverage: "", 
+        expectedSurvival: "", 
+        aveDistToAed: "", 
+        computationalTime: ""
+    });
+    const [error, setError] = React.useState("");
     const history = useHistory();
 
     let sendDetails = async (numAeds, numK, numIters) => {
@@ -53,26 +64,26 @@ export default function KmeansModel() {
             url: 'http://127.0.0.1:8000/api/ohcas/optimal',
             data: formField
         }).then((response) => {
-            console.log(response);
-            history.push('/kmeans')
+            console.log("response", response);
+            // history.push('/kmeans')
+            showNewPoints(response);
+            setMetrics({
+                totalCoverage:response.data['Total Coverage'], 
+                partialCoverage: response.data['Partial Coverage'], 
+                expectedSurvival: response.data['Survival Rate'], 
+                aveDistToAed: response.data['Average Distance'], 
+                computationalTime: ""                
+            })
         })
     }
 
-    // let updateData = async (numAeds, numK, numIters) => {
-    //     // console.log("ohcadata being sent to backend", ohcadata)
-    //     fetch(`http://127.0.0.1:8000/api/ohcas/optimal`, {
-    //       method: "POST",
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       }, 
-    //       body: JSON.stringify([{
-    //         numAeds: numAeds,
-    //         numK: numK,
-    //         numIters: numIters
-    //       }])
-    //     })
-    //     console.log(setDetails.numIters);
-    //   }    
+    let showNewPoints = (response) => {
+        let newPoints = response.data['AED placement']
+        console.log('new Coordinates:', newPoints);
+        setTrain(!isTrained);
+        setNewAedData(newPoints);
+        
+    }
 
     const SubmitNumAeds = detail => {
         console.log(detail);
@@ -95,7 +106,7 @@ export default function KmeansModel() {
                 : (<></>)  
             } */}
             <Card className="map" variant="outlined">
-                <KmeansMap hasTrain={isTrained}/>
+                <KmeansMap hasTrain={isTrained} newAedData={newAedData}/>
             </Card>
         </div>
            
@@ -138,7 +149,7 @@ export default function KmeansModel() {
 
             {/* <MetricTable hasTrain={hasTrain} /> */}
             <MetricTableCurrent />
-            <MetricTable hasTrain={isTrained} />
+            <MetricTable hasTrain={isTrained} metrics={metrics} />
             
             {/* <div className="buttonBody">
                 <Button variant="contained" color="secondary" size="large" onClick={() => {setViewHome(!viewHome)}}>

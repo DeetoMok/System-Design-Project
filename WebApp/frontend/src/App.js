@@ -34,7 +34,7 @@ function App() {
             <HeatMap />
           </Route>
           <Route path="/ohcaheatmap">
-            <OhcaHeatMap />
+            {/* <OhcaHeatMap /> */}
           </Route>          
           <Route path="/pcm">
             <KmeansModel />

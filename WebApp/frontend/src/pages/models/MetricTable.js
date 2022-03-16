@@ -34,7 +34,7 @@ const unpopulatedRows = [
   createData("Computational Time", "-"),
 ];
 
-export default function MetricTable({ hasTrain }) {
+export default function MetricTable({ hasTrain, metrics }) {
   const classes = useStyles();
   const rows = hasTrain ? populatedRows : unpopulatedRows;
   return (
@@ -48,14 +48,44 @@ export default function MetricTable({ hasTrain }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {/* {rows.map((row) => (
               <TableRow key={row.name}>
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
                 <TableCell align="left">{row.values}</TableCell>
               </TableRow>
-            ))}
+            ))} */}
+              <TableRow key="Total Coverage">
+                <TableCell component="th" scope="row">
+                Total Coverage
+                </TableCell>
+                <TableCell align="left">{parseFloat(metrics.totalCoverage).toFixed(6)}</TableCell>
+              </TableRow>
+              <TableRow key="Partial Coverage">
+                <TableCell component="th" scope="row">
+                Partial Coverage
+                </TableCell>
+                <TableCell align="left">{parseFloat(metrics.partialCoverage).toFixed(6)}</TableCell>
+              </TableRow>
+              <TableRow key="Expected Survival">
+                <TableCell component="th" scope="row">
+                Expected Survival
+                </TableCell>
+                <TableCell align="left">{parseFloat(metrics.expectedSurvival).toFixed(6)}</TableCell>
+              </TableRow>
+              <TableRow key="Ave Dist to Closest AED">
+                <TableCell component="th" scope="row">
+                Ave Dist to Closest AED
+                </TableCell>
+                <TableCell align="left">{parseFloat(metrics.aveDistToAed).toFixed(2)} metres</TableCell>
+              </TableRow>
+              <TableRow key="Computational TIme">
+                <TableCell component="th" scope="row">
+                Computational Time
+                </TableCell>
+                <TableCell align="left">{parseFloat(metrics.computationalTime).toFixed(2)} seconds</TableCell>
+              </TableRow>                                                          
           </TableBody>
         </Table>
       </TableContainer>

@@ -3,19 +3,18 @@ import GoogleMapReact from "google-map-react";
 import useSupercluster from "use-supercluster";
 import "./kmeansModel.css";
 import { currentAedData } from './currentAedData';
-import { optimalAedData } from './optimalAedData';
-import { newAedData } from './newAedData';
+// import { optimalAedData } from './optimalAedData';
+// import { newAedData } from './newAedData';
 
 const Marker = ({children}) => children;
 
 
-export default function KmeansMap({ hasTrain }) {
+export default function KmeansMap({ hasTrain, newAedData }) {
 
     const mapRef = useRef();
     const [zoom, setZoom] = useState(11.5);
     const [bounds, setBounds] = useState(null);
     let currentAeds = currentAedData.slice(0,9000);
-    let optimalAeds = optimalAedData.slice(0,9000);
     let newAeds = hasTrain ? newAedData: newAedData.slice(0,0);
     let id = 1;
 
@@ -42,7 +41,6 @@ export default function KmeansMap({ hasTrain }) {
         options: {radius: 75, maxZoom: 20}
     })
 
-    // console.log(clusters);
   return (
     <div className='reactMap'>
         <GoogleMapReact 
@@ -103,7 +101,7 @@ export default function KmeansMap({ hasTrain }) {
             })}
 
             {newAeds.map(newAed => (
-                <Marker key={id++} lat={newAed.Latitude} lng={newAed.Longitude}>
+                <Marker key={id++} lat={newAed[0]} lng={newAed[1]}>
                     <button className="new-aed-marker">
                         <img src="/star.png" alt="aed is here!"/>
                     </button>

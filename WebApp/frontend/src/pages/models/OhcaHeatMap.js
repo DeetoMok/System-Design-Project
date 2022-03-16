@@ -1,12 +1,13 @@
 import React, { useState, useRef} from 'react';
 import GoogleMapReact from "google-map-react";
 import Polyline from "google-map-react";
-import { heatMapData } from './heatMapdata';
+import { heatMapDataCopy } from './heatMapDataCopy';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import TableContainer from '@mui/material/TableContainer';
 import "./heatMap.css";
 import { currentAedData } from './currentAedData';
 import { optimalAedData } from './optimalAedData';
@@ -15,7 +16,7 @@ import { newAedData } from './newAedData';
 function OhcaHeatMap() {
 
   const mapRef = useRef();
-
+  const heatMapData = heatMapDataCopy;
   const handleApiLoaded = (map, maps) => {
   
     console.log("DATA", heatMapData[0].coordinates);
@@ -141,8 +142,15 @@ return (
           />
         </GoogleMapReact>
       </div>
-      <div>
-        <Table size="small">
+      <TableContainer
+          sx={{
+            height: 500
+          }}
+        >
+          <Table size="small" 
+            sx={{
+              height: "max-content"
+            }}>
           <TableHead>
             <TableRow>
               <TableCell>Subzone</TableCell>
@@ -165,7 +173,7 @@ return (
             ))}
           </TableBody>
         </Table>
-      </div>
+      </TableContainer>
   </div>
 )
 }

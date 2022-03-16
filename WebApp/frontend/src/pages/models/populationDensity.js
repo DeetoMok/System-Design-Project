@@ -1,4 +1,4 @@
-export const optimalAedData = [
+export const populationDensityData = [
     {
         "SUBZONE_NAME": "MARINA EAST",
         "AREA": 1.8564563583,
