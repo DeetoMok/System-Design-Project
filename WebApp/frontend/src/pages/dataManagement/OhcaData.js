@@ -89,7 +89,7 @@ export default function OhcaData() {
 
     const rows = data.slice(1).map((row) => {
       return row.data.reduce((acc, curr, index) => {
-
+        console.log(acc, curr, index);
         acc[columns[index].accessor] = curr;
         return acc;
       }, {})
