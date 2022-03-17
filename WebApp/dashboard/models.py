@@ -47,7 +47,11 @@ class Ohca(models.Model):
     region = models.CharField(max_length=200, blank=True, null=True, choices=REGIONS)
     subzone = models.IntegerField(blank=True, null=True, choices=SUBZONES)
     covered = models.BooleanField(blank=True, null=True)
-
+    year = models.IntegerField(blank=True, null=True)
+    age = models.IntegerField(blank=True, null=True)
+    gender = models.CharField(max_length=200, blank=True, null=True)
+    race = models.CharField(max_length=200, blank=True, null=True)
+#age, gender, race, year,
 
 
 # class OHCA(models.Model):
