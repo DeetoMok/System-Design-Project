@@ -146,9 +146,6 @@ export default function AedcandidateData() {
             <TableRow>
               <TableCell>Latitude</TableCell>
               <TableCell>Longitude</TableCell>
-              <TableCell>Planning Area</TableCell>
-              <TableCell>Region</TableCell>
-              <TableCell>Subzone</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -156,9 +153,6 @@ export default function AedcandidateData() {
               <TableRow key={row.id}>
                 <TableCell>{row.lat}</TableCell>
                 <TableCell>{row.lon}</TableCell>
-                <TableCell>{row.pa}</TableCell>
-                <TableCell>{row.region}</TableCell>
-                <TableCell>{row.subzone}</TableCell>
               </TableRow>
             ))}
           </TableBody>

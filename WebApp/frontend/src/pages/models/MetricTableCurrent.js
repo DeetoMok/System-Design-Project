@@ -25,10 +25,18 @@ const populatedRows = [
   createData("Ave Dist to Closest AED", 246.83),
 ];
 
+const unpopulatedRows = [
+  createData("Total Coverage", "-"),
+  createData("Parial Coverage", "-"),
+  createData("Expected Survival", "-"),
+  createData("Ave Dist to Closest AED", "-"),
+  createData("Computational Time", "-"),
+];
 
-export default function MetricTableCurrent() {
+
+export default function MetricTableCurrent({ hasTrain, metrics}) {
   const classes = useStyles();
-  const rows = populatedRows;
+  const rows = hasTrain ? populatedRows : unpopulatedRows;
   return (
     <div style={{ height: 400, width: "25%" }}>
       <TableContainer component={Paper}>

@@ -22,6 +22,8 @@ urlpatterns = [
     path('ohcas/update', views.updateOhcas, name="updateOhcacandidates"),
     path('ohcas/delete', views.deleteOhcas, name="deleteOhcacandidates"),    
     path('ohcas/', views.getOhcas, name="ohcas"),
+    path('ohcajson/', views.getOhcaJson, name="ohcajson"),
+
     # path('ohcas/update',views.updateOhcas, name="updateohcas"),
     # path('ohcas/delete', views.deleteOhcas, name="deleteohcas"),
       

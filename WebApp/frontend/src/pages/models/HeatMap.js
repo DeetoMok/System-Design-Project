@@ -30,99 +30,109 @@ function HeatMap() {
   const [zoom, setZoom] = useState(11.5);
   const [pan, setPan] = useState({ lat: 1.3599614835747427, lng: 103.82221222898332 }); 
   const sumValues = obj => Object.values(obj).reduce((a, b) => a + b);
+
+  const subzoneGenerator = (popDensity, maps, coords) => {
+    if (popDensity == 0) {
+      var subzoneArea = new maps.Polygon({
+        paths: coords,
+        strokeColor: "#000000",
+        strokeOpacity: 0.8,
+        strokeWeight: 1,
+        fillColor: "#FFFFFF",
+        fillOpacity: 0.2,
+        
+        });
+    } else if (popDensity <= 100) {
+      // green 0-100
+      var subzoneArea = new maps.Polygon({
+        paths: coords,
+        strokeColor: "#000000",
+        strokeOpacity: 0.8,
+        strokeWeight: 1,
+        fillColor: "#5fe60b",
+        fillOpacity: 0.3+(popDensity/100),
+        
+        });
+    } else if (popDensity <= 500){
+      // yellow 100 - 500
+      var subzoneArea = new maps.Polygon({
+        paths: coords,
+        strokeColor: "#000000",
+        strokeOpacity: 0.8,
+        strokeWeight: 1,
+        fillColor: "#e6e60b",
+        fillOpacity: 0.3+(popDensity/500),
+        
+        });
+    } else if (popDensity <= 3500){
+      // orange 500 - 3.5k
+      var subzoneArea = new maps.Polygon({
+        paths: coords,
+        strokeColor: "#000000",
+        strokeOpacity: 0.8,
+        strokeWeight: 1,
+        fillColor: "#e6870b",
+        fillOpacity: 0.3+(popDensity/3500),
+        
+        });
+    } else if (popDensity <= 20000){
+      // red 3.5 - 20k
+      var subzoneArea = new maps.Polygon({
+        paths: coords,
+        strokeColor: "#00000",
+        strokeOpacity: 0.8,
+        strokeWeight: 1,
+        fillColor: "#d61a1a",
+        fillOpacity: 0.3+(popDensity/2000),
+        
+        });
+    } else{
+      var subzoneArea = new maps.Polygon({
+        paths: coords,
+        strokeColor: "#000000",
+        strokeOpacity: 0.8,
+        strokeWeight: 1,
+        fillColor: "#f242f5",
+        fillOpacity: 0.3+(popDensity/35000),
+        
+        });
+    }
+    return subzoneArea;
+  }
+  const infoboxGenerator = (map, maps, subzone, popDensity) => {
+    let maxLat = 0;
+    let maxLatIndex = 0;
+    for (let i=0; i < subzone.coordinates.length; i++) {
+      if (subzone.coordinates[i].lat>maxLat) {
+        maxLat = subzone.coordinates[i];
+        maxLatIndex = i;
+        
+      }
+    }
+    var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
+      
+    let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
+    "Region: "+ subzone.region +" <br>" +
+    "Area: "+ subzone.area.toFixed(2) +" km^2 <br>" +
+    "Population Density: "+ popDensity.toFixed(2) +" <br>" +
+    "<br>";
+
+    var infoWindow =  new maps.InfoWindow({
+      content: contentString,
+      map: map,
+      position: infoLatlng
+    });  
+    return infoWindow
+  }
+
   const handleApiLoaded2010 = (map, maps) => {
     heatMapData.map((subzone) => {
       var coords = subzone.coordinates;
       let population = sumValues(subzone.year['2010'].gender)
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -131,7 +141,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }
   const handleApiLoaded2010male = (map, maps) => {
@@ -140,93 +149,8 @@ function HeatMap() {
       let population = subzone.year['2010'].gender.Males
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -235,7 +159,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }  
   const handleApiLoaded2010female = (map, maps) => {
@@ -244,93 +167,8 @@ function HeatMap() {
       let population = subzone.year['2010'].gender.Females
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -339,7 +177,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }    
   const handleApiLoaded2010chinese = (map, maps) => {
@@ -348,93 +185,8 @@ function HeatMap() {
       let population = subzone.year['2010'].ethnicity.Chinese
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -443,7 +195,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }
   const handleApiLoaded2010malay = (map, maps) => {
@@ -452,93 +203,8 @@ function HeatMap() {
       let population = subzone.year['2010'].ethnicity.Malays
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -547,7 +213,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }     
   const handleApiLoaded2010indian = (map, maps) => {
@@ -556,93 +221,8 @@ function HeatMap() {
       let population = subzone.year['2010'].ethnicity.Indians
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -651,7 +231,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }     
   const handleApiLoaded2010others = (map, maps) => {
@@ -660,93 +239,8 @@ function HeatMap() {
       let population = subzone.year['2010'].ethnicity.Others
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -755,7 +249,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }
   const handleApiLoaded2010young = (map, maps) => {
@@ -764,93 +257,8 @@ function HeatMap() {
       let population = subzone.year['2010'].age['0-4']+subzone.year['2010'].age['5-9']+subzone.year['2010'].age['10-14']+subzone.year['2010'].age['15-19']+subzone.year['2010'].age['20-24']+subzone.year['2010'].age['25-29']+subzone.year['2010'].age['30-34']
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -859,7 +267,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }  
   const handleApiLoaded2010middle = (map, maps) => {
@@ -868,93 +275,8 @@ function HeatMap() {
       let population = subzone.year['2010'].age['35-39']+subzone.year['2010'].age['40-44']+subzone.year['2010'].age['45-49']+subzone.year['2010'].age['50-54']+subzone.year['2010'].age['55-59']+subzone.year['2010'].age['60-64']
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -963,7 +285,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }
   const handleApiLoaded2010old = (map, maps) => {
@@ -972,93 +293,8 @@ function HeatMap() {
       let population = subzone.year['2010'].age['65-69']+subzone.year['2010'].age['70-74']+subzone.year['2010'].age['75-79']+subzone.year['2010'].age['80-84']+subzone.year['2010'].age['over 85']+subzone.year['2010'].age['over 90']
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -1067,7 +303,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }   
 
@@ -1077,94 +312,8 @@ function HeatMap() {
       let population = sumValues(subzone.year['2015'].gender)
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -1173,7 +322,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }  
   const handleApiLoaded2015male = (map, maps) => { 
@@ -1182,94 +330,8 @@ function HeatMap() {
       let population = subzone.year['2015'].gender.Males
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -1278,7 +340,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }    
   const handleApiLoaded2015female = (map, maps) => { 
@@ -1287,94 +348,8 @@ function HeatMap() {
       let population = subzone.year['2015'].gender.Females
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -1383,7 +358,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }
   const handleApiLoaded2015chinese = (map, maps) => {
@@ -1392,93 +366,8 @@ function HeatMap() {
       let population = subzone.year['2015'].ethnicity.Chinese
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -1487,7 +376,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }
   const handleApiLoaded2015malay = (map, maps) => {
@@ -1496,93 +384,8 @@ function HeatMap() {
       let population = subzone.year['2015'].ethnicity.Malays
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -1591,7 +394,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }     
   const handleApiLoaded2015indian = (map, maps) => {
@@ -1600,93 +402,8 @@ function HeatMap() {
       let population = subzone.year['2015'].ethnicity.Indians
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -1695,7 +412,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }     
   const handleApiLoaded2015others = (map, maps) => {
@@ -1704,93 +420,8 @@ function HeatMap() {
       let population = subzone.year['2015'].ethnicity.Others
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -1799,7 +430,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }
   const handleApiLoaded2015young = (map, maps) => {
@@ -1808,93 +438,8 @@ function HeatMap() {
       let population = subzone.year['2015'].age['0-4']+subzone.year['2015'].age['5-9']+subzone.year['2015'].age['10-14']+subzone.year['2015'].age['15-19']+subzone.year['2015'].age['20-24']+subzone.year['2015'].age['25-29']+subzone.year['2015'].age['30-34']
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -1903,7 +448,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }  
   const handleApiLoaded2015middle = (map, maps) => {
@@ -1912,93 +456,8 @@ function HeatMap() {
       let population = subzone.year['2015'].age['35-39']+subzone.year['2015'].age['40-44']+subzone.year['2015'].age['45-49']+subzone.year['2015'].age['50-54']+subzone.year['2015'].age['55-59']+subzone.year['2015'].age['60-64']
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -2007,7 +466,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }
   const handleApiLoaded2015old = (map, maps) => {
@@ -2016,93 +474,8 @@ function HeatMap() {
       let population = subzone.year['2015'].age['65-69']+subzone.year['2015'].age['70-74']+subzone.year['2015'].age['75-79']+subzone.year['2015'].age['80-84']+subzone.year['2015'].age['over 85']+subzone.year['2015'].age['over 90']
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -2111,7 +484,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }   
 
@@ -2121,94 +493,8 @@ function HeatMap() {
       let population = sumValues(subzone.year['2020'].gender)
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -2217,7 +503,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   } 
   const handleApiLoaded2020male = (map, maps) => {
@@ -2226,94 +511,8 @@ function HeatMap() {
       let population = subzone.year['2020'].gender.Males
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -2322,7 +521,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }   
   const handleApiLoaded2020female = (map, maps) => {
@@ -2331,94 +529,8 @@ function HeatMap() {
       let population = subzone.year['2020'].gender.Females
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -2427,7 +539,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }    
   const handleApiLoaded2020chinese = (map, maps) => {
@@ -2436,93 +547,8 @@ function HeatMap() {
       let population = subzone.year['2020'].ethnicity.Chinese
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -2531,7 +557,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }
   const handleApiLoaded2020malay = (map, maps) => {
@@ -2540,93 +565,8 @@ function HeatMap() {
       let population = subzone.year['2020'].ethnicity.Malays
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -2635,7 +575,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }     
   const handleApiLoaded2020indian = (map, maps) => {
@@ -2644,93 +583,8 @@ function HeatMap() {
       let population = subzone.year['2020'].ethnicity.Indians
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -2739,7 +593,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }     
   const handleApiLoaded2020others = (map, maps) => {
@@ -2748,93 +601,8 @@ function HeatMap() {
       let population = subzone.year['2020'].ethnicity.Others
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -2843,7 +611,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }
   const handleApiLoaded2020young = (map, maps) => {
@@ -2852,93 +619,8 @@ function HeatMap() {
       let population = subzone.year['2020'].age['0-4']+subzone.year['2020'].age['5-9']+subzone.year['2020'].age['10-14']+subzone.year['2020'].age['15-19']+subzone.year['2020'].age['20-24']+subzone.year['2020'].age['25-29']+subzone.year['2020'].age['30-34']
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -2947,7 +629,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }  
   const handleApiLoaded2020middle = (map, maps) => {
@@ -2956,93 +637,8 @@ function HeatMap() {
       let population = subzone.year['2020'].age['35-39']+subzone.year['2020'].age['40-44']+subzone.year['2020'].age['45-49']+subzone.year['2020'].age['50-54']+subzone.year['2020'].age['55-59']+subzone.year['2020'].age['60-64']
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -3051,7 +647,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }
   const handleApiLoaded2020old = (map, maps) => {
@@ -3060,93 +655,8 @@ function HeatMap() {
       let population = subzone.year['2020'].age['65-69']+subzone.year['2020'].age['70-74']+subzone.year['2020'].age['75-79']+subzone.year['2020'].age['80-84']+subzone.year['2020'].age['over 85']+subzone.year['2020'].age['over 90']
       let area = subzone.area;
       let popDensity = population/area;
-      if (popDensity == 0) {
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#FFFFFF",
-          fillOpacity: 0.7,
-          
-          });
-      } else if (popDensity <= 100) {
-        // green 0-100
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#5fe60b",
-          fillOpacity: 0.3+(popDensity/100),
-          
-          });
-      } else if (popDensity <= 500){
-        // yellow 100 - 500
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6e60b",
-          fillOpacity: 0.3+(popDensity/500),
-          
-          });
-      } else if (popDensity <= 3500){
-        // orange 500 - 3.5k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#e6870b",
-          fillOpacity: 0.3+(popDensity/3500),
-          
-          });
-      } else if (popDensity <= 20000){
-        // red 3.5 - 20k
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#00000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#d61a1a",
-          fillOpacity: 0.3+(popDensity/2000),
-          
-          });
-      } else{
-        var subzoneArea = new maps.Polygon({
-          paths: coords,
-          strokeColor: "#000000",
-          strokeOpacity: 0.8,
-          strokeWeight: 1,
-          fillColor: "#f242f5",
-          fillOpacity: 0.3+(popDensity/35000),
-          
-          });
-      }
-      let maxLat = 0;
-      let maxLatIndex = 0;
-      for (let i=0; i < subzone.coordinates.length; i++) {
-        if (subzone.coordinates[i].lat>maxLat) {
-          maxLat = subzone.coordinates[i];
-          maxLatIndex = i;
-          
-        }
-      }
-      var infoLatlng = new maps.LatLng(subzone.coordinates[maxLatIndex].lat, subzone.coordinates[maxLatIndex].lng);
-      
-      let contentString = "<b>"+ subzone.subzone_name +"</b><br>" +
-      "Region: "+ subzone.region +" <br>" +
-      "Population Density: "+ popDensity.toFixed(2) +" <br>" +
-      "<br>";
-
-      var infoWindow =  new maps.InfoWindow({
-        content: contentString,
-        map: map,
-        position: infoLatlng
-      });  
-
+      var subzoneArea = subzoneGenerator(popDensity, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, popDensity);
       subzoneArea.setMap(map);
       infoWindow.close()
       subzoneArea.addListener("mouseover", ()=> {
@@ -3155,7 +665,6 @@ function HeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-
     })
   }   
 
@@ -3388,7 +897,7 @@ function HeatMap() {
             <Polyline 
             />
           </GoogleMapReact>
-        ) : (<></>)}                
+        ) : (<></>)}
 
 
 
@@ -3796,22 +1305,47 @@ function HeatMap() {
                   <TableCell>Subzone</TableCell>
                   <TableCell>Region</TableCell>
                   <TableCell>Area</TableCell>
-                  <TableCell>Population</TableCell>
-                  <TableCell>Population Density</TableCell>
+                  <TableCell>Total Population</TableCell>
+                  <TableCell>Total Population Density</TableCell>
                 </TableRow>
               </TableHead>
                 <TableBody>
-                  
-                  {heatMapData.map((subzone) => (
-                    <TableRow key={subzone.id}>
-                      <TableCell>{subzone.subzone_name}</TableCell>
-                      <TableCell>{subzone.region}</TableCell>
-                      <TableCell>{subzone.area}</TableCell>
-                      <TableCell>{subzone.population}</TableCell>
-                      <TableCell>{subzone.population_density}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>            
+                  {snapshotYear===2010 ? (
+                    heatMapData.map((subzone) => (
+                      <TableRow key={subzone.id}>
+                        <TableCell>{subzone.subzone_name}</TableCell>
+                        <TableCell>{subzone.region}</TableCell>
+                        <TableCell>{subzone.area.toFixed(2)}</TableCell>
+                        <TableCell>{sumValues(subzone.year['2010'].gender)}</TableCell>
+                        <TableCell>{(sumValues(subzone.year['2010'].gender)/subzone.area).toFixed(2)}</TableCell>
+                      </TableRow>
+                    ))
+                  ): <></>}
+                  {snapshotYear===2015 ? (
+                    heatMapData.map((subzone) => (
+                      <TableRow key={subzone.id}>
+                        <TableCell>{subzone.subzone_name}</TableCell>
+                        <TableCell>{subzone.region}</TableCell>
+                        <TableCell>{subzone.area.toFixed(2)}</TableCell>
+                        <TableCell>{sumValues(subzone.year['2015'].gender)}</TableCell>
+                        <TableCell>{(sumValues(subzone.year['2010'].gender)/subzone.area).toFixed(2)}</TableCell>
+                      </TableRow>
+                    ))
+                  ): <></>}
+                  {snapshotYear===2020 ? (
+                    heatMapData.map((subzone) => (
+                      <TableRow key={subzone.id}>
+                        <TableCell>{subzone.subzone_name}</TableCell>
+                        <TableCell>{subzone.region}</TableCell>
+                        <TableCell>{subzone.area.toFixed(2)}</TableCell>
+                        <TableCell>{sumValues(subzone.year['2020'].gender)}</TableCell>
+                        <TableCell>{(sumValues(subzone.year['2010'].gender)/subzone.area).toFixed(2)}</TableCell>
+                      </TableRow>
+                    ))
+                  ): <></>}                                    
+
+                </TableBody>
+
             </Table>
           </TableContainer>
           <Box sx={{ width: 250 }}>

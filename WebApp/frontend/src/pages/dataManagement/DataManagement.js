@@ -46,12 +46,12 @@ export default function DataManagement() {
               display: 'flex',
               flexDirection: 'column',
               height: 30,
-              margin: 2,
+              margin: 1,
               fontSize: 30,
             }}
           >
             <Link color="primary" href="#" sx={{ textAlign: 'center '}} onClick={() => setData('aed')}>
-              AED Data
+              Existing AED Locations
             </Link> 
           </Paper>
         </Grid>
@@ -62,12 +62,12 @@ export default function DataManagement() {
               display: 'flex',
               flexDirection: 'column',
               height: 30,
-              margin: 2,
+              margin: 1,
               fontSize: 30,
             }}
           >
             <Link color="primary" href="#" sx={{ textAlign: 'center '}} onClick={() => setData('aedcandidate')}>
-              AED Candidate Data
+              AED Candidate Locations
             </Link> 
           </Paper>
         </Grid>
@@ -79,7 +79,7 @@ export default function DataManagement() {
               display: 'flex',
               flexDirection: 'column',
               height: 30,
-              margin: 2,
+              margin: 1,
               fontSize: 30,
             }}
           >

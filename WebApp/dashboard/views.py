@@ -2,7 +2,7 @@ from django.db import router
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
-from .models import CurrentAED, Ohca, AedCandidate
+from .models import CurrentAED, Ohca, AedCandidate, OhcaHeatMap
 from rest_framework import viewsets
 from .serializers import AedSerializer, AedsSerializer, OhcaSerializer, OhcasSerializer, AedcandidateSerializer, AedcandidatesSerializer
 from rest_framework.authentication import TokenAuthentication
@@ -19,7 +19,7 @@ import requests
 import haversine as hs
 from shapely.geometry import shape, Point
 from shapely.geometry.polygon import Polygon
-
+import time
 
 @api_view(['GET'])
 def getRegions(request):
@@ -99,44 +99,50 @@ def getOhcas(request):
 
 @api_view(['POST'])
 def updateOhcas(request):
+    print("We have entered updateOhcas")
     data = request.data
-    # Ohca.objects.all().delete()
+    Ohca.objects.all().delete()
     # convert postal code to lat lon
     # based on lat lon, get subzones
     # ohca = pd.read_excel("~/Downloads/Ohcasample.xlsx")
     ohca = pd.json_normalize(data)
     #print("OHCA HERE", ohca)
 
-    zipcodelist = list(ohca['Location of incident'])
+    zipcodelist = list(ohca['Location_of_incident'])
     zipcodelist = [str(n) for n in zipcodelist]
     #len(zipcodelist)
 
+    
     def getcoordinates(zipcode):
-        req = requests.get('https://developers.onemap.sg/commonapi/search?searchVal='+zipcode+'&returnGeom=Y&getAddrDetails=Y&pageNum=1')
+        req = requests.get('https://developers.onemap.sg/commonapi/search?searchVal='+zipcode+'&returnGeom=Y&getAddrDetails=N&pageNum=1')
         resultsdict = eval(req.text)
         if len(resultsdict['results'])>0:
             return resultsdict['results'][0]['LATITUDE'], resultsdict['results'][0]['LONGITUDE']
         else:
             pass
 
-
     coordinateslist= []
     failedlist=[]
     count = 0
     failed_count = 0
+    print("Start get coordinates")
     for x in range(len(zipcodelist)):
+        startTime = time.time()
+        a = getcoordinates(zipcodelist[x])
         try:       
-            if len(getcoordinates(zipcodelist[x]))>0:
+            if len(a)>0:
                 count = count + 1
                 print('Extracting',count,'out of',len(zipcodelist),'addresses')
-                coordinateslist.append(getcoordinates(zipcodelist[x]))
+                coordinateslist.append(a)
         except:
             count = count + 1           
             failed_count = failed_count + 1
             print('Failed to extract',count,'out of',len(zipcodelist),'addresses')
             failedlist.append(x)
             coordinateslist.append(None)
+        print("extracting count took ", time.time()-startTime)
     print('Total Number of Addresses With No Coordinates',failed_count)
+
 
     #failedlist
 
@@ -178,10 +184,9 @@ def updateOhcas(request):
 
 
     import os
-    import json
     dirname = os.path.dirname(__file__)
     filename = os.path.join(dirname, '/data/master-plan-2019-subzone-boundary-no-sea-geojson.geojson')
-    with open(os.path.expanduser("D:\\GitHub\\System-Design-Project\\WebApp\\dashboard\\data\\master-plan-2019-subzone-boundary-no-sea-geojson.geojson")) as f:
+    with open(os.path.expanduser("C:\\Users\\admin\\Desktop\\Desktop Repos\\System-Design-Project\\WebApp\\dashboard\\data\\master-plan-2019-subzone-boundary-no-sea-geojson.geojson")) as f:
         gj = json.load(f)
 
 
@@ -212,7 +217,6 @@ def updateOhcas(request):
     #subzone_names_in_index
 
     #geometry_list
-    import time
     startTime = time.time()
     coordinates_list = []  # to be used for OHCA
     for feature in gj['features']:
@@ -319,7 +323,7 @@ def updateOhcas(request):
 
     # all ohca index that gets subzoned
     regular_list = listohca 
-    # make 2d array into 1d array
+    # make 2d array into 1d array 
     flat_list = [item for sublist in regular_list for item in sublist]
     flat_list.sort()
     #flat_list
@@ -356,7 +360,7 @@ def updateOhcas(request):
             ohca['Covered'][x]=False
 
 
-    ohca['Year'] = pd.DatetimeIndex(ohca['Date of Incident']).year
+    ohca['Year'] = pd.DatetimeIndex(ohca['Date_of_Incident']).year
 
 
     count = 0
@@ -374,7 +378,7 @@ def updateOhcas(request):
         dictt['lat']=row['Latitude']
         dictt['lon']=row['Longitude']
         dictt['year']=row['Year']
-        dictt['postalCode']=row['Location of incident']
+        dictt['postalCode']=row['Location_of_incident']
         dictt['age']=row['Age']
         dictt['gender']=row['Gender']
         dictt['race']=row['Race']
@@ -382,17 +386,184 @@ def updateOhcas(request):
         dictt['covered']=row['Covered']
         jsonData.append(dictt)
 
-       
-    serializer = OhcasSerializer(data=jsonData, many=True)
+    ohca['Age'] = ohca['Age'].astype(int)
+    def get_num_people_by_age_category(df):
+        df["age_group"] = pd.cut(x=df['Age'], bins=[0,10,20,30,40,50,60,70,80,100], labels=["0-10","10-20","20-30","30-40","40-50","50-60","60-70","70-80","80-100"])
+        return df
 
-    if serializer.is_valid():
-        serializer.save()
-        print("SAVED")
-    else:
-        print("NOT SAVED", serializer.errors)
+    get_num_people_by_age_category(ohca)
+    ohca['exists'] = 1
+
+
+    ohca_pivot= pd.pivot_table(ohca, values = 'Covered', index = 'Subzone', columns='Year',aggfunc='count')
+    ohca_pivot = ohca_pivot.fillna(0)
+    ohca_pivot= ohca_pivot.iloc[1:]
+    ohca_pivot
+
+    ohca_pivotG = pd.pivot_table(ohca, values = 'exist', index = 'Subzone', columns=['Year','Gender'],aggfunc='count')
+    ohca_pivotG = ohca_pivotG.fillna(0)
+    if ohca_pivotG.index[0] == '':
+        ohca_pivotG = ohca_pivotG.iloc[1:]
+        
+    ohca_pivotR = pd.pivot_table(ohca, values = 'exist', index = 'Subzone', columns=['Year','Race'],aggfunc='count')
+    ohca_pivotR = ohca_pivotR.fillna(0)
+    if ohca_pivotR.index[0] == '':
+        ohca_pivotR = ohca_pivotR.iloc[1:]
+        
+    ohca_pivotA = pd.pivot_table(ohca, values = 'exist', index = 'Subzone', columns=['Year','age_group'],aggfunc='count')
+    ohca_pivotA = ohca_pivotA.fillna(0)
+    if ohca_pivotA.index[0] == '':
+        ohca_pivotA = ohca_pivotA.iloc[1:]
+
+    def merge(D1,D2):
+        py={**D1,**D2}
+        return py
+
+    allyearlist = []
+    for year in ohca['Year']:
+            allyearlist.append(year)
+    allyearlist.sort()
+
+    yearlist = []
+    for i in allyearlist:
+        if i not in yearlist:
+            yearlist.append(i)
+            
+    ohcaFinal = []
+    am = 0
+    af = 0
+    for subzone,row in ohca_pivotG.iterrows():
+        subzoneDetail = {}
+        subzoneDetail2 = {}
+        subzoneDetail3 = {}
+        yearDetail = {}
+        for year in yearlist:
+            try: 
+                am = int(row.loc[year]['Male'])
+            except:  
+                am = 0
+            try:
+                af = int(row.loc[year]['Female'])
+            except: 
+                af = 0
+            detail = {"gender": {"Male": am, "Female": af}}
+            yearDetail[str(year)] = detail
+            subzoneDetail[subzone]= {"year": yearDetail}
+            #print(subzoneDetail[subzone])
+            subzoneDetail2 = {"Subzone_name": subzone}
+            subzoneDetail3 = merge(subzoneDetail2,subzoneDetail[subzone])
+    #         print(subzoneDetail2)
+    #         print(subzoneDetail3)
+    #         break
+        ohcaFinal.append(subzoneDetail3)
+    ohcaFinal
+
+    def merge(D1,D2):
+        py={**D1,**D2}
+        return py
+
+    index = 0
+    rc = 0
+    ri = 0
+    rm = 0
+    for subzone,row in ohca_pivotR.iterrows():
+        for year in yearlist:
+            try:
+                rc = int(row.loc[year]['Chinese'])
+            except: 
+                rc = 0
+            try:
+                ri = int(row.loc[year]['Indian'])
+            except:
+                ri = 0
+            try: 
+                rm = int(row.loc[year]['Malay'])
+            except: 
+                rm = 0
+            Rdetail = {"race":{ "Chinese": rc ,"Indian": ri , "Malay": rm}}
+            ohcaFinal[index]['year'][str(year)] = merge(ohcaFinal[index]['year'][str(year)],Rdetail) 
+        #print(index)
+        index = index + 1
+
+    index = 0
+    a10=0
+    a20=0
+    a30=0
+    a40=0
+    a50=0
+    a60=0
+    a70=0
+    a80=0
+    a100=0
+
+    for subzone,row in ohca_pivotA.iterrows():
+        for year in yearlist:
+            try:
+                a10 = int(row.loc[year]['0-10'])
+            except: 
+                a10 = 0
+            try:
+                a20 = int(row.loc[year]['10-20'])
+            except:
+                a20 = 0
+            try: 
+                a30 = int(row.loc[year]['20-30'])
+            except:
+                a30 = 0
+            try:
+                a40 = int(row.loc[year]['30-40'])
+            except:
+                a40 = 0
+            try:
+                a50 = int(row.loc[year]['40-50'])
+            except:
+                a50 = 0
+            try:
+                a60 = int(row.loc[year]['50-60'])
+            except:
+                a60 = 0
+            try:
+                a70 = int(row.loc[year]['60-70'])
+            except:
+                a70 = 0
+            try:
+                a80 = int(row.loc[year]['70-80'])
+            except:
+                a80 = 0
+            try:
+                a100 = int(row.loc[year]['80-100'])
+            except:
+                a100 = 0
+            Adetail = {"Age": {"0-10": a10, "10-20": a20,"20-30": a30,"30-40": a40, "40-50": a50,"50-60": a60,"60-70": a70,"70-80":a80,"80-100":a100}}
+            ohcaFinal[index]['year'][str(year)] = merge(ohcaFinal[index]['year'][str(year)],Adetail)
+        print(index)
+        index = index + 1
+
+
+
+    print("jsonData is:", jsonData)
+    print("ohcaFinal is:", ohcaFinal)
+    OhcaHeatMap.objects.all().delete()
+    ohcaJson = OhcaHeatMap(jsonData=ohcaFinal)
+    ohcaJson.save()
     
+    # serializer = OhcasSerializer(data=jsonData, many=True)
+
+    # if serializer.is_valid():
+    #     serializer.save()
+    #     print("SAVED")
+    # else:
+    #     print("NOT SAVED", serializer.errors)
+    
+    return Response()
     return Response(serializer.data)
 
+@api_view(['GET'])
+def getOhcaJson(request):
+    ohcaJson = OhcaHeatMap.objects.first().jsonData
+    print(ohcaJson)
+    return Response(ohcaJson)
+       
 @api_view(['GET','POST'])
 def deleteOhcas(request):
     Ohca.objects.all().delete()
@@ -464,23 +635,19 @@ def updateAedCandidate(request, pk):
 @api_view(['POST'])
 def optimalOhcas(request):
     print("request:", request.data)
-    # numAeds = request.data[0]['numAeds']
+    # available_aeds = request.data[0]['numAeds']
     # numK = request.data[0]['numK']
     # numIters = request.data[0]['numIters']
     
-    #available_aeds = int(request.data.dict()['numAeds'])
+    available_aeds = int(request.data.dict()['numAeds'])
     
     # print(available_aeds)
     # print('CHECK',available_aeds)
     # return Response()
-    available_aeds = 2000
+
     currentAeds = CurrentAED.objects.all()
     allOhca = Ohca.objects.all()
     uncoveredOhca = Ohca.objects.filter(covered=False)
-
-    data = request.data 
-    #k = data['Number of clusters'] 
-    #number_of_aeds = request.data['Number of AEDs'] 
  
     # First level clustering
     # user additional aeds to put
@@ -556,7 +723,7 @@ def optimalOhcas(request):
 
     CC_final = [] 
     OHCA_final = []     
-    k1 = 50
+    k1 = 20
     
     if available_aeds <= 500:
         OHCA_kcluster_array, CC_kcluster = kmeans_OHCA(OHCA_uncovered_array, available_aeds)

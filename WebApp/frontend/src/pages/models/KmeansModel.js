@@ -98,17 +98,9 @@ export default function KmeansModel() {
 
   return (
     <div className="main">
-        <div className="maps">
-            {/* {(viewHome) ?
-                <Card className="map" variant="outlined">
-                    <MapHome />
-                </Card>
-                : (<></>)  
-            } */}
             <Card className="map" variant="outlined">
                 <KmeansMap hasTrain={isTrained} newAedData={newAedData}/>
             </Card>
-        </div>
            
         <div className="body">
             <Card className="root" variant="outlined">
@@ -124,38 +116,10 @@ export default function KmeansModel() {
                 </CardContent>
             </Card>
 
-
-
-            {/* <Card className="root" variant="outlined">
-                <CardContent >
-                    <Typography
-                        className="title"
-                        color="textSecondary"
-                        gutterBottom
-                    >
-                        Parameters
-                    </Typography>
-                    <PredictorSelect config={config} setConfig={setConfig} />
-                    <ResponseSelect config={config} setConfig={setConfig} />
-                    <ModelSelect config={config} setConfig={setConfig} />
-                </CardContent>
-
-                <div className="buttonBody">
-                    <Button variant="contained" color="primary" onClick={() => setTrain(!isTrained)}>
-                        Train Model
-                    </Button>
-                </div>
-            </Card> */}
-
             {/* <MetricTable hasTrain={hasTrain} /> */}
-            <MetricTableCurrent />
+            <MetricTableCurrent hasTrain={isTrained} metrics={metrics} />
             <MetricTable hasTrain={isTrained} metrics={metrics} />
             
-            {/* <div className="buttonBody">
-                <Button variant="contained" color="secondary" size="large" onClick={() => {setViewHome(!viewHome)}}>
-                    Compare Maps
-                </Button>
-            </div>             */}
         </div>
     </div>
   );

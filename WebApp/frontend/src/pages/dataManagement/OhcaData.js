@@ -59,7 +59,7 @@ export default function OhcaData() {
 
   let handleSubmit = (rows) => {
     updateData(rows);
-    history.go(0);
+    // history.go(0);
   }
 
   let handleOnDrop = (data) => {
@@ -67,7 +67,7 @@ export default function OhcaData() {
     let emptyIndex = 0;
     for (var i = 0; i< data.length; i++) {
       console.log(data[i].data);
-      if (data[i].data.length <= 1) {
+      if (data[i].data[0].length <= 1) {
         emptyIndex = i;
         console.log("empty index", i);
         break;
@@ -145,21 +145,29 @@ export default function OhcaData() {
           <Table size="small">
           <TableHead>
             <TableRow>
+              <TableCell>Postal Code</TableCell>
               <TableCell>Latitude</TableCell>
               <TableCell>Longitude</TableCell>
-              <TableCell>Planning Area</TableCell>
-              <TableCell>Region</TableCell>
               <TableCell>Subzone</TableCell>
+              <TableCell>Year of Occurrence</TableCell>
+              <TableCell>Age</TableCell>
+              <TableCell>Gender</TableCell>
+              <TableCell>Race</TableCell>
+              <TableCell>Covered</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {ohcadata.slice(0,30).map((row) => (
               <TableRow key={row.id}>
+                <TableCell>{row.postalCode}</TableCell>
                 <TableCell>{row.lat}</TableCell>
                 <TableCell>{row.lon}</TableCell>
-                <TableCell>{row.pa}</TableCell>
-                <TableCell>{row.region}</TableCell>
                 <TableCell>{row.subzone}</TableCell>
+                <TableCell>{row.year}</TableCell>
+                <TableCell>{row.age}</TableCell>
+                <TableCell>{row.gender}</TableCell>
+                <TableCell>{row.race}</TableCell>
+                <TableCell>{row.covered}</TableCell>
               </TableRow>
             ))}
           </TableBody>
