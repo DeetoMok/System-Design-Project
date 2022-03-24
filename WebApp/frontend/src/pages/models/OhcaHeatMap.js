@@ -162,7 +162,6 @@ function OhcaHeatMap() {
       var coords = subzone.coordinates;
       let ohcaCount = sumValues(subzone.year['2010'].gender)
       let area = subzone.area;
-      let ohcaDensity = ohcaCount/area;
       let popCount = sumValues(subzone.yearPop['2010'].gender);
       let incidenceRate = ohcaCount/popCount;
       var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
@@ -177,12 +176,164 @@ function OhcaHeatMap() {
       })
     })
   }
+  const handleApiLoaded2010male = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2010'].gender.Male;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2010'].gender.Males;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2010female = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2010'].gender.Female;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2010'].gender.Females;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }
+  const handleApiLoaded2010chinese = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2010'].race.Chinese;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2010'].ethnicity.Chinese;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2010malay = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2010'].race.Malay;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2010'].ethnicity.Malays;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2010indian = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2010'].race.Indian;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2010'].ethnicity.Indians;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2010young = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2010'].Age['0-10'] + subzone.year['2010'].Age['10-20'] + subzone.year['2010'].Age['20-30'];
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2010'].age['0-4'] + subzone.yearPop['2010'].age['5-9'] + subzone.yearPop['2010'].age['10-14'] + subzone.yearPop['2010'].age['15-19'] + subzone.yearPop['2010'].age['20-24'] + subzone.yearPop['2010'].age['25-29'];
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2010middle = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2010'].Age['30-40'] + subzone.year['2010'].Age['40-50'] + subzone.year['2010'].Age['50-60'];
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2010'].age['30-34'] + subzone.yearPop['2010'].age['35-39'] + subzone.yearPop['2010'].age['40-44'] + subzone.yearPop['2010'].age['45-49'] + subzone.yearPop['2010'].age['50-54'] + subzone.yearPop['2010'].age['55-59'];
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2010old = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2010'].Age['60-70'] + subzone.year['2010'].Age['70-80'] + subzone.year['2010'].Age['80-100'];
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2010'].age['60-64'] + subzone.yearPop['2010'].age['65-69'] + subzone.yearPop['2010'].age['70-74'] + subzone.yearPop['2010'].age['75-79'] + subzone.yearPop['2010'].age['80-84'] + subzone.yearPop['2010'].age['over 85'] + subzone.yearPop['2010'].age['over 90'];
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+
   const handleApiLoaded2015 = (map, maps) => {
     ohcaData.map((subzone) => {
       var coords = subzone.coordinates;
       let ohcaCount = sumValues(subzone.year['2015'].gender)
       let area = subzone.area;
-      let ohcaDensity = ohcaCount/area;
       let popCount = sumValues(subzone.yearPop['2015'].gender);
       let incidenceRate = ohcaCount/popCount;
       var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
@@ -197,13 +348,316 @@ function OhcaHeatMap() {
       })
     })
   }
+  const handleApiLoaded2015male = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2015'].gender.Male;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2015'].gender.Males;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2015female = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2015'].gender.Female;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2015'].gender.Females;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }
+  const handleApiLoaded2015chinese = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2015'].race.Chinese;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2015'].ethnicity.Chinese;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2015malay = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2015'].race.Malay;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2015'].ethnicity.Malays;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2015indian = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2015'].race.Indian;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2015'].ethnicity.Indians;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2015young = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2015'].Age['0-10'] + subzone.year['2015'].Age['10-20'] + subzone.year['2015'].Age['20-30'];
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2015'].age['0-4'] + subzone.yearPop['2015'].age['5-9'] + subzone.yearPop['2015'].age['10-14'] + subzone.yearPop['2015'].age['15-19'] + subzone.yearPop['2015'].age['20-24'] + subzone.yearPop['2015'].age['25-29'];
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2015middle = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2015'].Age['30-40'] + subzone.year['2015'].Age['40-50'] + subzone.year['2015'].Age['50-60'];
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2015'].age['30-34'] + subzone.yearPop['2015'].age['35-39'] + subzone.yearPop['2015'].age['40-44'] + subzone.yearPop['2015'].age['45-49'] + subzone.yearPop['2015'].age['50-54'] + subzone.yearPop['2015'].age['55-59'];
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2015old = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2015'].Age['60-70'] + subzone.year['2015'].Age['70-80'] + subzone.year['2015'].Age['80-100'];
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2015'].age['60-64'] + subzone.yearPop['2015'].age['65-69'] + subzone.yearPop['2015'].age['70-74'] + subzone.yearPop['2015'].age['75-79'] + subzone.yearPop['2015'].age['80-84'] + subzone.yearPop['2015'].age['over 85'] + subzone.yearPop['2015'].age['over 90'];
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }    
   const handleApiLoaded2020 = (map, maps) => {
     ohcaData.map((subzone) => {
       var coords = subzone.coordinates;
       let ohcaCount = sumValues(subzone.year['2020'].gender)
       let area = subzone.area;
-      let ohcaDensity = ohcaCount/area;
       let popCount = sumValues(subzone.yearPop['2020'].gender);
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }
+  const handleApiLoaded2020male = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2020'].gender.Male;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2020'].gender.Males;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2020female = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2020'].gender.Female;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2020'].gender.Females;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }
+  const handleApiLoaded2020chinese = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2020'].race.Chinese;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2020'].ethnicity.Chinese;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2020malay = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2020'].race.Malay;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2020'].ethnicity.Malays;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2020indian = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2020'].race.Indian;
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2020'].ethnicity.Indians;
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2020young = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2020'].Age['0-10'] + subzone.year['2020'].Age['10-20'] + subzone.year['2020'].Age['20-30'];
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2020'].age['0-4'] + subzone.yearPop['2020'].age['5-9'] + subzone.yearPop['2020'].age['10-14'] + subzone.yearPop['2020'].age['15-19'] + subzone.yearPop['2020'].age['20-24'] + subzone.yearPop['2020'].age['25-29'];
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2020middle = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2020'].Age['30-40'] + subzone.year['2020'].Age['40-50'] + subzone.year['2020'].Age['50-60'];
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2020'].age['30-34'] + subzone.yearPop['2020'].age['35-39'] + subzone.yearPop['2020'].age['40-44'] + subzone.yearPop['2020'].age['45-49'] + subzone.yearPop['2020'].age['50-54'] + subzone.yearPop['2020'].age['55-59'];
+      let incidenceRate = ohcaCount/popCount;
+      var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
+      var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
+      subzoneArea.setMap(map);
+      infoWindow.close()
+      subzoneArea.addListener("mouseover", ()=> {
+        infoWindow.open(map, this);
+      });
+      subzoneArea.addListener("mouseout", () => {
+        infoWindow.close();
+      })
+    })
+  }  
+  const handleApiLoaded2020old = (map, maps) => {
+    ohcaData.map((subzone) => {
+      var coords = subzone.coordinates;
+      let ohcaCount = subzone.year['2020'].Age['60-70'] + subzone.year['2020'].Age['70-80'] + subzone.year['2020'].Age['80-100'];
+      let area = subzone.area;
+      let popCount = subzone.yearPop['2020'].age['60-64'] + subzone.yearPop['2020'].age['65-69'] + subzone.yearPop['2020'].age['70-74'] + subzone.yearPop['2020'].age['75-79'] + subzone.yearPop['2020'].age['80-84'] + subzone.yearPop['2020'].age['over 85'] + subzone.yearPop['2020'].age['over 90'];
       let incidenceRate = ohcaCount/popCount;
       var subzoneArea = subzoneGenerator(incidenceRate, maps, coords);
       var infoWindow = infoboxGenerator(map, maps, subzone, ohcaCount, popCount, incidenceRate);
@@ -273,7 +727,158 @@ return (
             />
           </GoogleMapReact>
         ) : (<></>)}
-
+        {((snapshotYear===2010) && (gender==="male")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2010male(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}     
+        {((snapshotYear===2010) && (gender==="female")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2010female(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2010) && (ethnicity==="chinese")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2010chinese(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2010) && (ethnicity==="malay")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2010malay(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2010) && (ethnicity==="indian")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2010indian(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2010) && (age==="young")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2010young(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2010) && (age==="middle")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2010middle(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2010) && (age==="old")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2010old(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
 
         {(snapshotYear===2015) && (gender==="")  && (ethnicity==="") && (age==="")? (
           <GoogleMapReact
@@ -294,6 +899,158 @@ return (
           </GoogleMapReact>          
         ): (<></>)
         }
+        {((snapshotYear===2015) && (gender==="male")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2015male(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}     
+        {((snapshotYear===2015) && (gender==="female")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2015female(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2015) && (ethnicity==="chinese")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2015chinese(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2015) && (ethnicity==="malay")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2015malay(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2015) && (ethnicity==="indian")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2015indian(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2015) && (age==="young")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2015young(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2015) && (age==="middle")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2015middle(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2015) && (age==="old")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2015old(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}        
 
         {(snapshotYear===2020) && (gender==="")  && (ethnicity==="") && (age==="")? (
           <GoogleMapReact
@@ -314,6 +1071,158 @@ return (
           </GoogleMapReact>          
         ): (<></>)
         }
+        {((snapshotYear===2020) && (gender==="male")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2020male(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}     
+        {((snapshotYear===2020) && (gender==="female")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2020female(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2020) && (ethnicity==="chinese")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2020chinese(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2020) && (ethnicity==="malay")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2020malay(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2020) && (ethnicity==="indian")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2020indian(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2020) && (age==="young")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2020young(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2020) && (age==="middle")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2020middle(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}
+        {((snapshotYear===2020) && (age==="old")) ? (
+          <GoogleMapReact
+          bootstrapURLKeys={{
+              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+          }}
+          defaultCenter={{ lat: pan.lat, lng: pan.lng }}
+          defaultZoom={zoom}
+          
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps}) => handleApiLoaded2020old(map,maps)}
+          onChange={({zoom, center}) => {
+            setPan({lat: center.lat, lng: center.lng});
+            setZoom(zoom);
+          }}
+          >
+            <Polyline 
+            />
+          </GoogleMapReact>
+        ) : (<></>)}        
       </div>
 
 
@@ -431,7 +1340,6 @@ return (
                 <MenuItem value={"chinese"}>Chinese</MenuItem>
                 <MenuItem value={"malay"}>Malay</MenuItem>
                 <MenuItem value={"indian"}>Indian</MenuItem>
-                <MenuItem value={"others"}>Others</MenuItem>
               </Select>
             </FormControl>
 
@@ -448,9 +1356,9 @@ return (
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={"0-34"}>0 - 34</MenuItem>
-                <MenuItem value={"35-64"}>35 - 64</MenuItem>
-                <MenuItem value={"65-over90"}>65 - over 90</MenuItem>
+                <MenuItem value={"young"}>0 - 30</MenuItem>
+                <MenuItem value={"middle"}>30 - 60</MenuItem>
+                <MenuItem value={"old"}>60 - over 90</MenuItem>
               </Select>
             </FormControl>               
 

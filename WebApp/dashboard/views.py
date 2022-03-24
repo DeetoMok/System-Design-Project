@@ -400,17 +400,17 @@ def updateOhcas(request):
     ohca_pivot= ohca_pivot.iloc[1:]
     ohca_pivot
 
-    ohca_pivotG = pd.pivot_table(ohca, values = 'exist', index = 'Subzone', columns=['Year','Gender'],aggfunc='count')
+    ohca_pivotG = pd.pivot_table(ohca, values = 'exists', index = 'Subzone', columns=['Year','Gender'],aggfunc='count')
     ohca_pivotG = ohca_pivotG.fillna(0)
     if ohca_pivotG.index[0] == '':
         ohca_pivotG = ohca_pivotG.iloc[1:]
         
-    ohca_pivotR = pd.pivot_table(ohca, values = 'exist', index = 'Subzone', columns=['Year','Race'],aggfunc='count')
+    ohca_pivotR = pd.pivot_table(ohca, values = 'exists', index = 'Subzone', columns=['Year','Race'],aggfunc='count')
     ohca_pivotR = ohca_pivotR.fillna(0)
     if ohca_pivotR.index[0] == '':
         ohca_pivotR = ohca_pivotR.iloc[1:]
         
-    ohca_pivotA = pd.pivot_table(ohca, values = 'exist', index = 'Subzone', columns=['Year','age_group'],aggfunc='count')
+    ohca_pivotA = pd.pivot_table(ohca, values = 'exists', index = 'Subzone', columns=['Year','age_group'],aggfunc='count')
     ohca_pivotA = ohca_pivotA.fillna(0)
     if ohca_pivotA.index[0] == '':
         ohca_pivotA = ohca_pivotA.iloc[1:]

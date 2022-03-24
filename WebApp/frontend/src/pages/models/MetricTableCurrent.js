@@ -14,27 +14,25 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name, values) {
-  return { name, values };
+function createData(name, values, unit) {
+  return { name, values, unit };
 }
 
-const populatedRows = [
-  createData("Total Coverage", 0.3879),
-  createData("Parial Coverage", 0.1196),
-  createData("Expected Survival", 0.4040),
-  createData("Ave Dist to Closest AED", 246.83),
-];
-
-const unpopulatedRows = [
-  createData("Total Coverage", "-"),
-  createData("Parial Coverage", "-"),
-  createData("Expected Survival", "-"),
-  createData("Ave Dist to Closest AED", "-"),
-  createData("Computational Time", "-"),
-];
-
-
 export default function MetricTableCurrent({ hasTrain, metrics}) {
+
+  const populatedRows = [
+    createData("Total Coverage", metrics.totalCoverage.toFixed(5), ""),
+    createData("Parial Coverage", metrics.partialCoverage.toFixed(5), ""),
+    createData("Expected Survival", metrics.expectedSurvival.toFixed(5), ""),
+    createData("Ave Dist to Closest AED", metrics.aveDistToAed.toFixed(2), "metres"),
+  ];
+  
+  const unpopulatedRows = [
+    createData("Total Coverage", "-"),
+    createData("Parial Coverage", "-"),
+    createData("Expected Survival", "-"),
+    createData("Ave Dist to Closest AED", "-"),
+  ];
   const classes = useStyles();
   const rows = hasTrain ? populatedRows : unpopulatedRows;
   return (
@@ -49,11 +47,12 @@ export default function MetricTableCurrent({ hasTrain, metrics}) {
           </TableHead>
           <TableBody>
             {rows.map((row) => (
+              
               <TableRow key={row.name}>
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="left">{row.values}</TableCell>
+                <TableCell align="left">{row.values} {row.unit}</TableCell>
               </TableRow>
             ))}
           </TableBody>

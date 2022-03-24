@@ -39,13 +39,18 @@ export default function KmeansModel() {
         numK: "", 
         numIters: ""
     });
-    const [metrics, setMetrics] = React.useState({
-        totalCoverage:"", 
-        partialCoverage: "", 
-        expectedSurvival: "", 
-        aveDistToAed: "", 
-        computationalTime: ""
+    const [currentMetrics, setCurrentMetrics] = React.useState({
+        totalCoverage: 0, 
+        partialCoverage: 0, 
+        expectedSurvival: 0, 
+        aveDistToAed: 0,
     });
+    const [newMetrics, setNewMetrics] = React.useState({
+        totalCoverage: 0, 
+        partialCoverage: 0, 
+        expectedSurvival: 0, 
+        aveDistToAed: 0,
+    });    
     const [error, setError] = React.useState("");
     const history = useHistory();
 
@@ -67,13 +72,7 @@ export default function KmeansModel() {
             console.log("response", response);
             // history.push('/kmeans')
             showNewPoints(response);
-            setMetrics({
-                totalCoverage:response.data['Total Coverage'], 
-                partialCoverage: response.data['Partial Coverage'], 
-                expectedSurvival: response.data['Survival Rate'], 
-                aveDistToAed: response.data['Average Distance'], 
-                computationalTime: ""                
-            })
+
         })
     }
 
@@ -82,6 +81,20 @@ export default function KmeansModel() {
         console.log('new Coordinates:', newPoints);
         setTrain(!isTrained);
         setNewAedData(newPoints);
+        setCurrentMetrics({
+            totalCoverage:response.data['Total Coverage'], 
+            partialCoverage: response.data['Partial Coverage'], 
+            expectedSurvival: response.data['Survival Rate'], 
+            aveDistToAed: response.data['Average Distance'], 
+            computationalTime: ""                
+        })
+        setNewMetrics({
+            totalCoverage:response.data['New Total Coverage'], 
+            partialCoverage: response.data['New Partial Coverage'], 
+            expectedSurvival: response.data['New Survival Rate'], 
+            aveDistToAed: response.data['New Average Distance'], 
+            computationalTime: ""                
+        })             
         
     }
 
@@ -98,9 +111,9 @@ export default function KmeansModel() {
 
   return (
     <div className="main">
-            <Card className="map" variant="outlined">
-                <KmeansMap hasTrain={isTrained} newAedData={newAedData}/>
-            </Card>
+        <Card className="map" variant="outlined">
+            <KmeansMap hasTrain={isTrained} newAedData={newAedData}/>
+        </Card>
            
         <div className="body">
             <Card className="root" variant="outlined">
@@ -117,8 +130,8 @@ export default function KmeansModel() {
             </Card>
 
             {/* <MetricTable hasTrain={hasTrain} /> */}
-            <MetricTableCurrent hasTrain={isTrained} metrics={metrics} />
-            <MetricTable hasTrain={isTrained} metrics={metrics} />
+            <MetricTableCurrent hasTrain={isTrained} metrics={currentMetrics} />
+            <MetricTable hasTrain={isTrained} metrics={newMetrics} />
             
         </div>
     </div>
