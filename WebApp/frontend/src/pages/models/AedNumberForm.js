@@ -16,9 +16,9 @@ function AedNumberForm({ Submit, error }) {
     <form onSubmit={submitHandler}>
       <div className='form-inner'>
       
-        {/* ERROR! */}
         <div className='form-group'>
-          <label htmlFor='name'>No. of AEDs to add:</label>
+          
+          <label htmlFor='name'>Number of AEDs to add:</label>
           <input type="number" name="aeds" id="aeds" onChange={e => setDetails({...details, numAeds: e.target.value})} value={details.name}/>
         </div>
         {/* <div className='form-group'>

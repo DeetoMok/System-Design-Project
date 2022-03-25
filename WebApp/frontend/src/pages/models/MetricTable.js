@@ -29,9 +29,9 @@ export default function MetricTable({ hasTrain, metrics }) {
   
   const unpopulatedRows = [
     createData("Total Coverage", "-"),
-    createData("Parial Coverage", "-"),
+    createData("Partial Coverage", "-"),
     createData("Expected Survival", "-"),
-    createData("Ave Dist to Closest AED", "-"),
+    createData("Average Distance to Closest AED", "-"),
   ];
   const classes = useStyles();
   const rows = hasTrain ? populatedRows : unpopulatedRows;
@@ -41,7 +41,7 @@ export default function MetricTable({ hasTrain, metrics }) {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Current Metrics</TableCell>
+              <TableCell>New Metrics (Current AED + Added AED)</TableCell>
               <TableCell>Values</TableCell>
             </TableRow>
           </TableHead>

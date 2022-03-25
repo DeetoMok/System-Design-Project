@@ -46,7 +46,7 @@ export default function Sidebar() {
             <Link to="/kmeans" className="link">
               <li className="sidebarListItem">
                 <BarChart className="sidebarIcon" />
-                K Means
+                Additional AED Modeling
               </li>
             </Link>
             <Link to="/heatmap" className="link">
@@ -58,7 +58,7 @@ export default function Sidebar() {
             <Link to="/ohcaheatmap" className="link">
               <li className="sidebarListItem">
                 <BarChart className="sidebarIcon" />
-                OHCA Heat Map
+                Out of Hospital Cardiac Arrest (OHCA) Heat Map
               </li>
             </Link>
 

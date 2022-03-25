@@ -174,7 +174,7 @@ function OhcaHeatMap() {
       subzoneArea.addListener("mouseout", () => {
         infoWindow.close();
       })
-    })
+    }) 
   }
   const handleApiLoaded2010male = (map, maps) => {
     ohcaData.map((subzone) => {
@@ -707,6 +707,7 @@ function OhcaHeatMap() {
 return (
   <div className='heatMap'>
     {popOhcaDataMapping()}
+    <h1 style={{marginLeft:'10px'}}> Out of Hospital Cardia Arrest Heat Map</h1>
       <div className='reactMap'>
         {((snapshotYear===2010) && (gender==="") && (ethnicity==="") && (age==="")) ? (
           <GoogleMapReact

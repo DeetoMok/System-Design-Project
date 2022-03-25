@@ -707,6 +707,7 @@ function HeatMap() {
 
   return (
     <div className='heatMap'>
+      <h1 style={{marginLeft:'10px'}}> Population Heat Map</h1>
       <div className='reactMap'>
         {((snapshotYear===2010) && (gender==="") && (ethnicity==="") && (age==="")) ? (
           <GoogleMapReact
