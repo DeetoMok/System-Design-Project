@@ -29,11 +29,6 @@ export default function Regions() {
         </div>
         <span className="featuredSub">North, South, East, West</span>
 
-      <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          View
-        </Link>
-      </div>
     </div>
   );
 }

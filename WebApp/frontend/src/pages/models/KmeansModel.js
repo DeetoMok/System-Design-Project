@@ -8,25 +8,12 @@ import MetricTable from "./MetricTable";
 import MetricTableCurrent from "./MetricTableCurrent";
 import AedNumberForm from "./AedNumberForm";
 import axios from 'axios';
-import CSRFToken from "../../csrftoken";
-//import CSRFToken from "./csrf";
-// import Card from '@material-ui/core/Card';
-// import CardActions from '@material-ui/core/CardActions';
-// import CardContent from '@material-ui/core/CardContent';
-// import Button from '@material-ui/core/Button';
 import {
   Typography,
-  Select,
-  Button,
   Card,
-  CardActions,
   CardContent,
-  InputLabel,
-  MenuItem,
-  Chip,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-// import { PredictorSelect, ResponseSelect, ModelSelect } from "./selectdropdown";
 
 
 export default function KmeansModel() {
@@ -60,9 +47,6 @@ export default function KmeansModel() {
         formField.append('numAeds', numAeds)
         formField.append('numK', numK)
         formField.append('numIters', numIters)
-        // formField.append('numAeds', setDetails.numAeds)
-        // formField.append('numK', setDetails.numK)
-        // formField.append('numIters', setDetails.numIters)
 
         await axios({
             method: 'post',
@@ -70,7 +54,6 @@ export default function KmeansModel() {
             data: formField
         }).then((response) => {
             console.log("response", response);
-            // history.push('/kmeans')
             showNewPoints(response);
 
         })
@@ -105,7 +88,7 @@ export default function KmeansModel() {
             numK: detail.numK,
             numIters: detail.numIters,
         })
-        // updateData(detail.numAeds, detail.numK, detail.numIters);
+
         sendDetails(detail.numAeds, detail.numK, detail.numIters);
     }
 
@@ -129,7 +112,6 @@ export default function KmeansModel() {
                 </CardContent>
             </Card>
 
-            {/* <MetricTable hasTrain={hasTrain} /> */}
             <MetricTableCurrent hasTrain={isTrained} metrics={currentMetrics} />
             <MetricTable hasTrain={isTrained} metrics={newMetrics} />
             

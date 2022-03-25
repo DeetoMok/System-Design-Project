@@ -17,9 +17,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import "./heatMap.css";
-import { currentAedData } from './currentAedData';
-import { optimalAedData } from './optimalAedData';
-import { newAedData } from './newAedData';
 
 function valueLabelFormat(value) {
   return `Year ${value}`;
@@ -34,6 +31,7 @@ function OhcaHeatMap() {
     
   }, [])  
   let populationData = heatMapData;
+  // NOTE: Ideally, ohcajson data should be extracted from the backed. However, for now it is extracted from project file.
   // let getData = async () => {
   //   let response = await fetch('http://127.0.0.1:8000/api/ohcajson/')
   //   let data = await response.json()

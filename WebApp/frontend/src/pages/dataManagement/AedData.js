@@ -28,14 +28,12 @@ export default function AedcandidateData() {
   let getData = async () => {
       let response = await fetch('http://127.0.0.1:8000/api/aeds/')
       let data = await response.json()
-      // console.log('GET DATA:', data.length)
       if (data.length !== 0) {
         setData(data)
       }
   }
 
   let updateData = async (rows) => {
-    // console.log("ohcadata being sent to backend", ohcadata)
     fetch(`http://127.0.0.1:8000/api/aeds/update`, {
       method: "POST",
       headers: {
@@ -73,8 +71,6 @@ export default function AedcandidateData() {
       }
     }
     console.log("HANDLEONDROP DATA: ", data);
-    // console.log(data[0].data[0])
-    // console.log("JSON: ", readString("1,2,3,4,5,5,6,7"))
     console.log('---------------------------');
     data=data.slice(0,emptyIndex);
     const columns = data[0].data.map((col,index) => {
@@ -163,9 +159,6 @@ export default function AedcandidateData() {
         <p>Upload data to start</p>
       ) : (
         <></>
-        // <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        //   See more data
-        // </Link>
       )}
     </React.Fragment>
   );

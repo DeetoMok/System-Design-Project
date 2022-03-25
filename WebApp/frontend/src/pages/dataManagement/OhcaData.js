@@ -59,7 +59,7 @@ export default function OhcaData() {
 
   let handleSubmit = (rows) => {
     updateData(rows);
-    // history.go(0);
+    history.go(0);
   }
 
   let handleOnDrop = (data) => {

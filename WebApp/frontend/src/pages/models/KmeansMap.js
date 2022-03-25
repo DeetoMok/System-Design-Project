@@ -3,8 +3,6 @@ import GoogleMapReact from "google-map-react";
 import useSupercluster from "use-supercluster";
 import "./kmeansModel.css";
 import { currentAedData } from './currentAedData';
-// import { optimalAedData } from './optimalAedData';
-// import { newAedData } from './newAedData';
 
 const Marker = ({children}) => children;
 
@@ -107,14 +105,6 @@ export default function KmeansMap({ hasTrain, newAedData }) {
                     </button>
                 </Marker>
             ))}
-
-            {/* {currentAeds.map(aed => (
-                <Marker key={id++} lat={aed.Latitude} lng={aed.Longitude}>
-                    <button className='aed-marker'>
-                        <img src="/heart-attack.png" alt="aed is here!" />
-                    </button>
-                </Marker>
-            ))} */}
 
         </GoogleMapReact>
 

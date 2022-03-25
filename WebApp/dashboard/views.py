@@ -24,25 +24,17 @@ import time
 @api_view(['GET'])
 def getRegions(request):
     ohca = Ohca.objects.distinct()
-    # OrderedDict([('id', 1), ('lat', 1.0), ('lon', 2.0), ('country', 'singapore'), ('pa', 1), ('region', 'N'), ('subzone', 1)])
-    # OrderedDict([('id', 2), ('lat', 2.0), ('lon', 3.0), ('country', 'singapore'), ('pa', 2), ('region', 'S'), ('subzone', 2)])
-    # OrderedDict([('id', 3), ('lat', 3.0), ('lon', 4.0), ('country', 'singapore'), ('pa', 3), ('region', 'E'), ('subzone', 3)])
-    # OrderedDict([('id', 4), ('lat', 4.0), ('lon', 5.0), ('country', 'singapore'), ('pa', 4), ('region', 'W'), ('subzone', 4)])
-    # return HttpResponse(serializer.data)
     regionCount = 4
-    # return Response(OrderedDict([('regions', len(ohca))]))
     return Response(OrderedDict([('regions', regionCount)]))
 
 @api_view(['GET'])
 def getPlanningareas(request):
     paCount = 55
-    # return Response(OrderedDict([('regions', len(ohca))]))
     return Response(OrderedDict([('regions', paCount)]))
 
 @api_view(['GET'])
 def getSubzones(request):
     subzoneCount = 331
-    # return Response(OrderedDict([('regions', len(ohca))]))
     return Response(OrderedDict([('regions', subzoneCount)]))    
 
 @api_view(['GET'])
@@ -52,12 +44,6 @@ def getAeds(request):
     serializer = AedSerializer(aeds, many=True)             #many=True means return multiple objects
     return Response(serializer.data)
 
-# @api_view(['GET'])
-# def getAedCandidates(request):
-#     aeds = AedCandidate.objects.all()
-#     # convert object to json
-#     serializer = AedcandidateSerializer(aeds, many=True)             #many=True means return multiple objects
-#     return Response(serializer.data)
 
 @api_view(['POST'])
 def updateAeds(request):
@@ -162,26 +148,12 @@ def updateOhcas(request):
     ohca = ohca.drop(failedlist).reset_index(drop=True)
 
 
-
-    #ohca['Latitude'] = pd.to_numeric(ohca['Latitude'], errors='coerce')
-    #ohcalat1 = ohcalat.dropna().reset_index(drop=True)
-    #ohca['Longitude'] = pd.to_numeric(ohca['Longitude'], errors='coerce')
-    #ohcalon1= ohcalon.dropna().reset_index(drop=True)
-
     ohca['Latitude'] = pd.to_numeric(ohca['Latitude'], errors='coerce')
     ohca['Longitude'] = pd.to_numeric(ohca['Longitude'], errors='coerce')
     aed['geom'] =list(zip(aed.Longitude,aed.Latitude))
     ohca['geom']=list(zip(ohca.Longitude,ohca.Latitude))
 
-    #aed
-    #ohca
-
-
     radius=100
-
-
-    # In[486]:
-
 
     import os
     dirname = os.path.dirname(__file__)
@@ -199,8 +171,6 @@ def updateOhcas(request):
     properties_list = [] # for kml name retrieval
     for feature in gj['features']:
         properties_list.append(feature['properties'])
-        
-    #properties_list
 
     subzone_names_in_index = []
     for i in range(332):
@@ -547,15 +517,14 @@ def updateOhcas(request):
     ohcaJson = OhcaHeatMap(jsonData=ohcaFinal)
     ohcaJson.save()
     
-    # serializer = OhcasSerializer(data=jsonData, many=True)
+    serializer = OhcasSerializer(data=jsonData, many=True)
 
-    # if serializer.is_valid():
-    #     serializer.save()
-    #     print("SAVED")
-    # else:
-    #     print("NOT SAVED", serializer.errors)
+    if serializer.is_valid():
+        serializer.save()
+        print("SAVED")
+    else:
+        print("NOT SAVED", serializer.errors)
     
-    return Response()
     return Response(serializer.data)
 
 @api_view(['GET'])
@@ -635,23 +604,13 @@ def updateAedCandidate(request, pk):
 @api_view(['POST'])
 def optimalOhcas(request):
     print("request:", request.data)
-    # available_aeds = request.data[0]['numAeds']
-    # numK = request.data[0]['numK']
-    # numIters = request.data[0]['numIters']
     
     available_aeds = int(request.data.dict()['numAeds'])
-    
-    # print(available_aeds)
-    # print('CHECK',available_aeds)
-    # return Response()
 
     currentAeds = CurrentAED.objects.all()
     allOhca = Ohca.objects.all()
     uncoveredOhca = Ohca.objects.filter(covered=False)
- 
-    # First level clustering
-    # user additional aeds to put
-    # available_aeds = 100
+
  
     def EuclideanDist(arr1,arr2): 
         d_matrix = distance_matrix(111000*arr1,111000*arr2) 
@@ -702,14 +661,11 @@ def optimalOhcas(request):
         return avg_dist, total_cover, partial_cover, exp_survival
 
 #Start Kmeans clustering
-#Haven't Store SGbuilding address for mapping candidateAEDs to buildings 
 
     LatOHCA = np.array(uncoveredOhca.values_list('lat',flat=True)) 
     LongOHCA = np.array(uncoveredOhca.values_list('lon',flat=True))                
     M = len(LatOHCA) 
     OHCA_uncovered_array = np.concatenate((LatOHCA.reshape(M,1), LongOHCA.reshape(M,1)),axis=1)
-    #N = len(LatBuilding) 
-    #Building_array = np.concatenate((LatBuilding.reshape(N,1),LongBuilding.reshape(N,1)),axis=1) 
     
     LatOHCA = np.array(allOhca.values_list('lat',flat=True)) 
     LongOHCA = np.array(allOhca.values_list('lon',flat=True))                
@@ -772,28 +728,4 @@ def optimalOhcas(request):
     
     return Response(result)
 
-
-
-# class Another(View):
-#     # CurrentAED.objects.filter() will return a list
-#     # CurrentAED.objects.get() will return only one record
-#     currentaed = CurrentAED.objects.all()
-#     output = ""
-#     for aed in currentaed:
-#         output += f"We have {aed.lat} latitude, {aed.lon} longtitude aed in database<br>"
-
-#     def get(self, request):
-#         return HttpResponse(self.output)
-
-
-# # def first(request):
-# #     return HttpResponse("First message from views")
-
-# class AedViewSet(viewsets.ModelViewSet):
-#     serializer_class = AedSerializer
-#     queryset = CurrentAED.objects.all()
-#     # Add token authentication to allow query
-#     authentication_classes = (TokenAuthentication, )
-#     # Require authentication to access this model. Change to IsAny to let all user access this ViewSet
-#     # permission_classes = (IsAuthenticated,)
 

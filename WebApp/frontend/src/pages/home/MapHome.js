@@ -37,7 +37,6 @@ export default function MapHome() {
         options: {radius: 75, maxZoom: 20}
     })
 
-    // console.log(clusters);
   return (
         <GoogleMapReact 
             bootstrapURLKeys={{key: process.env.AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II}}
@@ -95,13 +94,6 @@ export default function MapHome() {
                 </Marker>
                 )
             })}
-            {/* {currentAeds.map(aed => (
-                <Marker key={id++} lat={aed.Latitude} lng={aed.Longitude}>
-                    <button className='aed-marker'>
-                        <img src="/heart-attack.png" alt="aed is here!" />
-                    </button>
-                </Marker>
-            ))} */}
         </GoogleMapReact>
 
   );

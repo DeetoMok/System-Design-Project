@@ -28,11 +28,6 @@ export default function Subzones() {
         </div>
         <span className="featuredSub">1, 2, 3, 4, 5, ...</span>
 
-      <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          View
-        </Link>
-      </div>
     </div>
   );
 }
