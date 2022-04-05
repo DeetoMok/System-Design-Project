@@ -22,7 +22,7 @@ export default function MetricTable({ hasTrain, metrics }) {
 
   const populatedRows = [
     createData("Total Coverage", metrics.totalCoverage.toFixed(5), ""),
-    createData("Parial Coverage", metrics.partialCoverage.toFixed(5), ""),
+    createData("Partial Coverage", metrics.partialCoverage.toFixed(5), ""),
     createData("Expected Survival", metrics.expectedSurvival.toFixed(5), ""),
     createData("Ave Dist to Closest AED", metrics.aveDistToAed.toFixed(2), "metres"),
   ];

@@ -705,7 +705,7 @@ function OhcaHeatMap() {
 return (
   <div className='heatMap'>
     {popOhcaDataMapping()}
-    <h1 style={{marginLeft:'10px'}}> Out of Hospital Cardia Arrest Heat Map</h1>
+    <h1 style={{marginLeft:'10px'}}> Out-of-Hospital Cardiac Arrest Heat Map</h1>
       <div className='reactMap'>
         {((snapshotYear===2010) && (gender==="") && (ethnicity==="") && (age==="")) ? (
           <GoogleMapReact

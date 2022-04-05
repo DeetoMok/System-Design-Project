@@ -14,6 +14,13 @@ import {
   CardContent,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableContainer from '@mui/material/TableContainer';
+import { alignProperty } from "@mui/material/styles/cssUtils";
 
 
 export default function KmeansModel() {
@@ -40,6 +47,7 @@ export default function KmeansModel() {
     });    
     const [error, setError] = React.useState("");
     const history = useHistory();
+    let latlonid = 1;
 
     let sendDetails = async (numAeds, numK, numIters) => {
         let formField = new FormData()
@@ -82,6 +90,7 @@ export default function KmeansModel() {
     }
 
     const SubmitNumAeds = detail => {
+        latlonid = 1
         console.log(detail);
         setDetails({
             numAeds: detail.numAeds,
@@ -90,6 +99,30 @@ export default function KmeansModel() {
         })
 
         sendDetails(detail.numAeds, detail.numK, detail.numIters);
+    }
+
+    const Reset = () => {
+        setDetails({
+            numAeds:"", 
+            numK: "", 
+            numIters: ""
+        })
+        setTrain(false);
+        setNewAedData([]);
+        setCurrentMetrics({
+            totalCoverage:0, 
+            partialCoverage: 0, 
+            expectedSurvival: 0, 
+            aveDistToAed: 0, 
+            computationalTime: ""                
+        })
+        setNewMetrics({
+            totalCoverage: 0, 
+            partialCoverage: 0, 
+            expectedSurvival: 0, 
+            aveDistToAed: 0, 
+            computationalTime: ""                
+        })              
     }
 
   return (
@@ -109,6 +142,7 @@ export default function KmeansModel() {
                         Parameters
                     </Typography>                    
                     <AedNumberForm Submit={SubmitNumAeds} error={error} />
+                    <button onClick={Reset}>Reset</button>
                 </CardContent>
             </Card>
 
@@ -116,6 +150,39 @@ export default function KmeansModel() {
             <MetricTable hasTrain={isTrained} metrics={newMetrics} />
             
         </div>
+        {(isTrained)?
+        <>
+        <TableContainer
+            sx={{
+              height: 500,
+              width: "100%"
+            }}
+          >
+            <Table size="small" 
+              sx={{
+                height: "max-content"
+              }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Id</TableCell>
+                  <TableCell>Latituide</TableCell>
+                  <TableCell>Longitude</TableCell>
+                </TableRow>
+              </TableHead>
+                <TableBody>
+                  {newAedData.map((coordinates) => (
+                      <TableRow key={latlonid++}>
+                        <TableCell>{latlonid}</TableCell>
+                        <TableCell>{coordinates[0]}</TableCell>
+                        <TableCell>{coordinates[1]}</TableCell>
+                        
+                      </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+          </TableContainer>        
+        </>:<></>}
+        
     </div>
   );
 }

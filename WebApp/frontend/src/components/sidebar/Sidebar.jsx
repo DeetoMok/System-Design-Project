@@ -58,7 +58,7 @@ export default function Sidebar() {
             <Link to="/ohcaheatmap" className="link">
               <li className="sidebarListItem">
                 <BarChart className="sidebarIcon" />
-                Out of Hospital Cardiac Arrest (OHCA) Heat Map
+                Out-of-Hospital Cardiac Arrest (OHCA) Heat Map
               </li>
             </Link>
 

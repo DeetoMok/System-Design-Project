@@ -24,7 +24,7 @@ export default function Subzones() {
     <div>
       <span className="featuredTitle">Sub Zones</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">{data}</span>
+          <span className="featuredMoney">332</span>
         </div>
         <span className="featuredSub">1, 2, 3, 4, 5, ...</span>
 
