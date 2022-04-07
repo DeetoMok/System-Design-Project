@@ -156,8 +156,7 @@ def updateOhcas(request):
     radius=100
 
     import os
-    dirname = os.path.dirname(__file__)
-    filename = os.path.join(dirname, '/data/master-plan-2019-subzone-boundary-no-sea-geojson.geojson')
+    
     with open(os.path.expanduser("C:\\Users\\admin\\Desktop\\Desktop Repos\\System-Design-Project\\WebApp\\dashboard\\data\\master-plan-2019-subzone-boundary-no-sea-geojson.geojson")) as f:
         gj = json.load(f)
 

@@ -23,13 +23,9 @@ urlpatterns = [
     path('ohcas/delete', views.deleteOhcas, name="deleteOhcacandidates"),    
     path('ohcas/', views.getOhcas, name="ohcas"),
     path('ohcajson/', views.getOhcaJson, name="ohcajson"),
-
-    # path('ohcas/update',views.updateOhcas, name="updateohcas"),
-    # path('ohcas/delete', views.deleteOhcas, name="deleteohcas"),
       
     path('regions/', views.getRegions, name="regions"),
     path('planningareas/', views.getPlanningareas, name="planningareas"),
     path('subzones/', views.getSubzones, name='subzones'),
-    # path('', views.first),                #path to normal url
-    # path('another', Another.as_view())    #path to class url
+
 ]
