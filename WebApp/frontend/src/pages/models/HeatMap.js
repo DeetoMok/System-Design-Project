@@ -712,7 +712,7 @@ function HeatMap() {
         {((snapshotYear===2010) && (gender==="") && (ethnicity==="") && (age==="")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -731,7 +731,7 @@ function HeatMap() {
         {((snapshotYear===2010) && (gender==="male")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -750,7 +750,7 @@ function HeatMap() {
         {((snapshotYear===2010) && (gender==="female")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -769,7 +769,7 @@ function HeatMap() {
         {((snapshotYear===2010) && (ethnicity==="chinese")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -788,7 +788,7 @@ function HeatMap() {
         {((snapshotYear===2010) && (ethnicity==="malay")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -807,7 +807,7 @@ function HeatMap() {
         {((snapshotYear===2010) && (ethnicity==="indian")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -826,7 +826,7 @@ function HeatMap() {
         {((snapshotYear===2010) && (ethnicity==="others")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -845,7 +845,7 @@ function HeatMap() {
         {((snapshotYear===2010) && (age==="0-34")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -864,7 +864,7 @@ function HeatMap() {
         {((snapshotYear===2010) && (age==="35-64")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -883,7 +883,7 @@ function HeatMap() {
         {((snapshotYear===2010) && (age==="65-over90")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -906,7 +906,7 @@ function HeatMap() {
         {(snapshotYear===2015) && (gender==="")  && (ethnicity==="") && (age==="")? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -925,7 +925,7 @@ function HeatMap() {
         {(snapshotYear===2015) && (gender==="male") ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -944,7 +944,7 @@ function HeatMap() {
         {(snapshotYear===2015) && (gender==="female") ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -963,7 +963,7 @@ function HeatMap() {
         {((snapshotYear===2015) && (ethnicity==="chinese")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -982,7 +982,7 @@ function HeatMap() {
         {((snapshotYear===2015) && (ethnicity==="malay")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1001,7 +1001,7 @@ function HeatMap() {
         {((snapshotYear===2015) && (ethnicity==="indian")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1020,7 +1020,7 @@ function HeatMap() {
         {((snapshotYear===2015) && (ethnicity==="others")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1039,7 +1039,7 @@ function HeatMap() {
         {((snapshotYear===2015) && (age==="0-34")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1058,7 +1058,7 @@ function HeatMap() {
         {((snapshotYear===2015) && (age==="35-64")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1077,7 +1077,7 @@ function HeatMap() {
         {((snapshotYear===2015) && (age==="65-over90")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1100,7 +1100,7 @@ function HeatMap() {
         {(snapshotYear===2020) && (gender==="")  && (ethnicity==="") && (age==="")? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1119,7 +1119,7 @@ function HeatMap() {
         {(snapshotYear===2020) && (gender==="male") ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1138,7 +1138,7 @@ function HeatMap() {
         {(snapshotYear===2020) && (gender==="female") ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1157,7 +1157,7 @@ function HeatMap() {
         {((snapshotYear===2020) && (ethnicity==="chinese")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1176,7 +1176,7 @@ function HeatMap() {
         {((snapshotYear===2020) && (ethnicity==="malay")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1195,7 +1195,7 @@ function HeatMap() {
         {((snapshotYear===2020) && (ethnicity==="indian")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1214,7 +1214,7 @@ function HeatMap() {
         {((snapshotYear===2020) && (ethnicity==="others")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1233,7 +1233,7 @@ function HeatMap() {
         {((snapshotYear===2020) && (age==="0-34")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1252,7 +1252,7 @@ function HeatMap() {
         {((snapshotYear===2020) && (age==="35-64")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}
@@ -1271,7 +1271,7 @@ function HeatMap() {
         {((snapshotYear===2020) && (age==="65-over90")) ? (
           <GoogleMapReact
           bootstrapURLKeys={{
-              key: 'AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II'
+              key: ''
           }}
           defaultCenter={{ lat: pan.lat, lng: pan.lng }}
           defaultZoom={zoom}

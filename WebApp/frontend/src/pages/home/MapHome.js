@@ -39,7 +39,7 @@ export default function MapHome() {
 
   return (
         <GoogleMapReact 
-            bootstrapURLKeys={{key: process.env.AIzaSyCsATUmU17pbVtJlvkLZwuEpTxafin92II}}
+            bootstrapURLKeys={{key: ''}}
             defaultCenter={{ lat: 1.3599614835747427, lng: 103.82221222898332 }}
             defaultZoom={11.5}
             yesIWantToUseGoogleMapApiInternals
