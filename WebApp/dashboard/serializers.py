@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import CurrentAED, Ohca, AedCandidate, CurrentAED
+from .models import CurrentAED, Ohca, AedCandidate, CurrentAED, OhcaHeatMap
 
 class AedSerializer(ModelSerializer):
     class Meta:
@@ -15,6 +15,11 @@ class OhcaSerializer(ModelSerializer):
 class AedcandidateSerializer(ModelSerializer):
     class Meta:
         model = AedCandidate
+        fields = '__all__'
+
+class OhcaHeatMapSerializer(ModelSerializer):
+    class Meta:
+        model = OhcaHeatMap
         fields = '__all__'
 
 class AedcandidatesSerializer(ModelSerializer):

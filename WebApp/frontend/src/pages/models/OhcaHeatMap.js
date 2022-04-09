@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect} from 'react';
 import GoogleMapReact from "google-map-react";
 import Polyline from "google-map-react";
 import { heatMapData } from './heatMapdata';
-import { ohcaData } from './ohcaData';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -25,21 +24,20 @@ function valueLabelFormat(value) {
 function OhcaHeatMap() {
 
   const mapRef = useRef();
-  // const [ohcaData, setData] = useState([]);
+  const [ohcaData, setData] = useState([]);
   useEffect(() => {
-    // getData()
+    getData()
     
   }, [])  
   let populationData = heatMapData;
-  // NOTE: Ideally, ohcajson data should be extracted from the backed. However, for now it is extracted from project file.
-  // let getData = async () => {
-  //   let response = await fetch('http://127.0.0.1:8000/api/ohcajson/')
-  //   let data = await response.json()
-  //   console.log('GET DATA:', data)
-  //   if (data.length !== 0) {
-  //     setData(data)
-  //   }
-  // }  
+  let getData = async () => {
+    let response = await fetch('http://127.0.0.1:8000/api/ohcajson/')
+    let data = await response.json()
+    console.log('GET DATA:', data)
+    if (data.length !== 0) {
+      setData(data)
+    }
+  }  
   const [zoom, setZoom] = useState(11.5);
   const [pan, setPan] = useState({ lat: 1.3599614835747427, lng: 103.82221222898332 }); 
   const sumValues = obj => Object.values(obj).reduce((a, b) => a + b);
@@ -153,7 +151,7 @@ function OhcaHeatMap() {
         }
       }
     }
-    console.log("after cleaning", ohcaData);
+    // console.log("after cleaning", ohcaData);
   }
   const handleApiLoaded2010 = (map, maps) => {
     ohcaData.map((subzone) => {

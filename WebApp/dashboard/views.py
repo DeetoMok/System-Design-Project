@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.views import View
 from .models import CurrentAED, Ohca, AedCandidate, OhcaHeatMap
 from rest_framework import viewsets
-from .serializers import AedSerializer, AedsSerializer, OhcaSerializer, OhcasSerializer, AedcandidateSerializer, AedcandidatesSerializer
+from .serializers import AedSerializer, AedsSerializer, OhcaSerializer, OhcasSerializer, AedcandidateSerializer, AedcandidatesSerializer, OhcaHeatMapSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
@@ -531,7 +531,26 @@ def getOhcaJson(request):
     ohcaJson = OhcaHeatMap.objects.first().jsonData
     print(ohcaJson)
     return Response(ohcaJson)
-       
+
+# update OhcaJson data from backend http://127.0.0.1:8000/api/ohcajson/update
+@api_view(['POST'])
+def updateOhcaJson(request):
+    data = request.data
+    print(data)
+    OhcaHeatMap.objects.all().delete()
+    # serializer = OhcaHeatMapSerializer(data=data, many=False)
+    ohcaData = OhcaHeatMap(jsonData=data)
+    ohcaData.save()
+    return Response()
+    if serializer.is_valid():
+        serializer.save()
+        print("SAVED")
+    else:
+        print("NOT SAVED", serializer.errors)
+    
+    return Response(serializer.data)    
+
+# delete Ohca data from backend 
 @api_view(['GET','POST'])
 def deleteOhcas(request):
     Ohca.objects.all().delete()
